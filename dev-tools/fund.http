@@ -1,0 +1,73 @@
+### Create Fund
+
+# id - should be null
+# currentAmount - optional
+# expenses - should not be null
+# expence.id - should be null
+
+POST http://localhost:8080/api/funds/create
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": null,
+  "name": "Gift",
+  "plannedAmount": 1000000,
+  "currentAmount": null,
+  "expenses": [
+    {
+      "id": null,
+      "date": "2022-05-27",
+      "description": "Something",
+      "paymentAmount": 20000,
+      "recipient": "FOX"
+    },
+    {
+      "id": null,
+      "date": "2022-05-27",
+      "description": "Something else",
+      "paymentAmount": 10000,
+      "recipient": "Mix Mart"
+    }
+  ]
+}
+
+### Get Fund By Id
+GET http://localhost:8080/api/funds/1
+Accept: application/json
+
+### Find All Funds
+GET http://localhost:8080/api/funds
+Accept: application/json
+
+### Update Fund By Id
+PUT http://localhost:8080/api/funds/update/1
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Car",
+  "plannedAmount": 1000000,
+  "currentAmount": 650000,
+  "expenses": [
+    {
+      "id": 3,
+      "paymentAmount": 150000,
+      "recipient": "FOX",
+      "description": "Something",
+      "date": "2022-05-27"
+    },
+    {
+      "id": null,
+      "paymentAmount": 200000,
+      "recipient": "Mix Mart",
+      "description": "Something else",
+      "date": "2022-05-27"
+    }
+  ]
+}
+
+### Delete Fund By Id
+DELETE http://localhost:8080/api/funds/delete/1
+Accept: application/json
