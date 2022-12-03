@@ -1,4 +1,4 @@
 import { useModal } from './useModal';
-import { useRemoveExpenses } from './useRemoveExpenses';
+import { useUpdateFund } from './useUpdateFund';
 
-export { useModal, useRemoveExpenses };
+export { useModal, useUpdateFund };
