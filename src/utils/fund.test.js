@@ -2,7 +2,9 @@ import {
   convertToCurrency,
   convertToPennies,
   toUSD,
-  getFundAmount
+  getFundAmount,
+  getPercentage,
+  upsertExpense
 } from './fund';
 
 describe('Fund util tests', () => {
@@ -40,7 +42,7 @@ describe('Fund util tests', () => {
       expect(toUSD(1000)).not.toEqual(1000);
     });
   });
-  describe('getFundAmount tests', () => {
+  describe('Fund Amount tests', () => {
     const pennies = 1000;
     test('should return fund currency amount', () => {
       const result = '$10';
@@ -51,6 +53,57 @@ describe('Fund util tests', () => {
       const result = '$0';
 
       expect(getFundAmount()).toEqual(result);
+    });
+  });
+  describe('Percentage tests', () => {
+    test('should return fund percentage', () => {
+      const data = { currentAmount: 10, plannedAmount: 1000 };
+      const result = 99;
+
+      expect(getPercentage(data)).toEqual(result);
+    });
+    test('should return zero for empty fund', () => {
+      const data = {};
+      const result = 0;
+
+      expect(getPercentage(data)).toEqual(result);
+    });
+  });
+  describe('Upsert Fund Expense tests', () => {
+    const expenses = [
+      {
+        id: 1,
+        paymentAmount: 150100,
+        recipient: 'Test recipient',
+        description: 'Test',
+        date: '2022-12-03'
+      }
+    ];
+    test('should add new expense to list', () => {
+      const expense = {
+        id: 2,
+        paymentAmount: 150100,
+        recipient: 'Test recipient',
+        description: 'Test',
+        date: '2022-12-03'
+      };
+
+      const result = [...expenses, expense];
+
+      expect(upsertExpense(expenses, expense)).toEqual(result);
+    });
+    test('should update exist expense', () => {
+      const expense = {
+        id: 1,
+        paymentAmount: 150100,
+        recipient: 'Test recipient',
+        description: 'Test',
+        date: '2022-12-05'
+      };
+
+      const result = [expense];
+
+      expect(upsertExpense(expenses, expense)).toEqual(result);
     });
   });
 });
