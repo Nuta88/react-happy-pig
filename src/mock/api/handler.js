@@ -33,9 +33,10 @@ export const handlers = [
       }
     ]), ctx.delay(30))
   }),
-  rest.get('https://jsonplaceholder.typicode.com/fund/1', (req, res, ctx) => {
+  rest.get('https://jsonplaceholder.typicode.com/funds/:id', (req, res, ctx) => {
+    const { id } = req.params;
     return res(ctx.status(200), ctx.json({
-      id: 1,
+      id,
       name: "Car",
       plannedAmount: 1000000,
       currentAmount: 649300,
@@ -54,6 +55,6 @@ export const handlers = [
           description: "Something",
           date: "2022-12-03"}
       ]
-    }), ctx.delay(30))
+    }), ctx.delay(0))
   }),
 ];

@@ -13,14 +13,14 @@ describe('App tests', () => {
   );
 
   test('should render header and content', async () => {
-    await renderWithProviders(<App />);
+    await renderWithProviders(<App />, true);
 
     expect(screen.getByTestId('layout-header')).toBeInTheDocument();
     expect(screen.getByTestId('layout-content')).toBeInTheDocument();
   });
 
   test('should render empty funds', async () => {
-    await renderWithProviders(<App />);
+    await renderWithProviders(<App />, true);
 
     expect(screen.getByTestId('funds-page-content')).toBeInTheDocument();
     await waitFor(() => expect(screen.getByTestId('empty-funds')).toBeInTheDocument());
