@@ -24,6 +24,7 @@ const rowStyle = {
 export default function Header() {
   return (
     <LayoutHeader
+      data-testid="layout-header"
       style={headerStyle}
     >
       <Row

@@ -1,4 +1,6 @@
-import PropTypes from 'prop-types';
+import {
+  Outlet
+} from 'react-router-dom';
 import { Layout } from 'antd';
 
 import Header from './Header';
@@ -12,17 +14,13 @@ const contentStyle = {
   overflow: 'hidden'
 };
 
-export default function PageLayout({ children }) {
+export default function PageLayout() {
   return (
     <>
       <Header />
-      <Content style={contentStyle}>
-        {children}
+      <Content style={contentStyle} data-testid="layout-content">
+        <Outlet />
       </Content>
     </>
   );
 }
-
-PageLayout.propTypes = {
-  children: PropTypes.node
-};

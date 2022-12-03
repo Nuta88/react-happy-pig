@@ -16,7 +16,7 @@ const backIconStyle = {
   cursor: 'pointer'
 };
 
-export default function Page({ title, isBack, extra, onBack, children }) {
+export default function Page({ title, isBack, extra, onBack, children, ...rest }) {
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -26,7 +26,7 @@ export default function Page({ title, isBack, extra, onBack, children }) {
   };
 
   return (
-    <>
+    <div {...rest}>
       <SpaceBetween>
         <Title>{isBack && <ArrowLeftIcon style={backIconStyle} onClick={handleBack} />} {title}</Title>
         {extra}
@@ -34,7 +34,7 @@ export default function Page({ title, isBack, extra, onBack, children }) {
       <Card style={cardStyle}>
         {children}
       </Card>
-    </>
+    </div>
   );
 }
 

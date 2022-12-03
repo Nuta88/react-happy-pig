@@ -1,33 +1,38 @@
 import { Suspense, lazy } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Loading, ErrorBoundary } from '../components'
+import { PageLayout, Loading, ErrorBoundary } from '../components'
 
 const Funds = lazy(() => import('../pages/Funds'));
 const Fund = lazy(() => import('../pages/Fund'));
 
-const router = createBrowserRouter([
+const routers = createBrowserRouter([
   {
-    path: '/',
-    element: (
-      <Suspense fallback={<Loading />}>
-        <Funds />
-      </Suspense>
-    ),
-    errorElement: <ErrorBoundary />
-  },
-  {
-    path: "funds/:id",
-    element: (
-      <Suspense fallback={<Loading />}>
-        <Fund />
-      </Suspense>
-    ),
-    errorElement: <ErrorBoundary />
+    element: <PageLayout />,
+    children: [
+      {
+        path: '/',
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Funds />
+          </Suspense>
+        ),
+        errorElement: <ErrorBoundary />
+      },
+      {
+        path: "funds/:id",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Fund />
+          </Suspense>
+        ),
+        errorElement: <ErrorBoundary />
+      }
+    ]
   }
 ]);
 
 const AppRouters = () => (
-  <RouterProvider router={router} />
+  <RouterProvider router={routers} />
 );
 
 export default AppRouters;
