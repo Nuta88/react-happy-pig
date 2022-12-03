@@ -1,5 +1,23 @@
 # Happy pig
 
+## How to run backend
+
+#### 1. Install Docker Desktop
+
+   a. Open https://www.docker.com/products/docker-desktop/
+
+   b. Click on button "Mac with Apple Chip"
+
+   c. Install the app
+
+#### 2. Run Docker Desktop
+#### 3. Copy file ./dev-tools/docker-compose.yml to any directory
+#### 4. Open terminal and go to this directory
+#### 5. Run command in terminal:
+   `docker-compose up`
+#### 6. Open file ./dev-tools/fund.http in WebStorm
+#### 7. This file contains BE API that could be run from WebStorm
+
 ## Available Scripts
 
 In the project directory, you can run:
