@@ -1,32 +1,28 @@
-import { Card, Layout } from 'antd';
+import PropTypes from 'prop-types';
+import { Layout } from 'antd';
 
-import PageHeader from './PageHeader';
-import ErrorBoundary from '../ErrorBoundary';
+import Header from './Header';
 
 const { Content } = Layout;
 
 const contentStyle = {
-  marginTop: 80,
-  padding: 10,
+  marginTop: 60,
+  padding: "1rem 2rem",
   height: "calc(100vh - 110px)",
-  overflow: "auto",
-};
-
-const cardStyle = {
-  height: "100%",
+  overflow: 'hidden'
 };
 
 export default function PageLayout({ children }) {
   return (
     <>
-      <PageHeader />
-      <ErrorBoundary>
-        <Content style={contentStyle}>
-          <Card style={cardStyle}>
-            {children}
-          </Card>
-        </Content>
-      </ErrorBoundary>
+      <Header />
+      <Content style={contentStyle}>
+        {children}
+      </Content>
     </>
   );
 }
+
+PageLayout.propTypes = {
+  children: PropTypes.node
+};

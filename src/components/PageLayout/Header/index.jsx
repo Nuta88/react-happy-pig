@@ -1,7 +1,10 @@
-import { Button, Col, Row, Layout } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Layout } from 'antd';
+import { AvatarIcon } from '../../Icons';
+import { Row } from '../../Row';
+import { Col } from '../../Col';
+import { CircleButton } from '../../Buttons/CircleButton';
 
-const { Header } = Layout;
+const { Header: LayoutHeader } = Layout;
 
 const headerStyle = {
   position: "fixed",
@@ -18,9 +21,9 @@ const rowStyle = {
   padding: '1rem'
 };
 
-export default function PageHeader() {
+export default function Header() {
   return (
-    <Header
+    <LayoutHeader
       style={headerStyle}
     >
       <Row
@@ -29,9 +32,9 @@ export default function PageHeader() {
       >
         <Col flex={1}>Happy pig</Col>
         <Col>
-          <Button size="large" shape="circle" icon={<PlusOutlined />} />
+          <CircleButton size="large" icon={<AvatarIcon />} />
         </Col>
       </Row>
-    </Header>
+    </LayoutHeader>
   );
 }

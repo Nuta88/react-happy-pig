@@ -1,27 +1,14 @@
-import { Component } from 'react';
+import { SpaceCenter } from '../Space/SpaceCenter';
+import { Title } from '../Typography/Title';
+import { SecondaryText } from '../Typography/SecondaryText';
 
-class ErrorBoundary extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error, errorInfo) {}
-
-  render() {
-    const { children } = this.props;
-    const { hasError } = this.state;
-
-    if (hasError) {
-      return <h1>Something went wrong.</h1>;
-    }
-
-    return children;
-  }
+function ErrorBoundary() {
+  return (
+    <SpaceCenter>
+      <Title>Something went wrong</Title>
+      <SecondaryText>Reload page</SecondaryText>
+    </SpaceCenter>
+  );
 }
 
 export default ErrorBoundary;
