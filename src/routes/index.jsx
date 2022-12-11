@@ -8,6 +8,7 @@ const Fund = lazy(() => import('../pages/Fund'));
 const routers = createBrowserRouter([
   {
     element: <PageLayout />,
+    errorElement: <ErrorBoundary />,
     children: [
       {
         path: '/',
@@ -15,8 +16,7 @@ const routers = createBrowserRouter([
           <Suspense fallback={<Loading />}>
             <Funds />
           </Suspense>
-        ),
-        errorElement: <ErrorBoundary />
+        )
       },
       {
         path: "funds/:id",
@@ -24,8 +24,7 @@ const routers = createBrowserRouter([
           <Suspense fallback={<Loading />}>
             <Fund />
           </Suspense>
-        ),
-        errorElement: <ErrorBoundary />
+        )
       }
     ]
   }
