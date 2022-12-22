@@ -37,7 +37,6 @@ function ExpenseModal({ isOpen, expense, onSave, onCancel }: IExpenseModalProps)
     <BasicModal
       title={title}
       isOpen={isOpen}
-      onSave={()=>{}}
       okText={expense ? 'Edit' : 'Add'}
       onOk={form.submit}
       onCancel={onCloseModal}

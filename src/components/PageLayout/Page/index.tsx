@@ -1,20 +1,19 @@
 import { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Title } from '../../Typography/Title';
 import { SpaceBetween } from '../../Space/SpaceBetween';
 
-import { ArrowIconStyled, SectionStyled, CardStyled } from './styled';
+import { ArrowIconStyled, SectionStyled, CardStyled, TitleStyled } from './styled';
 
-type PageProps = {
-  title: string,
-  isBack?: boolean,
-  extra: ReactNode,
-  children: ReactNode,
+interface IPageProps {
+  title: string | ReactNode;
+  isBack?: boolean;
+  extra: ReactNode;
+  children: ReactNode;
   onBack?: () => void
 }
 
-export default function Page({ title='Page Title', isBack=false, extra, onBack, children, ...rest }: PageProps) {
+export default function Page({ title='Page Title', isBack=false, extra, onBack, children, ...rest }: IPageProps) {
   const navigate = useNavigate();
 
   const handleBack = () => {
@@ -28,10 +27,10 @@ export default function Page({ title='Page Title', isBack=false, extra, onBack, 
   return (
     <SectionStyled {...rest}>
       <SpaceBetween>
-        <Title>
+        <TitleStyled>
           {isBack && <ArrowIconStyled onClick={handleBack} />}
           {title}
-        </Title>
+        </TitleStyled>
         {extra}
       </SpaceBetween>
       <CardStyled>

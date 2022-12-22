@@ -3,7 +3,9 @@ import {
   DeleteOutlined,
   PlusOutlined,
   EditOutlined,
-  UserOutlined
+  UserOutlined,
+  CheckOutlined,
+  CloseOutlined
 } from '@ant-design/icons';
 
 export {
@@ -11,5 +13,7 @@ export {
   DeleteOutlined as DeleteIcon,
   PlusOutlined as AddIcon,
   EditOutlined as EditIcon,
-  UserOutlined as AvatarIcon
+  UserOutlined as AvatarIcon,
+  CheckOutlined as CheckIcon,
+  CloseOutlined as CloseIcon
 };

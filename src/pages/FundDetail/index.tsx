@@ -1,65 +1,24 @@
 import { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import type { ColumnsType } from 'antd/es/table';
 
 import {
   CircleButton,
-  Confirm,
-  SpaceBetween,
-  DeleteIcon,
-  EditIcon,
   Table,
   Tooltip,
   Page,
-  AddIcon
+  AddIcon,
+  ColumnsType
 } from '../../components';
 
 import { useFetchFundQuery } from '../../services/funds';
 import { useModal, useUpdateFund } from '../../hooks';
-import { getFundAmount } from '../../utils/fund';
 import { apiUrls } from '../../constants/apiUrls';
-
-import ExpenseModal from './components/ExpenseModal';
 import { Expense } from '../../types';
 
-type TDeleteFund = (id: number) => void;
-type TShowModal = (expense: Expense) => void;
+import ExpenseModal from './components/ExpenseModal';
+import FundPageTitle from './components/FundPageTitle';
+import { generateColumns } from './columns';
 
-const generateColumns = (onDelete: TDeleteFund, showModal: TShowModal): ColumnsType<Expense> => [
-  {
-    title: 'Recipient',
-    dataIndex: 'recipient',
-    key: 'recipient'
-  },
-  {
-    title: 'Amount',
-    dataIndex: 'paymentAmount',
-    key: 'paymentAmount',
-    render: (paymentAmount: number) => `${getFundAmount(paymentAmount)}`
-  },
-  {
-    title: 'Description',
-    dataIndex: 'description',
-    key: 'description',
-  },
-  {
-    title: 'Action',
-    key: 'action',
-    width: 100,
-    render: (_, expense: Expense) => (
-      <SpaceBetween size="middle">
-        <CircleButton type="primary" icon={<EditIcon />} onClick={() => showModal(expense)} />
-        <Confirm
-          title={`Are you sure to delete "${expense.recipient}"?`}
-          placement="leftTop"
-          onConfirm={() => onDelete(expense.id as number)}
-        >
-          <CircleButton type="primary" icon={<DeleteIcon />} />
-        </Confirm>
-      </SpaceBetween>
-    ),
-  },
-];
 
 const FundDetail = () => {
   const params = useParams();
@@ -71,9 +30,8 @@ const FundDetail = () => {
     hideModal,
     showModal
   } = useModal<Expense>();
-  const { onUpdateOrCreateExpense, onRemoveExpense } = useUpdateFund(fund);
+  const { onUpdateOrCreateExpense, onRemoveExpense, onUpdateFundName } = useUpdateFund(fund);
   const columns: ColumnsType<Expense> = generateColumns(onRemoveExpense, showModal);
-  const pageTitle: string = fund ? `${fund.name} Fund` : 'Fund';
   const expenses: Expense[] = fund?.expenses || [];
   
   const  navigateToFunds = () => {
@@ -93,9 +51,18 @@ const FundDetail = () => {
     hideModal();
   }, [hideModal, onUpdateOrCreateExpense]);
 
+  const handleUpdateFundName = useCallback((name: string) => {
+    onUpdateFundName(name)
+  }, [onUpdateFundName]);
+
   return (
     <Page
-      title={pageTitle}
+      title={
+      <FundPageTitle
+        name={fund?.name}
+        onChange={handleUpdateFundName}
+      />
+    }
       isBack
       data-testid="fund-page-content"
       onBack={navigateToFunds}

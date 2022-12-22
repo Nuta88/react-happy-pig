@@ -11,11 +11,15 @@ export const useUpdateFund = (fund: Fund) => {
     updateFund({...fund, expenses});
   };
 
+  const onUpdateFundName = (name: string) => {
+    updateFund({...fund, name});
+  };
+
   const onRemoveExpense = (id: number) => {
     const expenses = fund?.expenses.filter(expense => expense.id !== id);
 
     updateFund({...fund, expenses});
   };
 
-  return { onUpdateOrCreateExpense, onRemoveExpense };
+  return { onUpdateOrCreateExpense, onRemoveExpense, onUpdateFundName };
 };
