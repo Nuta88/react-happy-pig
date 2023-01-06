@@ -8,7 +8,7 @@ import { ArrowIconStyled, SectionStyled, CardStyled, TitleStyled } from './style
 interface IPageProps {
   title: string | ReactNode;
   isBack?: boolean;
-  extra: ReactNode;
+  extra?: ReactNode;
   children: ReactNode;
   onBack?: () => void
 }
