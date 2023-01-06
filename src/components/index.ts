@@ -6,6 +6,7 @@ import { Card } from './Card';
 import { ProgressBar } from './ProgressBar';
 import { CircleButton } from './Buttons/CircleButton';
 import { IconButton } from './Buttons/IconButton';
+import { Button } from './Buttons';
 import { SecondaryText } from './Typography/SecondaryText';
 import { Title } from './Typography/Title';
 import { Confirm } from './Confirm';
@@ -32,6 +33,7 @@ import { Form } from './Form';
 import ErrorBoundary from './ErrorBoundary';
 
 export {
+  Button,
   EmptyData as Empty,
   PageLayout,
   Loading,
@@ -46,7 +48,8 @@ export {
   SecondaryText,
   Title,
   Confirm,
-  Table, BasicModal,
+  Table,
+  BasicModal,
   SpaceBetween,
   SpaceCenter,
   Tooltip,
