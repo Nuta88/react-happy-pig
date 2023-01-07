@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
 import { apiUrls } from '../../../constants/apiUrls';
-import { getFundAmount, getPercentage } from '../../../utils/fund';
+import { getAmount, getPercentage } from '../../../utils/fund';
 import {
   Card,
   CircleButton,
@@ -35,9 +35,9 @@ interface IFundCardProps {
 }
 
 const FundCard = ({ fund, onDelete }: IFundCardProps) => {
-  const title: string = `${fund.name} (${getFundAmount(fund.currentAmount as number)})`;
+  const title: string = `${fund.name} (${getAmount(fund.currentAmount as number)})`;
   const confirmRemoveTitle: string = `Are you sure to delete "${fund.name}" fund?`;
-  const currencyAmount: string = getFundAmount(fund.plannedAmount);
+  const currencyAmount: string = getAmount(fund.plannedAmount);
   
   const handlePreventFundOpening = (event: MouseEvent<HTMLElement> | undefined) => {
     event?.stopPropagation();

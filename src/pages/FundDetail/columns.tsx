@@ -1,5 +1,5 @@
 import { Expense } from '../../types';
-import { getFundAmount } from '../../utils/fund';
+import { getAmount } from '../../utils/fund';
 import {
   CircleButton,
   Confirm,
@@ -21,7 +21,7 @@ export const generateColumns = (onDelete: TDeleteFund, showModal: TShowModal): C
     title: 'Amount',
     dataIndex: 'paymentAmount',
     key: 'paymentAmount',
-    render: (paymentAmount: number) => `${getFundAmount(paymentAmount)}`
+    render: (paymentAmount: number) => `${getAmount(paymentAmount)}`
   },
   {
     title: 'Description',
