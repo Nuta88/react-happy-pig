@@ -9,7 +9,8 @@ const api = createApi({
   }),
   tagTypes: [
     'Funds',
-    'Fund'
+    'Fund',
+    'Bank'
   ],
   endpoints: () => ({})
 });
