@@ -2,7 +2,7 @@ import {
   convertToCurrency,
   convertToPennies,
   toUSD,
-  getFundAmount,
+  getAmount,
   getPercentage,
   upsertExpense
 } from './fund';
@@ -47,12 +47,12 @@ describe('FundDetail util tests', () => {
     test('should return fund currency amount', () => {
       const result = '$10';
 
-      expect(getFundAmount(pennies)).toEqual(result);
+      expect(getAmount(pennies)).toEqual(result);
     });
     test('should return zero for empty amount', () => {
       const result = '$0';
 
-      expect(getFundAmount()).toEqual(result);
+      expect(getAmount()).toEqual(result);
     });
   });
   describe('Percentage tests', () => {

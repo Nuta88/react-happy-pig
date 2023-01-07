@@ -21,7 +21,7 @@ export const formatter = new Intl.NumberFormat('en-US', {
 
 export const toUSD = (number: number): string => formatter.format(number);
 
-export const getFundAmount = (amount: number = 0): string => toUSD(convertToCurrency(amount));
+export const getAmount = (amount: number = 0): string => toUSD(convertToCurrency(amount));
 
 export const upsertExpense = (expenses: Expense[], expense: Expense): Expense[] => {
   const fundExpenses = [...expenses];

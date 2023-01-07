@@ -37,3 +37,14 @@ export class Fund {
     this.expenses = expenses;
   }
 }
+
+export interface Income {
+  id?: number,
+  amount: number,
+  source: string,
+  date?: string;
+}
+export interface IBank {
+  amount: number,
+  incomes: Income[]
+}
