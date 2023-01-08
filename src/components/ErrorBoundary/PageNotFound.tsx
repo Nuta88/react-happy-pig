@@ -19,7 +19,7 @@ const PageNotFound = () => {
   };
   
   return (
-    <SpaceCenter>
+    <SpaceCenter data-testid="page-not-found-content">
       <LinkStyled src={notFound} />
       <Title>Page not found</Title>
       <Button type="primary" onClick={navigateToHome}>Go home</Button>
