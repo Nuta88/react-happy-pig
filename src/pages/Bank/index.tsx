@@ -27,7 +27,7 @@ const Bank = () => {
       title={pageTitle}
       data-testid="bank-page-content"
     >
-      <TableTitleStyled>Incomes</TableTitleStyled>
+      <TableTitleStyled data-testid="bank-page-table-title">Incomes</TableTitleStyled>
       <Table
         loading={isLoading}
         rowKey="id"
