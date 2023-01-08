@@ -14,8 +14,8 @@ const ErrorBoundary = () => {
   }
   
   return (
-    <SpaceCenter>
-      <Title>Something went wrong</Title>
+    <SpaceCenter data-testid="error-content">
+      <Title data-testid="error-title">Something went wrong</Title>
       <SecondaryText>Reload page</SecondaryText>
     </SpaceCenter>
   );
