@@ -1,3 +1,4 @@
+import { IncomeSource } from "../../constants/bank";
 import { Income } from '../../types';
 import { getAmount } from '../../utils/fund';
 import {
@@ -13,13 +14,14 @@ export const generateColumns = (): ColumnsType<Income> => [
   {
     title: 'Source',
     dataIndex: 'source',
-    key: 'source'
+    key: 'source',
+    render: (source: keyof typeof IncomeSource) => IncomeSource[source]
   },
   {
     title: 'Amount',
     dataIndex: 'paymentAmount',
     key: 'paymentAmount',
-    render: (paymentAmount: number) => `${getAmount(paymentAmount)}`
+    render: (paymentAmount: number) => getAmount(paymentAmount)
   },
   {
     title: 'Data',

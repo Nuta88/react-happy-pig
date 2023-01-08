@@ -1,3 +1,5 @@
+import { IncomeSource } from "../constants/bank";
+
 export class Expense {
   id: number | null;
   paymentAmount: number;
@@ -41,7 +43,7 @@ export class Fund {
 export interface Income {
   id?: number,
   amount: number,
-  source: string,
+  source: IncomeSource,
   date?: string;
 }
 export interface IBank {
