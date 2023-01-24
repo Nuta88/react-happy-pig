@@ -5,7 +5,7 @@ const url = process.env.REACT_APP_BASE_URL;
 const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: url,
+    baseUrl: url
   }),
   tagTypes: [
     'Funds',

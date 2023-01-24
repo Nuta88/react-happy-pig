@@ -6,4 +6,4 @@ const SpaceStyled = styled(Space)`
   justify-content: space-between;
 `;
 
-export const SpaceBetween = (props: JSX.IntrinsicAttributes & SpaceProps) => <SpaceStyled {...props} />;
+export const SpaceBetween = (props: JSX.IntrinsicAttributes & SpaceProps): JSX.Element => <SpaceStyled {...props} />;

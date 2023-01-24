@@ -1,4 +1,4 @@
-import { IncomeSource } from "../constants/bank";
+import { IncomeSource } from '../constants/bank';
 
 export class Expense {
   id: number | null;
@@ -6,12 +6,12 @@ export class Expense {
   recipient: string;
   date?: string;
   description?: string;
-  
-  constructor(paymentAmount: number = 0,
-              date: string= '',
-              recipient: string = '',
-              description: string = '',
-              id: number | null = null) {
+
+  constructor (paymentAmount: number = 0,
+    date: string = '',
+    recipient: string = '',
+    description: string = '',
+    id: number | null = null) {
     this.id = id;
     this.paymentAmount = paymentAmount;
     this.date = date;
@@ -25,13 +25,13 @@ export class Fund {
   name: string;
   plannedAmount: number;
   currentAmount?: number | null;
-  expenses: Array<Expense>;
-  
-  constructor(name: string = '',
-              plannedAmount: number = 0,
-              id: number | null = null,
-              currentAmount: number | null = null,
-              expenses: Array<Expense> = []) {
+  expenses: Expense[];
+
+  constructor (name: string = '',
+    plannedAmount: number = 0,
+    id: number | null = null,
+    currentAmount: number | null = null,
+    expenses: Expense[] = []) {
     this.id = id;
     this.name = name;
     this.plannedAmount = plannedAmount;
@@ -41,12 +41,12 @@ export class Fund {
 }
 
 export interface Income {
-  id?: number,
-  amount: number,
-  source: IncomeSource,
-  date?: string;
+  id?: number;
+  amount: number;
+  source: IncomeSource;
+  date?: string
 }
 export interface IBank {
-  amount: number,
+  amount: number;
   incomes: Income[]
 }

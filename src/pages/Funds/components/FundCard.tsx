@@ -1,10 +1,7 @@
 import { MouseEvent, memo } from 'react';
-
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { apiUrls } from '../../../constants/apiUrls';
-import { getAmount, getPercentage } from '../../../utils/fund';
 import {
   Card,
   CircleButton,
@@ -14,7 +11,9 @@ import {
   ProgressBar,
   SecondaryText
 } from '../../../components';
+import { apiUrls } from '../../../constants/apiUrls';
 import { Fund } from '../../../types';
+import { getAmount, getPercentage } from '../../../utils/fund';
 
 const CardStyled = styled(Card)`
   min-height: 12.75rem;
@@ -30,25 +29,25 @@ const cardBodyStyle = {
 };
 
 interface IFundCardProps {
-  fund: Fund,
+  fund: Fund;
   onDelete: (fundId: number) => void
 }
 
-const FundCard = ({ fund, onDelete }: IFundCardProps) => {
+const FundCard = ({ fund, onDelete }: IFundCardProps): JSX.Element => {
   const title: string = `${fund.name} (${getAmount(fund.currentAmount as number)})`;
   const confirmRemoveTitle: string = `Are you sure to delete "${fund.name}" fund?`;
   const currencyAmount: string = getAmount(fund.plannedAmount);
-  
-  const handlePreventFundOpening = (event: MouseEvent<HTMLElement> | undefined) => {
+
+  const handlePreventFundOpening = (event: MouseEvent<HTMLElement> | undefined): void => {
     event?.stopPropagation();
     event?.preventDefault();
   };
-  
-  const onRemoveFund = (event: MouseEvent<HTMLElement> | undefined) => {
+
+  const onRemoveFund = (event: MouseEvent<HTMLElement> | undefined): void => {
     handlePreventFundOpening(event);
     onDelete(fund.id as number);
-  }
-  
+  };
+
   return (
     <Col
       xs={24}
@@ -80,7 +79,7 @@ const FundCard = ({ fund, onDelete }: IFundCardProps) => {
         </CardStyled>
       </Link>
     </Col>
-  )
+  );
 };
 
 export default memo(FundCard);

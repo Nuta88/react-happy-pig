@@ -8,6 +8,6 @@ export const apiUrls = {
     update: (id: number) => `/funds/update/${id}`
   },
   bank: {
-    root: '/bank',
-  },
+    root: '/bank'
+  }
 };

@@ -1,23 +1,23 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import notFound from '../../assets/page-found.png';
 import { apiUrls } from '../../constants/apiUrls';
 import { Button, SpaceCenter, Title } from '../index';
-
-// @ts-ignore
-import notFound from '../../assets/page-found.png';
 
 const LinkStyled = styled.img`
   width: 25rem;
   padding-top: .63rem;
 `;
 
-const PageNotFound = () => {
+const PageNotFound = (): JSX.Element => {
   const navigate = useNavigate();
-  const navigateToHome = () => {
+  const navigateToHome = (): void => {
     navigate(apiUrls.root);
   };
-  
+
   return (
     <SpaceCenter data-testid="page-not-found-content">
       <LinkStyled src={notFound} />

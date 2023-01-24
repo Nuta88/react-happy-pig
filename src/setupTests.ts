@@ -1,10 +1,10 @@
 import '@testing-library/jest-dom';
 import { server } from './mock/api/server';
 
-global.matchMedia = global.matchMedia || function () {
+global.matchMedia = global.matchMedia ?? function () {
   return {
     addListener: jest.fn(),
-    removeListener: jest.fn(),
+    removeListener: jest.fn()
   };
 };
 
@@ -16,4 +16,6 @@ afterEach(() => {
   server.resetHandlers();
 });
 
-afterAll(() => server.close());
+afterAll(() => {
+  server.close();
+});

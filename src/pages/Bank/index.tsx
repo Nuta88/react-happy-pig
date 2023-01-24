@@ -1,9 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+
 import {
   ColumnsType,
   Page,
   SecondaryText,
-  Table,
+  Table
 } from '../../components';
 import { useFetchBankQuery } from '../../services/bank';
 import { Income } from '../../types';
@@ -17,11 +18,11 @@ const TableTitleStyled = styled(SecondaryText)`
   text-transform: uppercase;
 `;
 
-const Bank = () => {
+const Bank = (): JSX.Element => {
   const { data: { amount, incomes = [] } = {}, isLoading } = useFetchBankQuery({});
   const columns: ColumnsType<Income> = generateColumns();
   const pageTitle = `Bank (${getAmount(amount)})`;
-  
+
   return (
     <Page
       title={pageTitle}

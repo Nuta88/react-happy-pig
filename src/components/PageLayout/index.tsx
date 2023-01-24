@@ -1,9 +1,10 @@
+import { Layout } from 'antd';
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Layout } from 'antd';
 import styled from 'styled-components';
 
 import { Loading } from '../index';
+
 import Header from './Header';
 
 const { Content } = Layout;
@@ -15,8 +16,7 @@ const ContentStyled = styled(Content)`
   padding: 1rem 2rem;
 `;
 
-export default function PageLayout() {
-  return (
+const PageLayout = (): JSX.Element => (
     <>
       <Header />
       <ContentStyled data-testid="layout-content">
@@ -25,5 +25,6 @@ export default function PageLayout() {
         </Suspense>
       </ContentStyled>
     </>
-  );
-}
+);
+
+export default PageLayout;

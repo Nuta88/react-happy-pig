@@ -1,9 +1,9 @@
+import { parseDate } from '../../../../utils/date';
+
 import {
   convertExpenseToFormValues,
   convertFormValuesToExpense
 } from './helpers';
-
-import { parseDate } from '../../../../utils/date';
 
 describe('Helper FundDetail tests', () => {
   test('Convert Expense values to Form values tests', () => {

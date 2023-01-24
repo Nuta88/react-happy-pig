@@ -1,34 +1,35 @@
-import { memo } from 'react';
 import { Form } from 'antd';
-import { BasicModal, Input } from '../../../../components';
+import { memo } from 'react';
 
-import { convertExpenseToFormValues, convertFormValuesToExpense, TFormValues } from './helpers';
-import { disablePreviousDate } from '../../../../utils/date';
+import { BasicModal, Input } from '../../../../components';
 import { Expense } from '../../../../types';
+import { disablePreviousDate } from '../../../../utils/date';
+
+import { convertExpenseToFormValues, convertFormValuesToExpense, IFormValues } from './helpers';
 
 const layout = {
   labelCol: { span: 6 },
-  wrapperCol: { span: 32 },
+  wrapperCol: { span: 32 }
 };
 
 interface IExpenseModalProps {
   isOpen: boolean;
   expense: Expense | null;
   onSave: (expense: Expense) => void;
-  onCancel: () => void;
+  onCancel: () => void
 }
 
-function ExpenseModal({ isOpen, expense, onSave, onCancel }: IExpenseModalProps) {
-  const [form] = Form.useForm();
+function ExpenseModal ({ isOpen, expense, onSave, onCancel }: IExpenseModalProps): JSX.Element {
+  const [ form ] = Form.useForm();
   const title: string = expense ? 'Edit expense' : 'Add expense';
   const initialValues = expense ? convertExpenseToFormValues(expense) : {};
-  
-  const onCloseModal = () => {
+
+  const onCloseModal = (): void => {
     form.resetFields();
     onCancel();
   };
 
-  const onFinish = (values: TFormValues) => {
+  const onFinish = (values: IFormValues): void => {
     form.resetFields();
     onSave(convertFormValuesToExpense(expense, values));
   };
@@ -53,14 +54,14 @@ function ExpenseModal({ isOpen, expense, onSave, onCancel }: IExpenseModalProps)
           label="Recipient"
           name="recipient"
           data-testid="recipient"
-          rules={[{ required: true, message: 'Please input recipient!' }]}
+          rules={[ { required: true, message: 'Please input recipient!' } ]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           label="Amount"
           name="paymentAmount"
-          rules={[{ required: true, message: 'Please input Amount!' }]}
+          rules={[ { required: true, message: 'Please input Amount!' } ]}
         >
           <Input type="number" addonAfter="$" min={1} />
         </Form.Item>
@@ -68,9 +69,9 @@ function ExpenseModal({ isOpen, expense, onSave, onCancel }: IExpenseModalProps)
           label="Date"
           name="date"
           data-testid="date"
-          rules={[{ required: true, message: 'Please input date!' }]}
+          rules={[ { required: true, message: 'Please input date!' } ]}
         >
-          <Input type="datepicker" disabledDate={disablePreviousDate}  />
+          <Input type="datepicker" disabledDate={disablePreviousDate} />
         </Form.Item>
 
         <Form.Item
@@ -86,7 +87,7 @@ function ExpenseModal({ isOpen, expense, onSave, onCancel }: IExpenseModalProps)
 }
 
 ExpenseModal.defaultProps = {
-  isOpen: false,
+  isOpen: false
 };
 
 export default memo(ExpenseModal);

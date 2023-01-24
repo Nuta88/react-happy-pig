@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
+import { Card } from '../../Card';
 import { ArrowLeftIcon } from '../../Icons';
 import { Title } from '../../Typography/Title';
-import { Card } from '../../Card';
 
 export const TitleStyled = styled(Title)`
   display: flex;

@@ -1,24 +1,30 @@
 import { useUpdateFundMutation } from '../services/funds';
-import { upsertExpense } from '../utils/fund';
 import { Fund, Expense } from '../types';
+import { upsertExpense } from '../utils/fund';
 
-export const useUpdateFund = (fund: Fund) => {
+interface IUpdateFund {
+  onUpdateOrCreateExpense: (expense: Expense) => void;
+  onUpdateFundName: (name: string) => void;
+  onRemoveExpense: (id: number) => void
+}
+
+export const useUpdateFund = (fund: Fund): IUpdateFund => {
   const [ updateFund ] = useUpdateFundMutation();
 
-  const onUpdateOrCreateExpense = (expense: Expense) => {
+  const onUpdateOrCreateExpense = (expense: Expense): void => {
     const expenses = upsertExpense(fund.expenses, expense);
 
-    updateFund({...fund, expenses});
+    void updateFund({ ...fund, expenses });
   };
 
-  const onUpdateFundName = (name: string) => {
-    updateFund({...fund, name});
+  const onUpdateFundName = (name: string): void => {
+    void updateFund({ ...fund, name });
   };
 
-  const onRemoveExpense = (id: number) => {
+  const onRemoveExpense = (id: number): void => {
     const expenses = fund?.expenses.filter(expense => expense.id !== id);
 
-    updateFund({...fund, expenses});
+    void updateFund({ ...fund, expenses });
   };
 
   return { onUpdateOrCreateExpense, onRemoveExpense, onUpdateFundName };

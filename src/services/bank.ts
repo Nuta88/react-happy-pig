@@ -1,6 +1,6 @@
-import api from './api';
-
 import { apiUrls } from '../constants/apiUrls';
+
+import api from './api';
 
 const bankApi = api.injectEndpoints({
   endpoints: builder => ({
@@ -9,7 +9,7 @@ const bankApi = api.injectEndpoints({
         url: apiUrls.bank.root,
         params
       }),
-      providesTags: ['Bank']
+      providesTags: [ 'Bank' ]
     })
   })
 });

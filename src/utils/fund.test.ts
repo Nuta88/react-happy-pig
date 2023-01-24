@@ -88,7 +88,7 @@ describe('FundDetail util tests', () => {
         date: '2022-12-03'
       };
 
-      const result = [...expenses, expense];
+      const result = [ ...expenses, expense ];
 
       expect(upsertExpense(expenses, expense)).toEqual(result);
     });
@@ -101,7 +101,7 @@ describe('FundDetail util tests', () => {
         date: '2022-12-05'
       };
 
-      const result = [expense];
+      const result = [ expense ];
 
       expect(upsertExpense(expenses, expense)).toEqual(result);
     });

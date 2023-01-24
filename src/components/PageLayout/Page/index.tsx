@@ -13,11 +13,11 @@ interface IPageProps {
   onBack?: () => void
 }
 
-export default function Page({ title='Page Title', isBack=false, extra, onBack, children, ...rest }: IPageProps) {
+const Page = ({ title = 'Page Title', isBack = false, extra, onBack, children, ...rest }: IPageProps): JSX.Element => {
   const navigate = useNavigate();
 
-  const handleBack = () => {
-    if ( onBack ) {
+  const handleBack = (): void => {
+    if (onBack) {
       onBack();
     } else {
       navigate(-1);
@@ -38,4 +38,6 @@ export default function Page({ title='Page Title', isBack=false, extra, onBack, 
       </CardStyled>
     </SectionStyled>
   );
-}
+};
+
+export default Page;

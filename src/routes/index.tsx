@@ -3,9 +3,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { PageLayout, ErrorBoundary } from '../components';
 
-const Funds = lazy(() => import('../pages/Funds'));
-const FundDetail = lazy(() => import('../pages/FundDetail'));
-const Bank = lazy(() => import('../pages/Bank'));
+const Funds = lazy(async (): Promise<{ readonly default: () => JSX.Element }> => await import('../pages/Funds'));
+const FundDetail = lazy(async (): Promise<{ readonly default: () => JSX.Element }> => await import('../pages/FundDetail'));
+const Bank = lazy(async (): Promise<{ readonly default: () => JSX.Element }> => await import('../pages/Bank'));
 
 const routers = createBrowserRouter([
   {
@@ -28,7 +28,7 @@ const routers = createBrowserRouter([
   }
 ]);
 
-const AppRouters = () => (
+const AppRouters = (): JSX.Element => (
   <RouterProvider router={routers} />
 );
 

@@ -1,6 +1,3 @@
-import { IncomeSource } from "../../constants/bank";
-import { Income } from '../../types';
-import { getAmount } from '../../utils/fund';
 import {
   CircleButton,
   Confirm,
@@ -9,6 +6,9 @@ import {
   SpaceBetween,
   ColumnsType
 } from '../../components';
+import { IncomeSource } from '../../constants/bank';
+import { Income } from '../../types';
+import { getAmount } from '../../utils/fund';
 
 export const generateColumns = (): ColumnsType<Income> => [
   {
@@ -43,6 +43,6 @@ export const generateColumns = (): ColumnsType<Income> => [
           <CircleButton type="primary" icon={<DeleteIcon />} />
         </Confirm>
       </SpaceBetween>
-    ),
-  },
+    )
+  }
 ];

@@ -5,32 +5,33 @@ export const handlers = [
     return res(ctx.status(200), ctx.json([
       {
         id: 1,
-        name: "Car",
+        name: 'Car',
         plannedAmount: 1000000,
         currentAmount: 649300,
         expenses: [
           {
             id: 1,
             paymentAmount: 200600,
-            recipient: "Mix Mart",
-            description: "Something else",
-            date: "2022-05-28"
+            recipient: 'Mix Mart',
+            description: 'Something else',
+            date: '2022-05-28'
           },
           {
             id: 2,
             paymentAmount: 150100,
-            recipient: "FOX",
-            description: "Something",
-            date: "2022-12-03"}
+            recipient: 'FOX',
+            description: 'Something',
+            date: '2022-12-03'
+          }
         ]
       },
       {
         id: 2,
-        name: "Phone",
+        name: 'Phone',
         plannedAmount: 20000,
         currentAmount: 20000,
         expenses: []
       }
-    ]), ctx.delay(30))
+    ]), ctx.delay(30));
   })
 ];
