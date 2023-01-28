@@ -4,19 +4,33 @@
 
 #### 1. Install Docker Desktop
 
-   a. Open https://www.docker.com/products/docker-desktop/
+a. Open https://www.docker.com/products/docker-desktop/
 
-   b. Click on button "Mac with Apple Chip"
+b. Click on button "Mac with Apple Chip"
 
-   c. Install the app
+c. Install the app
 
 #### 2. Run Docker Desktop
-#### 3. Copy file ./dev-tools/docker-compose.yml to any directory
+
+#### 3. Copy file ./dev-tools/docker/docker-compose.yml to any directory
+
 #### 4. Open terminal and go to this directory
+
 #### 5. Run command in terminal:
-   `docker-compose up`
-#### 6. Open file ./dev-tools/fund.http in WebStorm
+
+`docker-compose up`
+
+#### 6. Open file ./dev-tools/docker/fund.http in WebStorm
+
 #### 7. This file contains BE API that could be run from WebStorm
+
+## Git hooks
+
+Tune git hook to check git message convention (from root directory):
+
+### git config --local core.hooksPath dev-tools/git/hooks/
+
+chmod 755 dev-tools/git/hooks/commit-msg
 
 ## Available Scripts
 
