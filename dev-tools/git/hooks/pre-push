@@ -1,0 +1,19 @@
+#!/bin/sh
+
+LC_ALL=C
+
+local_branch="$(git rev-parse --abbrev-ref HEAD)"
+
+BRANCH_REGEX="^(feature|bugfix|hotfix)/(HP-[0-9]+)(-([a-z-]+)+)$"
+BRANCH_PATTERN="[branch type (feature,bugfix,hotfix)]/[youtrack story id]-[branch name]"
+ERROR_MESSAGE="[Error] Branch name template violation. Branch should have following template:
+        [branch type]/[youtrack story id]-[branch name (all words should consist of lowercase letters separated by dash)]
+        e.g. feature/HP-100000-create-budget-endpoint"
+
+if [[ ! $local_branch =~ $BRANCH_REGEX ]]
+then
+    echo "$ERROR_MESSAGE"
+    exit 1
+fi
+
+exit 0
