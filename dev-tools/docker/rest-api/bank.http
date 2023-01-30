@@ -1,0 +1,15 @@
+### Get Bank Info Next info
+GET http://localhost:8080/api/bank
+Accept: application/json
+
+### Add new Income
+POST http://localhost:8080/api/bank/incomes
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": null,
+  "source": "RENTAL",
+  "amount": 70000,
+  "date": "2023-01-29"
+}

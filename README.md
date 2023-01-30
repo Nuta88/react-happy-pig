@@ -20,9 +20,9 @@ c. Install the app
 
 `docker-compose up`
 
-#### 6. Open file ./dev-tools/docker/fund.http in WebStorm
+#### 6. Open file ./dev-tools/docker/rest-api/fund.http and ./dev-tools/docker/rest-api/bank.http in WebStorm
 
-#### 7. This file contains BE API that could be run from WebStorm
+#### 7. This files contains BE API that could be run from WebStorm
 
 ## Git hooks
 

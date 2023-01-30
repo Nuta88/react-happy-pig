@@ -1,17 +1,16 @@
 ### Create Fund
-
 # id - should be null
 # currentAmount - optional
 # expenses - should not be null
 # expence.id - should be null
 
-POST http://localhost:8080/api/funds/create
+POST http://localhost:8080/api/funds
 Accept: application/json
 Content-Type: application/json
 
 {
   "id": null,
-  "name": "Gift",
+  "name": "Car",
   "plannedAmount": 1000000,
   "currentAmount": null,
   "expenses": [
@@ -19,14 +18,14 @@ Content-Type: application/json
       "id": null,
       "date": "2022-05-27",
       "description": "Something",
-      "paymentAmount": 20000,
+      "paymentAmount": 150000,
       "recipient": "FOX"
     },
     {
       "id": null,
       "date": "2022-05-27",
       "description": "Something else",
-      "paymentAmount": 10000,
+      "paymentAmount": 200000,
       "recipient": "Mix Mart"
     }
   ]
@@ -41,7 +40,7 @@ GET http://localhost:8080/api/funds
 Accept: application/json
 
 ### Update Fund By Id
-PUT http://localhost:8080/api/funds/update/1
+PUT http://localhost:8080/api/funds/1
 Accept: application/json
 Content-Type: application/json
 
@@ -69,5 +68,5 @@ Content-Type: application/json
 }
 
 ### Delete Fund By Id
-DELETE http://localhost:8080/api/funds/delete/1
+DELETE http://localhost:8080/api/funds/1
 Accept: application/json
