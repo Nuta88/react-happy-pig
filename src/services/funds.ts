@@ -13,14 +13,14 @@ const fundsApi = api.injectEndpoints({
     }),
     fetchFund: builder.query({
       query: (id, ...params) => ({
-        url: apiUrls.funds.details(id),
+        url: apiUrls.funds.rootWithId(id),
         params
       }),
       providesTags: [ 'Fund' ]
     }),
     createFund: builder.mutation({
       query: ({ ...body }) => ({
-        url: apiUrls.funds.create,
+        url: apiUrls.funds.root,
         method: 'POST',
         body
       }),
@@ -28,7 +28,7 @@ const fundsApi = api.injectEndpoints({
     }),
     updateFund: builder.mutation({
       query: (body) => ({
-        url: apiUrls.funds.update(body.id),
+        url: apiUrls.funds.rootWithId(body.id),
         method: 'PUT',
         body
       }),
@@ -36,7 +36,7 @@ const fundsApi = api.injectEndpoints({
     }),
     deleteFund: builder.mutation({
       query: (id, ...params) => ({
-        url: apiUrls.funds.delete(id),
+        url: apiUrls.funds.rootWithId(id),
         method: 'DELETE',
         params
       }),

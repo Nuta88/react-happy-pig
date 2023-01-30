@@ -1,4 +1,7 @@
-import { MouseEvent, memo } from 'react';
+import {
+  memo,
+  MouseEvent
+} from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -13,7 +16,10 @@ import {
 } from '../../../components';
 import { apiUrls } from '../../../constants/apiUrls';
 import { Fund } from '../../../types';
-import { getAmount, getPercentage } from '../../../utils/fund';
+import {
+  getAmount,
+  getPercentage
+} from '../../../utils/fund';
 
 const CardStyled = styled(Card)`
   min-height: 12.75rem;
@@ -55,7 +61,7 @@ const FundCard = ({ fund, onDelete }: IFundCardProps): JSX.Element => {
       lg={8}
       data-testid={`fund-${fund.name}`}
     >
-      <Link to={apiUrls.funds.details(fund.id as number)}>
+      <Link to={apiUrls.funds.rootWithId(fund.id as number)}>
         <CardStyled
           bodyStyle={cardBodyStyle}
           title={title}

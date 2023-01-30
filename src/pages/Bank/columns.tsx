@@ -1,10 +1,10 @@
 import {
   CircleButton,
+  ColumnsType,
   Confirm,
   DeleteIcon,
   EditIcon,
-  SpaceBetween,
-  ColumnsType
+  SpaceBetween
 } from '../../components';
 import { IncomeSource } from '../../constants/bank';
 import { Income } from '../../types';
@@ -19,14 +19,14 @@ export const generateColumns = (): ColumnsType<Income> => [
   },
   {
     title: 'Amount',
-    dataIndex: 'paymentAmount',
-    key: 'paymentAmount',
+    dataIndex: 'amount',
+    key: 'amount',
     render: (paymentAmount: number) => getAmount(paymentAmount)
   },
   {
-    title: 'Data',
-    dataIndex: 'data',
-    key: 'data'
+    title: 'Date',
+    dataIndex: 'date',
+    key: 'date'
   },
   {
     title: 'Action',
@@ -36,7 +36,7 @@ export const generateColumns = (): ColumnsType<Income> => [
       <SpaceBetween size="middle">
         <CircleButton type="primary" icon={<EditIcon />} />
         <Confirm
-          title={`Are you sure to delete "${income.source}"?`}
+          title={`Are you sure to delete "${IncomeSource[income.source]}" income?`}
           placement="leftTop"
           onConfirm={() => {}}
         >

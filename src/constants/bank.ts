@@ -1,5 +1,5 @@
 export enum IncomeSource {
-  COMPENSATION = 'Entrepreneur income',
+  COMPENSATION = 'Compensation',
   SALARY = 'Salary',
   RENTAL = 'Rental',
   GIFT = 'Money that is taken as a gift',

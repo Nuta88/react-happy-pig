@@ -43,8 +43,8 @@ export class Fund {
 export interface Income {
   id?: number;
   amount: number;
-  source: IncomeSource;
-  date?: string
+  source: keyof typeof IncomeSource;
+  date?: string;
 }
 export interface IBank {
   amount: number;
