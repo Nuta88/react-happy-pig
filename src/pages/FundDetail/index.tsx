@@ -19,9 +19,9 @@ import ExpenseModal from './components/ExpenseModal';
 import FundPageTitle from './components/FundPageTitle';
 
 const FundDetail = (): JSX.Element => {
-  const params = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
-  const { data: fund } = useFetchFundQuery(params.id);
+  const { data: fund } = useFetchFundQuery(Number(id));
   const {
     isOpenModal,
     modalContent: selectedExpense,
@@ -57,7 +57,7 @@ const FundDetail = (): JSX.Element => {
     <Page
       title={
       <FundPageTitle
-        name={fund?.name}
+        name={fund?.name as string}
         onChange={handleUpdateFundName}
       />
     }

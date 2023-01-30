@@ -8,13 +8,15 @@ interface IUpdateFund {
   onRemoveExpense: (id: number) => void
 }
 
-export const useUpdateFund = (fund: Fund): IUpdateFund => {
+export const useUpdateFund = (fund: Fund | undefined): IUpdateFund => {
   const [ updateFund ] = useUpdateFundMutation();
 
   const onUpdateOrCreateExpense = (expense: Expense): void => {
-    const expenses = upsertExpense(fund.expenses, expense);
+    if (fund) {
+      const expenses = upsertExpense(fund.expenses, expense);
 
-    void updateFund({ ...fund, expenses });
+      void updateFund({ ...fund, expenses });
+    }
   };
 
   const onUpdateFundName = (name: string): void => {
