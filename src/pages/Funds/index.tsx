@@ -1,42 +1,50 @@
 import { useCallback } from 'react';
 
 import {
-  Page,
-  Empty,
-  Row,
+  AddIcon,
   CircleButton,
-  Tooltip,
-  AddIcon
+  Empty,
+  Page,
+  Row,
+  Tooltip
 } from '../../components';
-import {
-  useFetchFundsQuery,
-  useDeleteFundMutation,
-  useCreateFundMutation
-} from '../../services/funds';
 import { useModal } from '../../hooks';
+import {
+  useCreateFundMutation,
+  useDeleteFundMutation,
+  useFetchFundsQuery
+} from '../../services/funds';
 import { Fund } from '../../types';
 
-import FundModal from './components/FundModal';
 import FundCard from './components/FundCard';
+import FundModal from './components/FundModal';
 
-const Funds = () => {
-  const { isOpenModal, hideModal, showModal } = useModal();
-  const { data, isLoading } = useFetchFundsQuery({});
+const Funds = (): JSX.Element => {
+  const {
+    isOpenModal,
+    hideModal,
+    showModal
+  } = useModal();
+  const {
+    data: funds = [],
+    isLoading = false
+  } = useFetchFundsQuery({});
   const [ deleteFund ] = useDeleteFundMutation();
   const [ createFund ] = useCreateFundMutation();
+  const isShowEmptyComponent: boolean = !(funds.length > 0 || isLoading);
 
   const handleOpenCreateModal = useCallback(() => {
     showModal();
-  }, [showModal]);
+  }, [ showModal ]);
 
   const handleHideCreateModal = useCallback(() => {
     hideModal();
-  }, [hideModal]);
+  }, [ hideModal ]);
 
   const handleCreateNewFund = useCallback((fund: Fund) => {
-    createFund(fund);
+    void createFund(fund);
     hideModal();
-  }, [createFund, hideModal]);
+  }, [ createFund, hideModal ]);
 
   return (
     <Page
@@ -54,9 +62,9 @@ const Funds = () => {
         </Tooltip>
       }
     >
-      {!data && !isLoading && <Empty description="No funds" data-testid="empty-funds" />}
-      <Row gutter={[16, 16]}>
-        {data?.map((fund: Fund) => <FundCard key={fund.id} fund={fund} onDelete={deleteFund} />)}
+      {isShowEmptyComponent && <Empty description="No funds" data-testid="empty-funds"/>}
+      <Row gutter={[ 16, 16 ]}>
+        {funds?.map((fund: Fund) => <FundCard key={fund.id} fund={fund} onDelete={deleteFund}/>)}
       </Row>
       <FundModal
         isOpen={isOpenModal}

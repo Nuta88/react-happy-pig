@@ -1,3 +1,3 @@
 import { Empty, EmptyProps } from 'antd';
 
-export const EmptyData = (props: JSX.IntrinsicAttributes & EmptyProps) => <Empty {...props} />;
+export const EmptyData = (props: JSX.IntrinsicAttributes & EmptyProps): JSX.Element => <Empty {...props} />;

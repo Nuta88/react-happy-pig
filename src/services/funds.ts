@@ -1,6 +1,6 @@
-import api from './api';
-
 import { apiUrls } from '../constants/apiUrls';
+
+import api from './api';
 
 const fundsApi = api.injectEndpoints({
   endpoints: builder => ({
@@ -9,38 +9,38 @@ const fundsApi = api.injectEndpoints({
         url: apiUrls.funds.root,
         params
       }),
-      providesTags: ['Funds']
+      providesTags: [ 'Funds' ]
     }),
     fetchFund: builder.query({
       query: (id, ...params) => ({
-        url: apiUrls.funds.details(id),
+        url: apiUrls.funds.rootWithId(id),
         params
       }),
-      providesTags: ['Fund']
+      providesTags: [ 'Fund' ]
     }),
     createFund: builder.mutation({
       query: ({ ...body }) => ({
-        url: apiUrls.funds.create,
+        url: apiUrls.funds.root,
         method: 'POST',
         body
       }),
-      invalidatesTags: ['Funds'],
+      invalidatesTags: [ 'Funds' ]
     }),
     updateFund: builder.mutation({
       query: (body) => ({
-        url: apiUrls.funds.update(body.id),
+        url: apiUrls.funds.rootWithId(body.id),
         method: 'PUT',
         body
       }),
-      invalidatesTags: ['Fund'],
+      invalidatesTags: [ 'Fund' ]
     }),
     deleteFund: builder.mutation({
       query: (id, ...params) => ({
-        url: apiUrls.funds.delete(id),
+        url: apiUrls.funds.rootWithId(id),
         method: 'DELETE',
         params
       }),
-      invalidatesTags: ['Funds'],
+      invalidatesTags: [ 'Funds' ]
     })
   })
 });

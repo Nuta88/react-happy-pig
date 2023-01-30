@@ -1,39 +1,33 @@
-import { Layout } from 'antd';
-import styled from 'styled-components';
+import { navigationLinks } from '../../../constants/common';
+import {
+  Col,
+  CircleButton,
+  AvatarIcon
+} from '../../index';
 
-import { AvatarIcon } from '../../Icons';
-import { Row } from '../../Row';
-import { Col } from '../../Col';
-import { CircleButton } from '../../Buttons/CircleButton';
+import { LinkStyled, LayoutHeaderStyled, RowStyled } from './styled';
 
-const { Header: LayoutHeader } = Layout;
-
-const LayoutHeaderStyled = styled(LayoutHeader)`
-  position: fixed;
-  top: 0;
-  height: 80px;
-  z-index: 100;
-  width: 100%;
-  color: white;
-  background-color: #1c3463e0;
-`;
-
-const RowStyled = styled(Row)`
-  height: 100%;
-  padding: 1rem;
-`;
-
-export default function Header() {
-  return (
+const Header = (): JSX.Element => (
     <LayoutHeaderStyled
       data-testid="layout-header"
     >
       <RowStyled align="middle">
         <Col flex={1}>Happy pig</Col>
+        <Col flex={1}>
+          {navigationLinks.map(navigation => (
+            <LinkStyled
+              key={navigation.name}
+              to={navigation.link}
+            >
+              {navigation.name}
+            </LinkStyled>
+          ))}
+        </Col>
         <Col>
           <CircleButton size="large" icon={<AvatarIcon />} />
         </Col>
       </RowStyled>
     </LayoutHeaderStyled>
-  );
-}
+);
+
+export default Header;

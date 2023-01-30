@@ -1,7 +1,8 @@
-import { rest } from 'msw';
 import { screen, fireEvent, waitFor } from '@testing-library/react';
-import { renderWithProviders } from '../../test-utils';
+import { rest } from 'msw';
+
 import { server } from '../../mock/api/server';
+import { renderWithProviders } from '../../test-utils';
 
 import Fund from './index';
 
@@ -15,23 +16,24 @@ describe('FundDetail tests', () => {
     rest.get('*', (_req, res, ctx) =>
       res.once(ctx.status(200), ctx.json({
         id: 1,
-        name: "Car",
+        name: 'Car',
         plannedAmount: 1000000,
         currentAmount: 649300,
         expenses: [
           {
             id: 1,
             paymentAmount: 200600,
-            recipient: "Mix Mart",
-            description: "Something else",
-            date: "2022-05-28"
+            recipient: 'Mix Mart',
+            description: 'Something else',
+            date: '2022-05-28'
           },
           {
             id: 2,
             paymentAmount: 150100,
-            recipient: "FOX",
-            description: "Something",
-            date: "2022-12-03"}
+            recipient: 'FOX',
+            description: 'Something',
+            date: '2022-12-03'
+          }
         ]
       }))
     )
@@ -47,8 +49,9 @@ describe('FundDetail tests', () => {
       expect(screen.getByTestId('fund-open-create-modal')).toBeInTheDocument();
       fireEvent.click(screen.getByTestId('fund-open-create-modal'));
 
-      await waitFor(() => expect(screen.queryByText('Add expense')).toBeInTheDocument());
-      // @ts-ignore
+      await waitFor(() => { expect(screen.queryByText('Add expense')).toBeInTheDocument(); });
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       fireEvent.click(screen.queryByText('Cancel'));
     });
   });

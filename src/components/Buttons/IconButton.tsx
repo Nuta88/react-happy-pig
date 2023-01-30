@@ -1,12 +1,12 @@
 import { ReactNode } from 'react';
 
-import { ButtonProps } from './types';
 import { CircleButton } from './CircleButton';
+import { ButtonProps } from './types';
 
 interface IconButtonProps {
-  icon: ReactNode;
+  icon: ReactNode
 }
 
-export const IconButton = ({icon, ...props}: IconButtonProps & ButtonProps) => (
+export const IconButton = ({ icon, ...props }: IconButtonProps & ButtonProps): JSX.Element => (
   <CircleButton icon={icon} {...props} />
 );

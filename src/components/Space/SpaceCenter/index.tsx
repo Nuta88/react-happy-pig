@@ -8,4 +8,4 @@ const SpaceStyled = styled(Space)`
   height: 100%;
 `;
 
-export const SpaceCenter = (props: JSX.IntrinsicAttributes & SpaceProps) => <SpaceStyled {...props} />
+export const SpaceCenter = (props: JSX.IntrinsicAttributes & SpaceProps): JSX.Element => <SpaceStyled {...props} />;

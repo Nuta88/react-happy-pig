@@ -1,10 +1,10 @@
-import { MouseEvent, memo } from 'react';
-
-import {Link} from 'react-router-dom';
+import {
+  memo,
+  MouseEvent
+} from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { apiUrls } from '../../../constants/apiUrls';
-import { getFundAmount, getPercentage } from '../../../utils/fund';
 import {
   Card,
   CircleButton,
@@ -14,7 +14,12 @@ import {
   ProgressBar,
   SecondaryText
 } from '../../../components';
+import { apiUrls } from '../../../constants/apiUrls';
 import { Fund } from '../../../types';
+import {
+  getAmount,
+  getPercentage
+} from '../../../utils/fund';
 
 const CardStyled = styled(Card)`
   min-height: 12.75rem;
@@ -30,25 +35,25 @@ const cardBodyStyle = {
 };
 
 interface IFundCardProps {
-  fund: Fund,
+  fund: Fund;
   onDelete: (fundId: number) => void
 }
 
-const FundCard = ({ fund, onDelete }: IFundCardProps) => {
-  const title: string = `${fund.name} (${getFundAmount(fund.currentAmount as number)})`;
+const FundCard = ({ fund, onDelete }: IFundCardProps): JSX.Element => {
+  const title: string = `${fund.name} (${getAmount(fund.currentAmount as number)})`;
   const confirmRemoveTitle: string = `Are you sure to delete "${fund.name}" fund?`;
-  const currencyAmount: string = getFundAmount(fund.plannedAmount);
-  
-  const handlePreventFundOpening = (event: MouseEvent<HTMLElement> | undefined) => {
+  const currencyAmount: string = getAmount(fund.plannedAmount);
+
+  const handlePreventFundOpening = (event: MouseEvent<HTMLElement> | undefined): void => {
     event?.stopPropagation();
     event?.preventDefault();
   };
-  
-  const onRemoveFund = (event: MouseEvent<HTMLElement> | undefined) => {
+
+  const onRemoveFund = (event: MouseEvent<HTMLElement> | undefined): void => {
     handlePreventFundOpening(event);
     onDelete(fund.id as number);
-  }
-  
+  };
+
   return (
     <Col
       xs={24}
@@ -56,7 +61,7 @@ const FundCard = ({ fund, onDelete }: IFundCardProps) => {
       lg={8}
       data-testid={`fund-${fund.name}`}
     >
-      <Link to={apiUrls.funds.details(fund.id as number)}>
+      <Link to={apiUrls.funds.rootWithId(fund.id as number)}>
         <CardStyled
           bodyStyle={cardBodyStyle}
           title={title}
@@ -80,7 +85,7 @@ const FundCard = ({ fund, onDelete }: IFundCardProps) => {
         </CardStyled>
       </Link>
     </Col>
-  )
+  );
 };
 
 export default memo(FundCard);

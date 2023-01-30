@@ -13,23 +13,23 @@ interface IPageTitleProps {
   onChange: (title: string) => void
 }
 
-const FundPageTitle = ({ name='', onChange }: IPageTitleProps) => {
-  const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [fundTitle, setFundTitle] = useState<string>(name);
-  
-  const onCloseEditing = () => {
+const FundPageTitle = ({ name = '', onChange }: IPageTitleProps): JSX.Element => {
+  const [ isEditing, setIsEditing ] = useState<boolean>(false);
+  const [ fundTitle, setFundTitle ] = useState<string>(name);
+
+  const onCloseEditing = (): void => {
     setIsEditing(false);
   };
-  
-  const onSaveTitle = () => {
+
+  const onSaveTitle = (): void => {
     onChange(fundTitle);
     onCloseEditing();
   };
-  
-  const onChangeFundTitle = (event: ChangeEvent<HTMLInputElement>) => {
+
+  const onChangeFundTitle = (event: ChangeEvent<HTMLInputElement>): void => {
     setFundTitle(event.target.value);
   };
-  
+
   if (isEditing) {
     return (
       <TextInput
@@ -53,14 +53,14 @@ const FundPageTitle = ({ name='', onChange }: IPageTitleProps) => {
           </>
         }
       />
-    )
+    );
   }
-  
+
   return (
-    <span onClick={() => setIsEditing(true)}>
+    <span onClick={() => { setIsEditing(true); }}>
       {`${name} Fund`}
     </span>
-  )
+  );
 };
 
 export default FundPageTitle;

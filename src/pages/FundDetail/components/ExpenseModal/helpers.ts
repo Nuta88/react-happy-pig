@@ -1,16 +1,28 @@
-import { convertToCurrency, convertToPennies } from '../../../../utils/fund';
-import { convertDateToString, parseDate, TDate } from '../../../../utils/date';
 import { dateFormat } from '../../../../constants/common';
 import { Expense } from '../../../../types';
+import {
+  convertDateToString,
+  parseDate,
+  TDate,
+  TParseDate
+} from '../../../../utils/date';
+import { convertToCurrency, convertToPennies } from '../../../../utils/fund';
 
-export type TFormValues = {
-  recipient: string,
-  description: string,
-  paymentAmount: number,
+export interface IFormValues {
+  recipient: string;
+  description: string;
+  paymentAmount: number;
   date: TDate
 }
+export interface IInitialValues {
+  recipient: string;
+  description?: string;
+  id: number | null;
+  paymentAmount: number;
+  date: string | TParseDate
+}
 
-export const convertExpenseToFormValues = (expense: Expense) => {
+export const convertExpenseToFormValues = (expense: Expense): IInitialValues => {
   return {
     ...expense,
     paymentAmount: convertToCurrency(expense.paymentAmount),
@@ -18,8 +30,8 @@ export const convertExpenseToFormValues = (expense: Expense) => {
   };
 };
 
-export const convertFormValuesToExpense = (expense: Expense | null, formValues: TFormValues) => {
+export const convertFormValuesToExpense = (expense: Expense | null, formValues: IFormValues): Expense => {
   const { recipient, paymentAmount, date, description } = formValues;
-  
+
   return new Expense(convertToPennies(paymentAmount), convertDateToString(date), recipient, description, expense?.id);
 };

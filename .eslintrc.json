@@ -1,0 +1,70 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "standard-with-typescript"
+    ],
+    "overrides": [
+    ],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module",
+        "project": "tsconfig.json"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "react/react-in-jsx-scope": "off",
+        "no-unused-vars": "error",
+        "semi": ["error", "always"],
+        "@typescript-eslint/semi": "off",
+        "@typescript-eslint/member-delimiter-style": ["error", {
+            "multiline": {
+                "delimiter": "semi",
+                "requireLast": false
+            },
+            "singleline": {
+                "delimiter": "semi",
+                "requireLast": false
+            }
+        }],
+        "array-bracket-spacing": [2, "always"],
+        "@typescript-eslint/no-misused-promises": [2, {
+            "checksVoidReturn": {
+                "attributes": false
+            }
+        }],
+        "@typescript-eslint/strict-boolean-expressions": [
+            "warn",
+            {
+                "allowString": true,
+                "allowNumber": true,
+                "allowNullableObject": true,
+                "allowNullableBoolean": true,
+                "allowNullableNumber": false,
+                "allowNullableString": true,
+                "allowAny": false
+            }
+        ],
+        "import/order": [
+            "error",
+            {
+                "groups": [
+                    "external",
+                    "parent",
+                    "sibling",
+                    "index"
+                ],
+                "newlines-between": "always",
+                "alphabetize": {
+                    "order": "asc",
+                    "caseInsensitive": true
+                }
+            }
+        ]
+    }
+}

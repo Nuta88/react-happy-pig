@@ -1,5 +1,5 @@
 import AppRouters from './routes';
 
-const App = () => (<AppRouters />);
+const App = (): JSX.Element => (<AppRouters />);
 
 export default App;

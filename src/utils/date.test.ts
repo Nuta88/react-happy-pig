@@ -1,14 +1,14 @@
 import dayjs from 'dayjs';
 
+import { dateFormat } from '../constants/common';
+
 import {
   convertDateToString,
   parseDate,
   disablePreviousDate
 } from './date';
-import {dateFormat} from "../constants/common";
 
 describe('Date util tests', () => {
-
   test('should convert date to string', () => {
     const date = '2022-12-03';
 

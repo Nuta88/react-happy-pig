@@ -1,15 +1,15 @@
-import { ReactElement } from 'react';
 import { Modal, ModalProps } from 'antd';
+import { ReactElement } from 'react';
 
-type BasicModalProps = {
-  title: string,
-  isOpen: boolean,
-  children: ReactElement,
-  onSave?: () => void,
+interface BasicModalProps {
+  title: string;
+  isOpen: boolean;
+  children: ReactElement;
+  onSave?: () => void;
   onCancel: () => void
 }
 
-export const BasicModal = ({ title, isOpen, children, onSave, onCancel, ...props }: BasicModalProps & ModalProps) => (
+export const BasicModal = ({ title, isOpen, children, onSave, onCancel, ...props }: BasicModalProps & ModalProps): JSX.Element => (
   <Modal
     title={title}
     open={isOpen}
@@ -19,4 +19,4 @@ export const BasicModal = ({ title, isOpen, children, onSave, onCancel, ...props
   >
     {children}
   </Modal>
-)
+);
