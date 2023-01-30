@@ -3,6 +3,7 @@ import { Fund, Expense } from './fund';
 
 export {
   Fund,
-  Expense
+  Expense,
+  Income
 };
-export type { Income, IBank };
+export type { IBank };
