@@ -5,7 +5,9 @@ import {
   EditOutlined,
   UserOutlined,
   CheckOutlined,
-  CloseOutlined
+  CloseOutlined,
+  BankOutlined,
+  DollarOutlined
 } from '@ant-design/icons';
 
 export {
@@ -15,5 +17,7 @@ export {
   EditOutlined as EditIcon,
   UserOutlined as AvatarIcon,
   CheckOutlined as CheckIcon,
-  CloseOutlined as CloseIcon
+  CloseOutlined as CloseIcon,
+  BankOutlined as BankIcon,
+  DollarOutlined as DollarIcon
 };

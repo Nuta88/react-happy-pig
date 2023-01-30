@@ -1,9 +1,13 @@
+import Icon from '@ant-design/icons';
+import React from 'react';
+
 import { navigationLinks } from '../../../constants/common';
 import {
   Col,
   CircleButton,
   AvatarIcon
 } from '../../index';
+import { InlineCenter } from '../../Space/InlineCenter';
 
 import { LinkStyled, LayoutHeaderStyled, RowStyled } from './styled';
 
@@ -19,7 +23,10 @@ const Header = (): JSX.Element => (
               key={navigation.name}
               to={navigation.link}
             >
-              {navigation.name}
+              <InlineCenter>
+                <Icon component={navigation.icon as React.ForwardRefExoticComponent<any>} />
+                {navigation.name}
+              </InlineCenter>
             </LinkStyled>
           ))}
         </Col>
