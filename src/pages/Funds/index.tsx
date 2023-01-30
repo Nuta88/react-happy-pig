@@ -32,11 +32,11 @@ const Funds = (): JSX.Element => {
   const [ deleteFund ] = useDeleteFundMutation();
   const [ createFund ] = useCreateFundMutation();
   const isShowEmptyComponent: boolean = !(funds.length > 0 || isLoading);
-  
+
   const handleOpenCreateModal = useCallback(() => {
     showModal();
   }, [ showModal ]);
-  
+
   const handleHideCreateModal = useCallback(() => {
     hideModal();
   }, [ hideModal ]);

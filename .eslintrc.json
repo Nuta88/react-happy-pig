@@ -65,7 +65,6 @@
                     "caseInsensitive": true
                 }
             }
-        ],
-        "no-trailing-whitespace": true
+        ]
     }
 }

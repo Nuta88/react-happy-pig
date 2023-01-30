@@ -44,7 +44,7 @@ export interface Income {
   id?: number;
   amount: number;
   source: keyof typeof IncomeSource;
-  date?: string;
+  date?: string
 }
 export interface IBank {
   amount: number;
