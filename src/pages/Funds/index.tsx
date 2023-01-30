@@ -28,7 +28,7 @@ const Funds = (): JSX.Element => {
   const {
     data: funds = [],
     isLoading = false
-  } = useFetchFundsQuery({});
+  } = useFetchFundsQuery(undefined, { refetchOnMountOrArgChange: true });
   const [ deleteFund ] = useDeleteFundMutation();
   const [ createFund ] = useCreateFundMutation();
   const isShowEmptyComponent: boolean = !(funds.length > 0 || isLoading);
