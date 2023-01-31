@@ -1,6 +1,11 @@
-import { screen, waitFor } from '@testing-library/react';
+import {
+  fireEvent,
+  screen,
+  waitFor
+} from '@testing-library/react';
 import { rest } from 'msw';
 
+import { IncomeSource } from '../../constants/bank';
 import { server } from '../../mock/api/server';
 import { renderWithProviders } from '../../test-utils';
 
@@ -15,7 +20,7 @@ describe('Bank tests', () => {
           {
             id: 1,
             amount: 100500,
-            source: 'GIFT',
+            source: IncomeSource.GIFT,
             data: '2023-10-11'
           }
         ]
@@ -29,6 +34,20 @@ describe('Bank tests', () => {
     await waitFor(async () => {
       expect(screen.getByText('Bank ($1,010)')).toBeInTheDocument();
       expect(screen.getByTestId('bank-page-table-title')).toHaveTextContent('Incomes');
+    });
+  });
+  test('should open and close modal', async () => {
+    await renderWithProviders(<Bank />);
+
+    expect(screen.getByTestId('bank-page-content')).toBeInTheDocument();
+    await waitFor(async () => {
+      expect(screen.getByTestId('create-income-btn')).toBeInTheDocument();
+      fireEvent.click(screen.getByTestId('create-income-btn'));
+
+      await waitFor(() => { expect(screen.queryByText('Add new income')).toBeInTheDocument(); });
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      fireEvent.click(screen.queryByText('Cancel'));
     });
   });
 });

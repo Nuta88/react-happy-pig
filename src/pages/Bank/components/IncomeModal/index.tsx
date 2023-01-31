@@ -23,7 +23,7 @@ interface IIncomeModalProps {
 function IncomeModal ({ isOpen, income, onSave, onCancel }: IIncomeModalProps): JSX.Element {
   const [ form ] = Form.useForm();
   const sourceOptions = Object.entries(IncomeSource);
-  const title: string = income ? 'Edit income' : 'Add income';
+  const title: string = income ? 'Edit income' : 'Add new income';
   const initialValues = {};
 
   const onCloseModal = (): void => {
@@ -59,7 +59,6 @@ function IncomeModal ({ isOpen, income, onSave, onCancel }: IIncomeModalProps): 
         >
           <Select
             placeholder="Select source of income"
-            onChange={() => {}}
             allowClear
           >
             {sourceOptions.map(([ key, value ]) => (
@@ -72,7 +71,7 @@ function IncomeModal ({ isOpen, income, onSave, onCancel }: IIncomeModalProps): 
           name="amount"
           rules={[ { required: true, message: 'Please input amount!' } ]}
         >
-          <Input type="number" addonAfter="$" min={1} />
+          <Input type="number" addonAfter="$" min={1} data-testid="modal-income-amount" />
         </Form.Item>
         <Form.Item
           label="Date"
