@@ -5,6 +5,7 @@ export const apiUrls = {
     rootWithId: (id: number) => `/funds/${id}`
   },
   bank: {
-    root: '/bank'
+    root: '/bank',
+    incomes: '/bank/incomes'
   }
 };

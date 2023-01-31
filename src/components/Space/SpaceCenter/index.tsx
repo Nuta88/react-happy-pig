@@ -2,7 +2,7 @@ import { Space, SpaceProps } from 'antd';
 import styled from 'styled-components';
 
 const SpaceStyled = styled(Space)`
-  display: flex;;
+  display: flex;
   justify-content: center;
   flex-direction: column;
   height: 100%;

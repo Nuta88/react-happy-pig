@@ -1,5 +1,8 @@
 import { apiUrls } from '../constants/apiUrls';
-import { IBank } from '../types';
+import {
+  IBank,
+  Income
+} from '../types';
 
 import api from './api';
 
@@ -11,10 +14,19 @@ const bankApi = api.injectEndpoints({
         params
       }),
       providesTags: [ 'Bank' ]
+    }),
+    createIncome: builder.mutation<Income, Partial<Income>>({
+      query: ({ ...body }) => ({
+        url: apiUrls.bank.incomes,
+        method: 'POST',
+        body
+      }),
+      invalidatesTags: [ 'Bank' ]
     })
   })
 });
 
 export const {
-  useFetchBankQuery
+  useFetchBankQuery,
+  useCreateIncomeMutation
 } = bankApi;

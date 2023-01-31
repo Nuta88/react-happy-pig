@@ -1,3 +1,8 @@
+import {
+  BankIcon,
+  DollarIcon
+} from '../components';
+
 import { apiUrls } from './apiUrls';
 
 export const dateFormat = 'YYYY-MM-DD';
@@ -5,10 +10,12 @@ export const dateFormat = 'YYYY-MM-DD';
 export const navigationLinks = [
   {
     name: 'Funds',
-    link: apiUrls.root
+    link: apiUrls.root,
+    icon: DollarIcon
   },
   {
     name: 'Bank',
-    link: apiUrls.bank.root
+    link: apiUrls.bank.root,
+    icon: BankIcon
   }
 ];

@@ -9,10 +9,13 @@ import ErrorBoundary from './ErrorBoundary';
 import { Form } from './Form';
 import { Input } from './Form/Input';
 import TextInput from './Form/Input/TextInput';
+import { Select, SelectOption } from './Form/Select';
 import {
   AddIcon,
   AvatarIcon,
   ArrowLeftIcon,
+  BankIcon,
+  DollarIcon,
   DeleteIcon,
   EditIcon,
   CloseIcon,
@@ -57,9 +60,13 @@ export {
   Input,
   TextInput,
   Search,
+  Select,
+  SelectOption,
   AddIcon,
   AvatarIcon,
   ArrowLeftIcon,
+  BankIcon,
+  DollarIcon,
   DeleteIcon,
   EditIcon,
   CloseIcon,
