@@ -3,10 +3,16 @@ import { memo } from 'react';
 
 import { BasicModal, Input, Select, SelectOption } from '../../../../components';
 import { IncomeSource } from '../../../../constants/bank';
+import { useUpdateIncomeMutation } from '../../../../services/bank';
 import { Income } from '../../../../types';
 import { disablePreviousDate } from '../../../../utils/date';
 
-import { IFormValues, createNewIncome } from './helpers';
+import {
+  IFormValues,
+  createInitFormValues,
+  createNewIncome,
+  updateSelectedIncome
+} from './helpers';
 
 const layout = {
   labelCol: { span: 6 },
@@ -16,15 +22,16 @@ const layout = {
 interface IIncomeModalProps {
   isOpen: boolean;
   income: Income | null;
-  onSave: (income: Income) => void;
+  onCreate: (income: Income) => void;
   onCancel: () => void
 }
 
-function IncomeModal ({ isOpen, income, onSave, onCancel }: IIncomeModalProps): JSX.Element {
+function IncomeModal ({ isOpen, income, onCreate, onCancel }: IIncomeModalProps): JSX.Element {
   const [ form ] = Form.useForm();
+  const [ updateIncome ] = useUpdateIncomeMutation();
   const sourceOptions = Object.entries(IncomeSource);
   const title: string = income ? 'Edit income' : 'Add new income';
-  const initialValues = {};
+  const initialValues = createInitFormValues(income);
 
   const onCloseModal = (): void => {
     form.resetFields();
@@ -32,8 +39,12 @@ function IncomeModal ({ isOpen, income, onSave, onCancel }: IIncomeModalProps): 
   };
 
   const onFinish = (values: IFormValues): void => {
-    form.resetFields();
-    onSave(createNewIncome(values));
+    if (income) {
+      void updateIncome(updateSelectedIncome(values, income));
+    } else {
+      onCreate(createNewIncome(values));
+    }
+    onCloseModal();
   };
 
   return (

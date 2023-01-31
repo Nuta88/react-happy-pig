@@ -34,7 +34,7 @@ const Bank = (): JSX.Element => {
   const { data: { amount, incomes = [] } = {}, isLoading } = useFetchBankQuery({});
   const [ createIncome ] = useCreateIncomeMutation();
   const [ deleteIncome ] = useDeleteIncomeMutation();
-  const columns: ColumnsType<Income> = generateColumns(deleteIncome);
+  const columns: ColumnsType<Income> = generateColumns(showModal, deleteIncome);
   const pageTitle = `Bank (${getAmount(amount)})`;
 
   const handleOpenCreateModal = useCallback(() => {
@@ -42,11 +42,6 @@ const Bank = (): JSX.Element => {
   }, [ showModal ]);
 
   const handleHideCreateModal = useCallback(() => {
-    hideModal();
-  }, [ hideModal ]);
-
-  const handleSaveIncome = useCallback((income: Income) => {
-    void createIncome(income);
     hideModal();
   }, [ hideModal ]);
 
@@ -73,12 +68,16 @@ const Bank = (): JSX.Element => {
         columns={columns}
         dataSource={incomes}
       />
-      <IncomeModal
-        income={selectedIncome}
-        isOpen={isOpenModal}
-        onCancel={handleHideCreateModal}
-        onSave={handleSaveIncome}
-      />
+      {
+        isOpenModal && (
+          <IncomeModal
+            income={selectedIncome}
+            isOpen={isOpenModal}
+            onCancel={handleHideCreateModal}
+            onCreate={createIncome}
+          />
+        )
+      }
     </Page>
   );
 };

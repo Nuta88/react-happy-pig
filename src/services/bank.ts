@@ -31,6 +31,14 @@ const bankApi = api.injectEndpoints({
         params
       }),
       invalidatesTags: [ 'Bank' ]
+    }),
+    updateIncome: builder.mutation<Income, Partial<Income>>({
+      query: ({ ...body }) => ({
+        url: apiUrls.bank.incomes,
+        method: 'PUT',
+        body
+      }),
+      invalidatesTags: [ 'Bank' ]
     })
   })
 });
@@ -38,5 +46,6 @@ const bankApi = api.injectEndpoints({
 export const {
   useFetchBankQuery,
   useCreateIncomeMutation,
+  useUpdateIncomeMutation,
   useDeleteIncomeMutation
 } = bankApi;

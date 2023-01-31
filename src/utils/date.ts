@@ -5,6 +5,8 @@ import { dateFormat } from '../constants/common';
 export type TDate = string | number | Date | dayjs.Dayjs | null | undefined;
 export type TParseDate = string | dayjs.Dayjs;
 
+export const today = dayjs();
+
 export const convertDateToString = (date: TDate): string => dayjs(date).format(dateFormat);
 
 export const disablePreviousDate = (currentDate: TDate): boolean => !dayjs().isAfter(dayjs(currentDate));
