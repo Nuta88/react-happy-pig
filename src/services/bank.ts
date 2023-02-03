@@ -1,5 +1,6 @@
 import { apiUrls } from '../constants/apiUrls';
 import {
+  Fund,
   IBank,
   Income
 } from '../types';
@@ -22,11 +23,20 @@ const bankApi = api.injectEndpoints({
         body
       }),
       invalidatesTags: [ 'Bank' ]
+    }),
+    deleteIncome: builder.mutation<Fund, number>({
+      query: (id, ...params) => ({
+        url: apiUrls.bank.incomeWithId(id),
+        method: 'DELETE',
+        params
+      }),
+      invalidatesTags: [ 'Bank' ]
     })
   })
 });
 
 export const {
   useFetchBankQuery,
-  useCreateIncomeMutation
+  useCreateIncomeMutation,
+  useDeleteIncomeMutation
 } = bankApi;

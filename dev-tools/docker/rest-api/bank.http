@@ -13,3 +13,6 @@ Content-Type: application/json
   "amount": 70000,
   "date": "2023-01-29"
 }
+
+### Delete Income By Id
+DELETE http://localhost:8080/api/bank/incomes/1

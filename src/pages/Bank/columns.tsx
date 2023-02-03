@@ -10,7 +10,7 @@ import { IncomeSource } from '../../constants/bank';
 import { Income } from '../../types';
 import { getAmount } from '../../utils/fund';
 
-export const generateColumns = (): ColumnsType<Income> => [
+export const generateColumns = (onDelete: (id: number) => void): ColumnsType<Income> => [
   {
     title: 'Source',
     dataIndex: 'source',
@@ -38,7 +38,7 @@ export const generateColumns = (): ColumnsType<Income> => [
         <Confirm
           title={`Are you sure to delete "${IncomeSource[income.source]}" income?`}
           placement="leftTop"
-          onConfirm={() => {}}
+          onConfirm={() => { onDelete(income.id as number); }}
         >
           <CircleButton type="primary" icon={<DeleteIcon />} />
         </Confirm>
