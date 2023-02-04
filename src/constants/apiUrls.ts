@@ -6,6 +6,7 @@ export const apiUrls = {
   },
   bank: {
     root: '/bank',
-    incomes: '/bank/incomes'
+    incomes: '/bank/incomes',
+    incomeWithId: (id: number) => `/bank/incomes/${id}`
   }
 };

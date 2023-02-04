@@ -11,7 +11,7 @@ import {
   Tooltip
 } from '../../components';
 import { useModal } from '../../hooks';
-import { useFetchBankQuery, useCreateIncomeMutation } from '../../services/bank';
+import { useFetchBankQuery, useCreateIncomeMutation, useDeleteIncomeMutation } from '../../services/bank';
 import { Income } from '../../types';
 import { getAmount } from '../../utils/fund';
 
@@ -33,7 +33,8 @@ const Bank = (): JSX.Element => {
   } = useModal<Income>();
   const { data: { amount, incomes = [] } = {}, isLoading } = useFetchBankQuery({});
   const [ createIncome ] = useCreateIncomeMutation();
-  const columns: ColumnsType<Income> = generateColumns();
+  const [ deleteIncome ] = useDeleteIncomeMutation();
+  const columns: ColumnsType<Income> = generateColumns(deleteIncome);
   const pageTitle = `Bank (${getAmount(amount)})`;
 
   const handleOpenCreateModal = useCallback(() => {
