@@ -40,7 +40,7 @@ export const generateColumns = (onDelete: (id: number) => void): ColumnsType<Inc
           placement="leftTop"
           onConfirm={() => { onDelete(income.id as number); }}
         >
-          <CircleButton type="primary" icon={<DeleteIcon />} />
+          <CircleButton type="primary" icon={<DeleteIcon />} data-testid="delete-income-btn" />
         </Confirm>
       </SpaceBetween>
     )

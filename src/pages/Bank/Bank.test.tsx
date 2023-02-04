@@ -22,6 +22,12 @@ describe('Bank tests', () => {
             amount: 100500,
             source: IncomeSource.GIFT,
             data: '2023-10-11'
+          },
+          {
+            id: 2,
+            amount: 100500,
+            source: IncomeSource.COMPENSATION,
+            data: '2023-10-11'
           }
         ]
       }))
@@ -34,6 +40,13 @@ describe('Bank tests', () => {
     await waitFor(async () => {
       expect(screen.getByText('Bank ($1,010)')).toBeInTheDocument();
       expect(screen.getByTestId('bank-page-table-title')).toHaveTextContent('Incomes');
+    });
+  });
+  test('should remove income', async () => {
+    await renderWithProviders(<Bank />);
+    await waitFor(async () => {
+      expect(screen.getAllByTestId('delete-income-btn')[0]).toBeInTheDocument();
+      fireEvent.click(screen.getAllByTestId('delete-income-btn')[0]);
     });
   });
   test('should open and close modal', async () => {

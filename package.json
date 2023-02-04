@@ -9,6 +9,14 @@
     "coverage": "react-scripts test --env=jsdom --watchAll=false --coverage",
     "eject": "react-scripts eject"
   },
+  "jest": {
+    "collectCoverageFrom": [
+      "!<rootDir>/src/reportWebVitals.ts",
+      "!<rootDir>/src/index.tsx",
+      "!<rootDir>/src/mock/api",
+      "!<rootDir>/src/routes/index.tsx"
+    ]
+  },
   "dependencies": {
     "@ant-design/icons": "^4.8.0",
     "@reduxjs/toolkit": "^1.9.1",
