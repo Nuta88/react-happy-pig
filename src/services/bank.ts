@@ -34,7 +34,7 @@ const bankApi = api.injectEndpoints({
     }),
     updateIncome: builder.mutation<Income, Partial<Income>>({
       query: ({ ...body }) => ({
-        url: apiUrls.bank.incomes,
+        url: apiUrls.bank.incomeWithId(body.id as number),
         method: 'PUT',
         body
       }),

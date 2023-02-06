@@ -1,4 +1,5 @@
 ### Get Bank Info Next info
+
 GET http://localhost:8080/api/bank
 Accept: application/json
 
@@ -14,5 +15,16 @@ Content-Type: application/json
   "date": "2023-01-29"
 }
 
+### Update existing Income
+PUT http://localhost:8080/api/bank/incomes/1
+Content-Type: application/json
+
+{
+  "id": null,
+  "source": "GIFT",
+  "amount": 70000,
+  "date": "2023-01-29"
+}
+
 ### Delete Income By Id
-DELETE http://localhost:8080/api/bank/incomes/1
+DELETE http://localhost:8080/api/bank/incomes/3
