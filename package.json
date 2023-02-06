@@ -13,7 +13,7 @@
     "collectCoverageFrom": [
       "!<rootDir>/src/reportWebVitals.ts",
       "!<rootDir>/src/index.tsx",
-      "!<rootDir>/src/mock/api",
+      "!<rootDir>/src/mock/api/handler.ts",
       "!<rootDir>/src/routes/index.tsx"
     ]
   },
