@@ -18,11 +18,30 @@ c. Install the app
 
 #### 5. Run command in terminal:
 
-`docker-compose up`
+```bash
+cd ./dev-tools/docker
+docker-compose up
+```
 
 #### 6. Open file ./dev-tools/docker/rest-api/fund.http and ./dev-tools/docker/rest-api/bank.http in WebStorm
 
 #### 7. This files contains BE API that could be run from WebStorm
+
+# Building a Docker image of the project, and push it to DockerHub
+
+#### 1. Run command for building a Docker image (change version of image):
+
+```bash
+docker build -t happy-pig-ui:0.0.0.1 .
+```
+
+#### 2. Run command for pushing a Docker image to DockerHub (change version of tag):
+
+```bash
+docker login docker.io
+docker tag happy-pig-ui:latest avagner/react-happy-pig:0.0.0.1
+docker push avagner/react-happy-pig:0.0.0.1
+```
 
 ## Git hooks
 

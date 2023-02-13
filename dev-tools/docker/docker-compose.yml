@@ -19,11 +19,21 @@ services:
     ports:
       - '8080:8080'
     environment:
-      SPRING_PROFILES_ACTIVE: local
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/happy_pig
+      - SPRING_PROFILES_ACTIVE=local
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/happy_pig
     restart: always
     links:
       - db
+  app-ui:
+    image: avagner/react-happy-pig:0.0.0.1
+    container_name: happy-pig-ui
+    ports:
+      - '3000:3000'
+    environment:
+      - REACT_APP_BASE_URL=http://localhost:8080/api
+    restart: always
+    links:
+      - app
 
 volumes:
   db:
