@@ -39,7 +39,7 @@ describe('Bank tests', () => {
     expect(screen.getByTestId('bank-page-content')).toBeInTheDocument();
     await waitFor(async () => {
       expect(screen.getByText('Bank ($1,010)')).toBeInTheDocument();
-      expect(screen.getByTestId('bank-page-table-title')).toHaveTextContent('Incomes');
+      expect(screen.getByText('Incomes')).toBeInTheDocument();
     });
   });
   test('should remove income', async () => {

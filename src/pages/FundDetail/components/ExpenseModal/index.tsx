@@ -5,7 +5,11 @@ import { BasicModal, Input } from '../../../../components';
 import { Expense } from '../../../../types';
 import { disablePreviousDate } from '../../../../utils/date';
 
-import { convertExpenseToFormValues, convertFormValuesToExpense, IFormValues } from './helpers';
+import {
+  convertFormValuesToExpense,
+  createInitFormValues,
+  IFormValues
+} from './helpers';
 
 const layout = {
   labelCol: { span: 6 },
@@ -22,7 +26,7 @@ interface IExpenseModalProps {
 function ExpenseModal ({ isOpen, expense, onSave, onCancel }: IExpenseModalProps): JSX.Element {
   const [ form ] = Form.useForm();
   const title: string = expense ? 'Edit expense' : 'Add expense';
-  const initialValues = expense ? convertExpenseToFormValues(expense) : {};
+  const initialValues = createInitFormValues(expense);
 
   const onCloseModal = (): void => {
     form.resetFields();

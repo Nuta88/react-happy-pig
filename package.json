@@ -14,7 +14,10 @@
       "!<rootDir>/src/reportWebVitals.ts",
       "!<rootDir>/src/index.tsx",
       "!<rootDir>/src/mock/api/handler.ts",
-      "!<rootDir>/src/routes/index.tsx"
+      "!<rootDir>/src/routes/index.tsx",
+      "!<rootDir>/src/types/*.ts",
+      "!<rootDir>/src/services/*.ts",
+      "!<rootDir>/src/assets/*"
     ]
   },
   "dependencies": {

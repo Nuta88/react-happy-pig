@@ -30,6 +30,10 @@ const FundPageTitle = ({ name = '', onChange }: IPageTitleProps): JSX.Element =>
     setFundTitle(event.target.value);
   };
 
+  const onEditFundName = (): void => {
+    setIsEditing(true);
+  };
+
   if (isEditing) {
     return (
       <TextInput
@@ -57,9 +61,11 @@ const FundPageTitle = ({ name = '', onChange }: IPageTitleProps): JSX.Element =>
   }
 
   return (
-    <span onClick={() => { setIsEditing(true); }}>
-      {`${name} Fund`}
-    </span>
+    <Tooltip title="Click to edit fund name">
+      <span onClick={onEditFundName}>
+        {`${name} Fund`}
+      </span>
+    </Tooltip>
   );
 };
 

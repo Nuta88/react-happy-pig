@@ -1,12 +1,10 @@
 import { useCallback } from 'react';
-import styled from 'styled-components';
 
 import {
   AddIcon,
   CircleButton,
   ColumnsType,
   Page,
-  SecondaryText,
   Table,
   Tooltip
 } from '../../components';
@@ -17,12 +15,6 @@ import { getAmount } from '../../utils/fund';
 
 import { generateColumns } from './columns';
 import IncomeModal from './components/IncomeModal';
-
-const TableTitleStyled = styled(SecondaryText)`
-  display: block;
-  margin-bottom: .5rem;
-  text-transform: uppercase;
-`;
 
 const Bank = (): JSX.Element => {
   const {
@@ -61,10 +53,12 @@ const Bank = (): JSX.Element => {
         </Tooltip>
       }
     >
-      <TableTitleStyled data-testid="bank-page-table-title">Incomes</TableTitleStyled>
       <Table
-        loading={isLoading}
         rowKey="id"
+        size="small"
+        title={() => 'Incomes'}
+        scroll={{ y: 350 }}
+        loading={isLoading}
         columns={columns}
         dataSource={incomes}
       />

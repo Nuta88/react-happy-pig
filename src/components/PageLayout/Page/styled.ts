@@ -25,6 +25,11 @@ export const CardStyled = styled(Card)`
   height: calc(100% - 5rem);
   overflow: auto;
   padding-bottom: 1rem;
+  background-color: #dee3eb1c;
+  
+  .ant-card-body {
+    height: 100%;
+  }
 `;
 
 export const SectionStyled = styled.section`
