@@ -4,6 +4,7 @@ import {
   convertDateToString,
   parseDate,
   TDate,
+  today,
   TParseDate
 } from '../../../../utils/date';
 import { convertToCurrency, convertToPennies } from '../../../../utils/fund';
@@ -21,6 +22,15 @@ export interface IInitialValues {
   paymentAmount: number;
   date: string | TParseDate
 }
+
+export const createInitFormValues = (expense: Expense | null): IInitialValues => {
+  if (expense) return convertExpenseToFormValues(expense);
+
+  return {
+    ...new Expense(),
+    date: today
+  };
+};
 
 export const convertExpenseToFormValues = (expense: Expense): IInitialValues => {
   return {

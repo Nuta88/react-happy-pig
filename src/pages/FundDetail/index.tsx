@@ -3,9 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import {
   CircleButton,
-  Table,
   Tooltip,
   Page,
+  Table,
   AddIcon,
   ColumnsType
 } from '../../components';
@@ -78,8 +78,11 @@ const FundDetail = (): JSX.Element => {
     >
       <Table
         rowKey="id"
+        size="small"
         columns={columns}
         dataSource={expenses}
+        title={() => 'Expenses'}
+        scroll={{ y: 350 }}
       />
       {isOpenModal && (
         <ExpenseModal

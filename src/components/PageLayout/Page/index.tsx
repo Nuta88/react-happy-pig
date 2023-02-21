@@ -28,7 +28,8 @@ const Page = ({ title = 'Page Title', isBack = false, extra, onBack, children, .
     <SectionStyled {...rest}>
       <SpaceBetween>
         <TitleStyled>
-          {isBack && <ArrowIconStyled onClick={handleBack} />}
+          {isBack && (
+            <ArrowIconStyled onClick={handleBack} />)}
           {title}
         </TitleStyled>
         {extra}

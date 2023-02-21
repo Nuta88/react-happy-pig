@@ -3,10 +3,8 @@ import {
   MouseEvent
 } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 
 import {
-  Card,
   CircleButton,
   Col,
   Confirm,
@@ -21,18 +19,7 @@ import {
   getPercentage
 } from '../../../utils/fund';
 
-const CardStyled = styled(Card)`
-  min-height: 12.75rem;
-  background-color: rgba(181,200,238,0.34);
-`;
-
-const cardBodyStyle = {
-  minHeight: 140,
-  display: 'flex',
-  flexDirection: 'column' as 'column',
-  justifyContent: 'flex-end',
-  padding: '.63rem 1.5rem'
-};
+import { CardStyled, cardHeadStyle, cardBodyStyle } from './styled';
 
 interface IFundCardProps {
   fund: Fund;
@@ -63,6 +50,7 @@ const FundCard = ({ fund, onDelete }: IFundCardProps): JSX.Element => {
     >
       <Link to={apiUrls.funds.rootWithId(fund.id as number)}>
         <CardStyled
+          headStyle={cardHeadStyle}
           bodyStyle={cardBodyStyle}
           title={title}
           extra={
