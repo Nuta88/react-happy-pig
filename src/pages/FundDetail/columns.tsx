@@ -34,7 +34,11 @@ export const generateColumns = (onDelete: TDeleteFund, showModal: TShowModal): C
     width: 100,
     render: (_, expense: Expense) => (
       <SpaceBetween size="middle">
-        <CircleButton type="primary" icon={<EditIcon />} onClick={() => { showModal(expense); }} />
+        <CircleButton
+          data-testid="edit-expense-btn"
+          icon={<EditIcon />}
+          onClick={() => { showModal(expense); }}
+        />
         <Confirm
           title={`Are you sure to delete "${expense.recipient}"?`}
           placement="leftTop"

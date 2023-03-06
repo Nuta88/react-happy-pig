@@ -1,15 +1,16 @@
 import { useUpdateFundMutation } from '../services/funds';
 import { Fund, Expense } from '../types';
+import { MutationResult } from '../types/query';
 import { upsertExpense } from '../utils/fund';
 
-interface IUpdateFund {
+interface IUpdateFund extends MutationResult {
   onUpdateOrCreateExpense: (expense: Expense) => void;
   onUpdateFundName: (name: string) => void;
   onRemoveExpense: (id: number) => void
 }
 
 export const useUpdateFund = (fund: Fund | undefined): IUpdateFund => {
-  const [ updateFund ] = useUpdateFundMutation();
+  const [ updateFund, result ] = useUpdateFundMutation();
 
   const onUpdateOrCreateExpense = (expense: Expense): void => {
     if (fund) {
@@ -29,5 +30,10 @@ export const useUpdateFund = (fund: Fund | undefined): IUpdateFund => {
     void updateFund({ ...fund, expenses });
   };
 
-  return { onUpdateOrCreateExpense, onRemoveExpense, onUpdateFundName };
+  return {
+    onUpdateOrCreateExpense,
+    onRemoveExpense,
+    onUpdateFundName,
+    ...result
+  };
 };
