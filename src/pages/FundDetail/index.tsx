@@ -1,4 +1,7 @@
-import { useCallback } from 'react';
+import {
+  useCallback,
+  useEffect
+} from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import {
@@ -11,26 +14,42 @@ import {
 } from '../../components';
 import { apiUrls } from '../../constants/apiUrls';
 import { useModal, useUpdateFund } from '../../hooks';
+import { useNotification } from '../../hooks/useNotification';
 import { useFetchFundQuery } from '../../services/funds';
 import { Expense } from '../../types';
+import { NotificationType } from '../../types/notification';
 
 import { generateColumns } from './columns';
 import ExpenseModal from './components/ExpenseModal';
 import FundPageTitle from './components/FundPageTitle';
 
 const FundDetail = (): JSX.Element => {
-  const { id } = useParams();
   const navigate = useNavigate();
+  const { id } = useParams();
   const { data: fund } = useFetchFundQuery(Number(id));
+  const { notificationContext, openNotification } = useNotification();
+  const { isOpenModal, modalContent: selectedExpense, hideModal, showModal } = useModal<Expense>();
   const {
-    isOpenModal,
-    modalContent: selectedExpense,
-    hideModal,
-    showModal
-  } = useModal<Expense>();
-  const { onUpdateOrCreateExpense, onRemoveExpense, onUpdateFundName } = useUpdateFund(fund);
+    isLoading,
+    isSuccess,
+    reset,
+    onUpdateOrCreateExpense,
+    onRemoveExpense,
+    onUpdateFundName
+  } = useUpdateFund(fund);
   const columns: ColumnsType<Expense> = generateColumns(onRemoveExpense, showModal);
   const expenses: Expense[] = fund?.expenses ?? [];
+
+  const showSuccessMessage = useCallback(() => {
+    if (isOpenModal) hideModal();
+
+    openNotification(NotificationType.SUCCESS, 'Fund was updated successfully!');
+    reset();
+  }, [ isOpenModal, openNotification, hideModal, reset ]);
+
+  useEffect(() => {
+    if (!isLoading && isSuccess) showSuccessMessage();
+  }, [ isLoading && isSuccess, showSuccessMessage ]);
 
   const navigateToFunds = (): void => {
     navigate(apiUrls.root, { replace: true });
@@ -40,25 +59,12 @@ const FundDetail = (): JSX.Element => {
     showModal();
   }, [ showModal ]);
 
-  const handleHideCreateModal = useCallback(() => {
-    hideModal();
-  }, [ hideModal ]);
-
-  const handleUpdateFund = useCallback((expense: Expense) => {
-    onUpdateOrCreateExpense(expense);
-    hideModal();
-  }, [ hideModal, onUpdateOrCreateExpense ]);
-
-  const handleUpdateFundName = useCallback((name: string) => {
-    onUpdateFundName(name);
-  }, [ onUpdateFundName ]);
-
   return (
     <Page
       title={
       <FundPageTitle
-        name={fund?.name as string}
-        onChange={handleUpdateFundName}
+        name={fund?.name ?? ''}
+        onChange={onUpdateFundName}
       />
     }
       isBack
@@ -68,7 +74,6 @@ const FundDetail = (): JSX.Element => {
         <Tooltip title="Add expense">
           <CircleButton
             size="large"
-            type="primary"
             icon={<AddIcon />}
             data-testid="fund-open-create-modal"
             onClick={handleOpenCreateModal}
@@ -76,6 +81,7 @@ const FundDetail = (): JSX.Element => {
         </Tooltip>
       }
     >
+      {notificationContext}
       <Table
         rowKey="id"
         size="small"
@@ -88,8 +94,8 @@ const FundDetail = (): JSX.Element => {
         <ExpenseModal
           isOpen={isOpenModal}
           expense={selectedExpense}
-          onSave={handleUpdateFund}
-          onCancel={handleHideCreateModal}
+          onSave={onUpdateOrCreateExpense}
+          onCancel={hideModal}
         />
       )}
     </Page>

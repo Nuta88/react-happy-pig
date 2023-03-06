@@ -5,5 +5,5 @@ import { ButtonProps } from './types';
 export const CircleButton = (
   props: ButtonProps
 ): JSX.Element => (
-  <Button shape="circle" {...props} />
+  <Button shape="circle" type="primary" {...props} />
 );

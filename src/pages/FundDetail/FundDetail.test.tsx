@@ -1,10 +1,11 @@
 import { screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { rest } from 'msw';
 
 import { server } from '../../mock/api/server';
 import { renderWithProviders } from '../../test-utils';
 
-import Fund from './index';
+import FundDetail from './index';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -39,7 +40,7 @@ describe('FundDetail tests', () => {
     )
   );
   test('should render fund and modal', async () => {
-    await renderWithProviders(<Fund />);
+    await renderWithProviders(<FundDetail />);
 
     expect(screen.getByTestId('fund-page-content')).toBeInTheDocument();
     expect(screen.getByText('Fund')).toBeInTheDocument();
@@ -53,6 +54,32 @@ describe('FundDetail tests', () => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       fireEvent.click(screen.queryByText('Cancel'));
+    });
+  });
+  test('should open edit modal', async () => {
+    const result = await renderWithProviders(<FundDetail />);
+
+    await waitFor(async () => {
+      expect(screen.getByText('Car Fund')).toBeInTheDocument();
+      expect(screen.getAllByTestId('edit-expense-btn')[0]).toBeInTheDocument();
+      userEvent.click(screen.getAllByTestId('edit-expense-btn')[0]);
+
+      await waitFor(() => {
+        expect(screen.queryByText('Edit expense')).toBeInTheDocument();
+        userEvent.type(result.container.querySelector('#expense-modal_recipient'), 'new recipient');
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
+        userEvent.click(screen.queryByText('Edit'));
+      });
+    });
+  });
+  test('should navigate to funds page', async () => {
+    await renderWithProviders(<FundDetail />);
+
+    await waitFor(async () => {
+      expect(screen.getByText('Car Fund')).toBeInTheDocument();
+      expect(screen.getByTestId('page-back-icon')).toBeInTheDocument();
+      fireEvent.click(screen.getByTestId('page-back-icon'));
     });
   });
 });

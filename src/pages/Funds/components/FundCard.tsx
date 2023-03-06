@@ -29,7 +29,7 @@ interface IFundCardProps {
 
 const FundCard = ({ fund, onDelete }: IFundCardProps): JSX.Element => {
   const title: string = `${fund.name} (${getAmount(fund.currentAmount as number)})`;
-  const confirmRemoveActivity = fund.expenses.length ? 'close' : 'delete';
+  const confirmRemoveActivity: string = fund.expenses.length ? 'close' : 'delete';
   const confirmRemoveTitle: string = `Are you sure you want to ${confirmRemoveActivity} "${fund.name}" fund?`;
   const currencyAmount: string = getAmount(fund.plannedAmount);
 

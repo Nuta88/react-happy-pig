@@ -29,7 +29,7 @@ const Page = ({ title = 'Page Title', isBack = false, extra, onBack, children, .
       <SpaceBetween>
         <TitleStyled>
           {isBack && (
-            <ArrowIconStyled onClick={handleBack} />)}
+            <ArrowIconStyled data-testid="page-back-icon" onClick={handleBack} />)}
           {title}
         </TitleStyled>
         {extra}
