@@ -2,73 +2,74 @@ import { useCallback } from 'react';
 
 import {
   AddIcon,
-  CircleButton,
   Empty,
+  TooltipIconButton,
   Page,
-  Row,
-  Tooltip
+  Row
 } from '../../components';
 import { useModal } from '../../hooks';
+import { useNotification } from '../../hooks/useNotification';
 import {
   useCreateFundMutation,
   useDeleteFundMutation,
   useFetchFundsQuery
 } from '../../services/funds';
 import { Fund } from '../../types';
+import { NotificationType } from '../../types/notification';
 
 import FundCard from './components/FundCard';
 import FundModal from './components/FundModal';
 
 const Funds = (): JSX.Element => {
-  const {
-    isOpenModal,
-    hideModal,
-    showModal
-  } = useModal();
-  const {
-    data: funds = [],
-    isLoading = false
-  } = useFetchFundsQuery(undefined, { refetchOnMountOrArgChange: true });
+  const { isOpenModal, hideModal, openModal } = useModal();
+  const { data: funds = [], isLoading } = useFetchFundsQuery(undefined, { refetchOnMountOrArgChange: true });
   const [ deleteFund ] = useDeleteFundMutation();
   const [ createFund ] = useCreateFundMutation();
-  const isShowEmptyComponent: boolean = !(funds.length > 0 || isLoading);
-
-  const handleOpenCreateModal = useCallback(() => {
-    showModal();
-  }, [ showModal ]);
-
-  const handleHideCreateModal = useCallback(() => {
-    hideModal();
-  }, [ hideModal ]);
+  const { notificationContext, openNotification } = useNotification();
+  const isEmptyComponent: boolean = !(funds.length || isLoading);
 
   const handleCreateNewFund = useCallback((fund: Fund) => {
-    void createFund(fund);
-    hideModal();
-  }, [ createFund, hideModal ]);
+    void createFund(fund)
+      .then(() => {
+        openNotification(NotificationType.SUCCESS, `Fund "${fund.name}" was created successfully!`);
+        hideModal();
+      });
+  }, [ createFund, hideModal, openNotification ]);
+
+  const handleDeleteFund = useCallback((fund: Fund) => {
+    void deleteFund(fund.id ?? 0)
+      .then(() => {
+        openNotification(NotificationType.SUCCESS, `Fund "${fund.name}" was deleted successfully!`);
+      });
+  }, [ createFund, hideModal, openNotification ]);
 
   return (
     <Page
       title="Funds"
       data-testid="funds-page-content"
       extra={
-        <Tooltip title="Add fund">
-          <CircleButton
-            size="large"
-            type="primary"
-            data-testid="create-fund-btn"
-            icon={<AddIcon />}
-            onClick={handleOpenCreateModal}
-          />
-        </Tooltip>
+        <TooltipIconButton
+          tooltip="Add fund"
+          data-testid="create-fund-btn"
+          icon={<AddIcon />}
+          onClick={openModal}
+        />
       }
     >
-      {isShowEmptyComponent && <Empty description="No funds" data-testid="empty-funds"/>}
+      {notificationContext}
+      {isEmptyComponent && <Empty description="No funds" data-testid="empty-funds"/>}
       <Row gutter={[ 16, 16 ]}>
-        {funds?.map((fund: Fund) => <FundCard key={fund.id} fund={fund} onDelete={deleteFund}/>)}
+        {funds?.map((fund: Fund) => (
+          <FundCard
+            key={fund.id}
+            fund={fund}
+            onDelete={handleDeleteFund}
+          />
+        ))}
       </Row>
       <FundModal
         isOpen={isOpenModal}
-        onCancel={handleHideCreateModal}
+        onCancel={hideModal}
         onSave={handleCreateNewFund}
       />
     </Page>

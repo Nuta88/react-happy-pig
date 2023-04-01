@@ -4,7 +4,7 @@ export const useModal = <T extends Partial<T>>(): {
   isOpenModal: boolean;
   modalContent: T | null;
   hideModal: () => void;
-  showModal: (content?: T) => void
+  openModal: (content?: T) => void
 } => {
   const [ isOpenModal, setIsShowing ] = useState<boolean>(false);
   const [ modalContent, setModalContent ] = useState<T | null>(null);
@@ -15,7 +15,7 @@ export const useModal = <T extends Partial<T>>(): {
     setIsShowing(false);
   };
 
-  const showModal = (content?: T): void => {
+  const openModal = (content?: T): void => {
     if (content) setModalContent(content);
 
     setIsShowing(true);
@@ -25,6 +25,6 @@ export const useModal = <T extends Partial<T>>(): {
     isOpenModal,
     modalContent,
     hideModal,
-    showModal
+    openModal
   };
 };

@@ -1,6 +1,7 @@
 import { Button } from './Buttons';
 import { CircleButton } from './Buttons/CircleButton';
 import { IconButton } from './Buttons/IconButton';
+import { TooltipIconButton } from './Buttons/TooltipIconButton';
 import { Card } from './Card';
 import { Col } from './Col';
 import { Confirm } from './Confirm';
@@ -70,7 +71,8 @@ export {
   DeleteIcon,
   EditIcon,
   CloseIcon,
-  CheckIcon
+  CheckIcon,
+  TooltipIconButton
 };
 
 export type { ColumnsType };

@@ -23,10 +23,14 @@ interface IExpenseModalProps {
   onCancel: () => void
 }
 
-function ExpenseModal ({ isOpen, expense, onSave, onCancel }: IExpenseModalProps): JSX.Element {
-  const [ form ] = Form.useForm();
+function ExpenseModal ({ isOpen, expense, onSave, onCancel }: IExpenseModalProps): JSX.Element | null {
   const title: string = expense ? 'Edit expense' : 'Add expense';
-  const initialValues = createInitFormValues(expense);
+
+  if (!isOpen) {
+    return null;
+  }
+
+  const [ form ] = Form.useForm();
 
   const onCloseModal = (): void => {
     form.resetFields();
@@ -49,7 +53,7 @@ function ExpenseModal ({ isOpen, expense, onSave, onCancel }: IExpenseModalProps
       <Form
         form={form}
         {...layout}
-        initialValues={initialValues}
+        initialValues={createInitFormValues(expense)}
         name="expense-modal"
         autoComplete="off"
         onFinish={onFinish}

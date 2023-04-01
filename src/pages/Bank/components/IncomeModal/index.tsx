@@ -26,12 +26,15 @@ interface IIncomeModalProps {
   onCancel: () => void
 }
 
-function IncomeModal ({ isOpen, income, onCreate, onCancel }: IIncomeModalProps): JSX.Element {
-  const [ form ] = Form.useForm();
-  const [ updateIncome ] = useUpdateIncomeMutation();
-  const sourceOptions = Object.entries(IncomeSource);
+function IncomeModal ({ isOpen, income, onCreate, onCancel }: IIncomeModalProps): JSX.Element | null {
+  if (!isOpen) {
+    return null;
+  }
   const title: string = income ? 'Edit income' : 'Add new income';
+  const sourceOptions = Object.entries(IncomeSource);
   const initialValues = createInitFormValues(income);
+  const [ updateIncome ] = useUpdateIncomeMutation();
+  const [ form ] = Form.useForm();
 
   const onCloseModal = (): void => {
     form.resetFields();
