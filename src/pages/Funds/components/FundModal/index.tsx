@@ -21,7 +21,7 @@ interface IFundModalProps {
   onCancel: () => void
 }
 
-const FundModal = ({ isOpen, onSave, onCancel }: IFundModalProps): JSX.Element => {
+const FundModal = ({ isOpen = false, onSave, onCancel }: IFundModalProps): JSX.Element => {
   const [ form ] = Form.useForm();
 
   const onCloseModal = (): void => {
@@ -68,10 +68,6 @@ const FundModal = ({ isOpen, onSave, onCancel }: IFundModalProps): JSX.Element =
       </Form>
     </BasicModal>
   );
-};
-
-FundModal.defaultProps = {
-  isOpen: false
 };
 
 export default memo(FundModal);

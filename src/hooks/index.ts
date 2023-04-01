@@ -1,4 +1,4 @@
 import { useModal } from './useModal';
-import { useUpdateFund } from './useUpdateFund';
+import { useNotification } from './useNotification';
 
-export { useModal, useUpdateFund };
+export { useModal, useNotification };

@@ -22,9 +22,15 @@ import {
 
 import { CardStyled, cardHeadStyle, cardBodyStyle } from './styled';
 
+const layout = {
+  xs: 24,
+  md: 12,
+  lg: 8
+};
+
 interface IFundCardProps {
   fund: Fund;
-  onDelete: (fundId: number) => void
+  onDelete: (fund: Fund) => void
 }
 
 const FundCard = ({ fund, onDelete }: IFundCardProps): JSX.Element => {
@@ -32,6 +38,7 @@ const FundCard = ({ fund, onDelete }: IFundCardProps): JSX.Element => {
   const confirmRemoveActivity: string = fund.expenses.length ? 'close' : 'delete';
   const confirmRemoveTitle: string = `Are you sure you want to ${confirmRemoveActivity} "${fund.name}" fund?`;
   const currencyAmount: string = getAmount(fund.plannedAmount);
+  const fundDetailLocation: string = apiUrls.funds.rootWithId(fund.id ?? 0);
 
   const handlePreventFundOpening = (event: MouseEvent<HTMLElement> | undefined): void => {
     event?.stopPropagation();
@@ -40,17 +47,15 @@ const FundCard = ({ fund, onDelete }: IFundCardProps): JSX.Element => {
 
   const onRemoveFund = (event: MouseEvent<HTMLElement> | undefined): void => {
     handlePreventFundOpening(event);
-    onDelete(fund.id as number);
+    onDelete(fund);
   };
 
   return (
     <Col
-      xs={24}
-      md={12}
-      lg={8}
+      {...layout}
       data-testid={`fund-${fund.name}`}
     >
-      <Link to={apiUrls.funds.rootWithId(fund.id as number)}>
+      <Link to={fundDetailLocation}>
         <CardStyled
           headStyle={cardHeadStyle}
           bodyStyle={cardBodyStyle}
@@ -62,7 +67,6 @@ const FundCard = ({ fund, onDelete }: IFundCardProps): JSX.Element => {
               onCancel={handlePreventFundOpening}
             >
               <CircleButton
-                type="primary"
                 icon={fund.expenses.length ? <CloseIcon /> : <DeleteIcon />}
                 data-fund={fund.id}
                 data-testid={`fund-${fund.name}-remove-fund`}

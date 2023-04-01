@@ -2,11 +2,10 @@ import { useCallback } from 'react';
 
 import {
   AddIcon,
-  CircleButton,
   ColumnsType,
   Page,
   Table,
-  Tooltip
+  TooltipIconButton
 } from '../../components';
 import { useModal } from '../../hooks';
 import { useFetchBankQuery, useCreateIncomeMutation, useDeleteIncomeMutation } from '../../services/bank';
@@ -21,36 +20,30 @@ const Bank = (): JSX.Element => {
     isOpenModal,
     modalContent: selectedIncome,
     hideModal,
-    showModal
+    openModal
   } = useModal<Income>();
   const { data: { amount, incomes = [] } = {}, isLoading } = useFetchBankQuery({});
   const [ createIncome ] = useCreateIncomeMutation();
   const [ deleteIncome ] = useDeleteIncomeMutation();
-  const columns: ColumnsType<Income> = generateColumns(showModal, deleteIncome);
+  const columns: ColumnsType<Income> = generateColumns(openModal, deleteIncome);
   const pageTitle = `Bank (${getAmount(amount)})`;
 
   const handleOpenCreateModal = useCallback(() => {
-    showModal();
-  }, [ showModal ]);
-
-  const handleHideCreateModal = useCallback(() => {
-    hideModal();
-  }, [ hideModal ]);
+    openModal();
+  }, [ openModal ]);
 
   return (
     <Page
       title={pageTitle}
       data-testid="bank-page-content"
       extra={
-        <Tooltip title="Add income">
-          <CircleButton
-            size="large"
-            type="primary"
-            data-testid="create-income-btn"
-            icon={<AddIcon />}
-            onClick={handleOpenCreateModal}
-          />
-        </Tooltip>
+        <TooltipIconButton
+          tooltip="Add income"
+          size="large"
+          icon={<AddIcon />}
+          data-testid="create-income-btn"
+          onClick={handleOpenCreateModal}
+        />
       }
     >
       <Table
@@ -62,16 +55,12 @@ const Bank = (): JSX.Element => {
         columns={columns}
         dataSource={incomes}
       />
-      {
-        isOpenModal && (
-          <IncomeModal
-            income={selectedIncome}
-            isOpen={isOpenModal}
-            onCancel={handleHideCreateModal}
-            onCreate={createIncome}
-          />
-        )
-      }
+      <IncomeModal
+        income={selectedIncome}
+        isOpen={isOpenModal}
+        onCancel={hideModal}
+        onCreate={createIncome}
+      />
     </Page>
   );
 };
