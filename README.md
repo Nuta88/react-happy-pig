@@ -47,9 +47,13 @@ docker push avagner/react-happy-pig:0.0.0.1
 
 Tune git hook to check git message convention (from root directory):
 
-### git config --local core.hooksPath dev-tools/git/hooks/
-
+```shell
+git config --local core.hooksPath dev-tools/git/hooks/
+```
+Grant read/write/execute permissions to git hook file (e.g. commit-msg):
+```shell
 chmod 755 dev-tools/git/hooks/commit-msg
+```
 
 ## Available Scripts
 
