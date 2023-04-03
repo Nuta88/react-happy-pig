@@ -6,7 +6,7 @@ import { SpaceBetween } from '../../Space/SpaceBetween';
 import { ArrowIconStyled, SectionStyled, CardStyled, TitleStyled } from './styled';
 
 interface IPageProps {
-  title: string | ReactNode;
+  title?: string | ReactNode;
   isBack?: boolean;
   extra?: ReactNode;
   children: ReactNode;

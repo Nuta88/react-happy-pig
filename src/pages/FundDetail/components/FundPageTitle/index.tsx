@@ -13,12 +13,13 @@ interface IPageTitleProps {
   onChange: (title: string) => void
 }
 
-const FundPageTitle = ({ name = '', onChange }: IPageTitleProps): JSX.Element => {
+const FundPageTitle = ({ name, onChange }: IPageTitleProps): JSX.Element => {
   const [ isEditing, setIsEditing ] = useState<boolean>(false);
   const [ fundTitle, setFundTitle ] = useState<string>(name);
 
   const onCloseEditing = (): void => {
     setIsEditing(false);
+    setFundTitle(name);
   };
 
   const onSaveTitle = (): void => {
@@ -38,7 +39,9 @@ const FundPageTitle = ({ name = '', onChange }: IPageTitleProps): JSX.Element =>
     return (
       <TextInput
         defaultValue={name}
+        data-testid="fund-page-title-input"
         onChange={onChangeFundTitle}
+        maxLength={50}
         suffix={
           <>
             <Tooltip title="Save fund name">
@@ -46,12 +49,13 @@ const FundPageTitle = ({ name = '', onChange }: IPageTitleProps): JSX.Element =>
                 icon={<CheckIcon />}
                 size="small"
                 onClick={onSaveTitle}
-                disabled={!fundTitle || (fundTitle === name)}
+                disabled={fundTitle?.length < 2 || (fundTitle === name)}
               />
             </Tooltip>
             <IconButton
               icon={<CloseIcon />}
               size="small"
+              data-testid="fund-page-title-input-close"
               onClick={onCloseEditing}
             />
           </>
@@ -62,7 +66,7 @@ const FundPageTitle = ({ name = '', onChange }: IPageTitleProps): JSX.Element =>
 
   return (
     <Tooltip title="Click to edit fund name">
-      <span onClick={onEditFundName}>
+      <span onClick={onEditFundName} data-testid="fund-page-title">
         {`${name} Fund`}
       </span>
     </Tooltip>

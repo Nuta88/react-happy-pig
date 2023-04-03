@@ -82,4 +82,16 @@ describe('FundDetail tests', () => {
       fireEvent.click(screen.getByTestId('page-back-icon'));
     });
   });
+  test('should editing fund title', async () => {
+    await renderWithProviders(<FundDetail />);
+
+    await waitFor(async () => {
+      expect(screen.getByText('Car Fund')).toBeInTheDocument();
+      expect(screen.getByTestId('fund-page-title')).toBeInTheDocument();
+      fireEvent.click(screen.getByTestId('fund-page-title'));
+      expect(screen.getByTestId('fund-page-title-input')).toBeInTheDocument();
+      expect(screen.getByTestId('fund-page-title-input-close')).toBeInTheDocument();
+      fireEvent.click(screen.getByTestId('fund-page-title-input-close'));
+    });
+  });
 });

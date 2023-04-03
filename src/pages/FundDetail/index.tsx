@@ -50,7 +50,6 @@ const FundDetail = (): JSX.Element => {
       extra={
         <TooltipIconButton
           tooltip="Add expense"
-          size="large"
           icon={<AddIcon />}
           data-testid="fund-open-create-modal"
           onClick={handleOpenCreateModal}

@@ -31,7 +31,7 @@ export const createInitFormValues = (income: Income | null): IFormValues => {
 
   return {
     source: null,
-    amount: 0,
+    amount: 1,
     date: today
   };
 };
@@ -46,6 +46,7 @@ export const createNewIncome = (values: IFormValues): Income => (
 export const updateSelectedIncome = (values: IFormValues, income: Income): Income => (
   {
     ...income,
+    source: values.source as keyof typeof IncomeSource,
     amount: convertToPennies(values.amount),
     date: convertDateToString(values.date)
   }

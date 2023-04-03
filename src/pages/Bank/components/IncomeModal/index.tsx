@@ -69,7 +69,15 @@ function IncomeModal ({ isOpen, income, onCreate, onCancel }: IIncomeModalProps)
         <Form.Item
           name="source"
           label="Source"
-          rules={[ { required: true, message: 'Please input source!' } ]}
+          rules={[
+            { required: true, message: 'Please input source!' },
+            {
+              type: 'string',
+              min: 2,
+              max: 50,
+              message: 'Source must be from 2 characters to 50 characters!'
+            }
+          ]}
         >
           <Select
             placeholder="Select source of income"
@@ -83,7 +91,14 @@ function IncomeModal ({ isOpen, income, onCreate, onCancel }: IIncomeModalProps)
         <Form.Item
           label="Amount"
           name="amount"
-          rules={[ { required: true, message: 'Please input amount!' } ]}
+          rules={[
+            { required: true, message: 'Please input Amount!' },
+            {
+              type: 'number',
+              min: 1,
+              message: 'Amount must be minimum 1 characters!'
+            }
+          ]}
         >
           <Input type="number" addonAfter="$" min={1} data-testid="modal-income-amount" />
         </Form.Item>
