@@ -40,6 +40,7 @@ const FundPageTitle = ({ name, onChange }: IPageTitleProps): JSX.Element => {
         defaultValue={name}
         data-testid="fund-page-title-input"
         onChange={onChangeFundTitle}
+        maxLength={50}
         suffix={
           <>
             <Tooltip title="Save fund name">
@@ -47,7 +48,7 @@ const FundPageTitle = ({ name, onChange }: IPageTitleProps): JSX.Element => {
                 icon={<CheckIcon />}
                 size="small"
                 onClick={onSaveTitle}
-                disabled={!fundTitle || (fundTitle === name)}
+                disabled={fundTitle.length < 2 || (fundTitle === name)}
               />
             </Tooltip>
             <IconButton
