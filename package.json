@@ -17,7 +17,8 @@
       "!<rootDir>/src/routes/index.tsx",
       "!<rootDir>/src/types/*.ts",
       "!<rootDir>/src/services/*.ts",
-      "!<rootDir>/src/assets/*"
+      "!<rootDir>/src/assets/*",
+      "!<rootDir>/src/test-utils.tsx"
     ]
   },
   "dependencies": {

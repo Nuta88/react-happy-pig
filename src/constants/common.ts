@@ -10,7 +10,7 @@ export const dateFormat = 'YYYY-MM-DD';
 export const navigationLinks = [
   {
     name: 'Funds',
-    link: apiUrls.root,
+    link: apiUrls.funds.root,
     icon: DollarIcon
   },
   {

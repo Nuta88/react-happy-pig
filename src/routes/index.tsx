@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 
 import { PageLayout, ErrorBoundary } from '../components';
 
@@ -14,6 +14,10 @@ const routers = createBrowserRouter([
     children: [
       {
         path: '/',
+        element: <Navigate to="/funds" replace />
+      },
+      {
+        path: '/funds',
         element: <Funds />
       },
       {

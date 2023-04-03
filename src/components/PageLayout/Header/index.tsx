@@ -12,9 +12,7 @@ import { InlineCenter } from '../../Space/InlineCenter';
 import { LinkStyled, LayoutHeaderStyled, RowStyled } from './styled';
 
 const Header = (): JSX.Element => (
-    <LayoutHeaderStyled
-      data-testid="layout-header"
-    >
+    <LayoutHeaderStyled data-testid="layout-header">
       <RowStyled align="middle">
         <Col flex={1}>Happy pig</Col>
         <Col flex={1}>

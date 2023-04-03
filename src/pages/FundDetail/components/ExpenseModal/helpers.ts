@@ -28,6 +28,7 @@ export const createInitFormValues = (expense: Expense | null): IInitialValues =>
 
   return {
     ...new Expense(),
+    paymentAmount: 1,
     date: today
   };
 };

@@ -24,12 +24,12 @@ interface IExpenseModalProps {
 }
 
 function ExpenseModal ({ isOpen, expense, onSave, onCancel }: IExpenseModalProps): JSX.Element | null {
-  const title: string = expense ? 'Edit expense' : 'Add expense';
-
   if (!isOpen) {
     return null;
   }
 
+  const title: string = expense ? 'Edit expense' : 'Add expense';
+  const initialValues = createInitFormValues(expense);
   const [ form ] = Form.useForm();
 
   const onCloseModal = (): void => {
@@ -53,7 +53,7 @@ function ExpenseModal ({ isOpen, expense, onSave, onCancel }: IExpenseModalProps
       <Form
         form={form}
         {...layout}
-        initialValues={createInitFormValues(expense)}
+        initialValues={initialValues}
         name="expense-modal"
         autoComplete="off"
         onFinish={onFinish}
@@ -62,14 +62,29 @@ function ExpenseModal ({ isOpen, expense, onSave, onCancel }: IExpenseModalProps
           label="Recipient"
           name="recipient"
           data-testid="recipient"
-          rules={[ { required: true, message: 'Please input recipient!' } ]}
+          rules={[
+            { required: true, message: 'Please input recipient!' },
+            {
+              type: 'string',
+              min: 2,
+              max: 50,
+              message: 'Recipient must be from 2 characters to 50 characters!'
+            }
+          ]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           label="Amount"
           name="paymentAmount"
-          rules={[ { required: true, message: 'Please input Amount!' } ]}
+          rules={[
+            { required: true, message: 'Please input Amount!' },
+            {
+              type: 'number',
+              min: 1,
+              message: 'Amount must be minimum 1 characters!'
+            }
+          ]}
         >
           <Input type="number" addonAfter="$" min={1} />
         </Form.Item>
