@@ -19,6 +19,7 @@ const FundPageTitle = ({ name, onChange }: IPageTitleProps): JSX.Element => {
 
   const onCloseEditing = (): void => {
     setIsEditing(false);
+    setFundTitle(name);
   };
 
   const onSaveTitle = (): void => {
@@ -48,7 +49,7 @@ const FundPageTitle = ({ name, onChange }: IPageTitleProps): JSX.Element => {
                 icon={<CheckIcon />}
                 size="small"
                 onClick={onSaveTitle}
-                disabled={fundTitle.length < 2 || (fundTitle === name)}
+                disabled={fundTitle?.length < 2 || (fundTitle === name)}
               />
             </Tooltip>
             <IconButton
