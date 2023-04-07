@@ -10,3 +10,5 @@ export const apiUrls = {
     incomeWithId: (id: number) => `/bank/incomes/${id}`
   }
 };
+
+export const authorizedPaths = [ '/login', '/register' ];

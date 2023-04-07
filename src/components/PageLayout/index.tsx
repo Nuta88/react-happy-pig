@@ -1,9 +1,8 @@
 import { Layout } from 'antd';
-import { Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, Navigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Loading } from '../index';
+import { useAuth } from '../../hooks';
 
 import Header from './Header';
 
@@ -16,15 +15,19 @@ const ContentStyled = styled(Content)`
   padding: 1rem 2rem;
 `;
 
-const PageLayout = (): JSX.Element => (
+const PageLayout = (): JSX.Element => {
+  const { isUserAuthorized, isAuthorizedPaths } = useAuth();
+
+  if (!isUserAuthorized && !isAuthorizedPaths) return <Navigate to="/login" />;
+
+  return (
     <>
       <Header />
       <ContentStyled data-testid="layout-content">
-        <Suspense fallback={<Loading />}>
-          <Outlet />
-        </Suspense>
+        <Outlet />
       </ContentStyled>
     </>
-);
+  );
+};
 
 export default PageLayout;

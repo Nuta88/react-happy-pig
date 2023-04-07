@@ -1,14 +1,20 @@
+import { AuthPageLayout } from './AuthPageLayout';
+import { AuthForm } from './AuthPageLayout/Page';
 import { Button } from './Buttons';
 import { CircleButton } from './Buttons/CircleButton';
 import { IconButton } from './Buttons/IconButton';
+import { SubmitButton } from './Buttons/SubmitButton';
+import { TextButton } from './Buttons/TextButton';
 import { TooltipIconButton } from './Buttons/TooltipIconButton';
 import { Card } from './Card';
 import { Col } from './Col';
 import { Confirm } from './Confirm';
+import { Dropdown } from './Dropdown';
 import { EmptyData } from './EmptyData';
 import ErrorBoundary from './ErrorBoundary';
 import { Form } from './Form';
 import { Input } from './Form/Input';
+import PasswordInput from './Form/Input/PasswordInput';
 import TextInput from './Form/Input/TextInput';
 import { Select, SelectOption } from './Form/Select';
 import {
@@ -20,7 +26,10 @@ import {
   DeleteIcon,
   EditIcon,
   CloseIcon,
-  CheckIcon
+  CheckIcon,
+  LockIcon,
+  MailIcon,
+  LogoutIcon
 } from './Icons';
 import { Loading } from './Loading';
 import { BasicModal } from './Modal';
@@ -33,11 +42,15 @@ import { SpaceBetween } from './Space/SpaceBetween';
 import { SpaceCenter } from './Space/SpaceCenter';
 import { Table, ColumnsType } from './Table';
 import { Tooltip } from './Tooltip';
+import { Link } from './Typography/Link';
 import { SecondaryText } from './Typography/SecondaryText';
 import { Title } from './Typography/Title';
 
 export {
+  AuthPageLayout,
+  AuthForm,
   Button,
+  SubmitButton,
   EmptyData as Empty,
   PageLayout,
   Loading,
@@ -51,6 +64,7 @@ export {
   IconButton,
   SecondaryText,
   Title,
+  Link,
   Confirm,
   Table,
   BasicModal,
@@ -60,6 +74,7 @@ export {
   Form,
   Input,
   TextInput,
+  PasswordInput,
   Search,
   Select,
   SelectOption,
@@ -72,7 +87,12 @@ export {
   EditIcon,
   CloseIcon,
   CheckIcon,
-  TooltipIconButton
+  LockIcon,
+  MailIcon,
+  LogoutIcon,
+  TooltipIconButton,
+  TextButton,
+  Dropdown
 };
 
 export type { ColumnsType };

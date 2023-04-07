@@ -1,8 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
 import notFound from '../../assets/page-found.png';
 import { apiUrls } from '../../constants/apiUrls';
 import { Button, SpaceCenter, Title } from '../index';

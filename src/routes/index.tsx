@@ -1,11 +1,13 @@
 import { lazy } from 'react';
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 
-import { PageLayout, ErrorBoundary } from '../components';
+import { AuthPageLayout, PageLayout, ErrorBoundary } from '../components';
 
 const Funds = lazy(async (): Promise<{ readonly default: () => JSX.Element }> => await import('../pages/Funds'));
 const FundDetail = lazy(async (): Promise<{ readonly default: () => JSX.Element }> => await import('../pages/FundDetail'));
 const Bank = lazy(async (): Promise<{ readonly default: () => JSX.Element }> => await import('../pages/Bank'));
+const Login = lazy(async (): Promise<{ readonly default: () => JSX.Element }> => await import('../pages/Login'));
+const Register = lazy(async (): Promise<{ readonly default: () => JSX.Element }> => await import('../pages/Register'));
 
 const routers = createBrowserRouter([
   {
@@ -17,7 +19,7 @@ const routers = createBrowserRouter([
         element: <Navigate to="/funds" replace />
       },
       {
-        path: '/funds',
+        path: 'funds',
         element: <Funds />
       },
       {
@@ -27,6 +29,20 @@ const routers = createBrowserRouter([
       {
         path: 'bank',
         element: <Bank />
+      }
+    ]
+  },
+  {
+    element: <AuthPageLayout />,
+    errorElement: <ErrorBoundary />,
+    children: [
+      {
+        path: 'login',
+        element: <Login />
+      },
+      {
+        path: 'register',
+        element: <Register />
       }
     ]
   }
