@@ -2,6 +2,7 @@ import { Layout } from 'antd';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { Col } from '../../Col';
 import { Row } from '../../Row';
 
 const { Header: LayoutHeader } = Layout;
@@ -19,7 +20,12 @@ export const LayoutHeaderStyled = styled(LayoutHeader)`
 
 export const RowStyled = styled(Row)`
   height: 100%;
-  padding: 1rem;
+  padding: 1rem 2rem;
+`;
+
+export const ColStyled = styled(Col)`
+  display: flex;
+  justify-content: center;
 `;
 
 export const LinkStyled = styled(NavLink)`
@@ -34,4 +40,8 @@ export const LinkStyled = styled(NavLink)`
   &:hover {
     color: #92bfdc;
   }
+`;
+
+export const LogoStyled = styled.img`
+  height: 2.3rem;
 `;

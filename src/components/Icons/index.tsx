@@ -7,7 +7,10 @@ import {
   CheckOutlined,
   CloseOutlined,
   BankOutlined,
-  DollarOutlined
+  DollarOutlined,
+  LockOutlined,
+  MailOutlined,
+  LogoutOutlined
 } from '@ant-design/icons';
 
 export {
@@ -19,5 +22,8 @@ export {
   CheckOutlined as CheckIcon,
   CloseOutlined as CloseIcon,
   BankOutlined as BankIcon,
-  DollarOutlined as DollarIcon
+  DollarOutlined as DollarIcon,
+  LockOutlined as LockIcon,
+  MailOutlined as MailIcon,
+  LogoutOutlined as LogoutIcon
 };
