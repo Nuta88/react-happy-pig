@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, FC } from 'react';
 
 import {
   TextInput,
@@ -13,7 +13,7 @@ interface IPageTitleProps {
   onChange: (title: string) => void
 }
 
-const FundPageTitle = ({ name, onChange }: IPageTitleProps): JSX.Element => {
+const FundPageTitle: FC<IPageTitleProps> = ({ name, onChange }) => {
   const [ isEditing, setIsEditing ] = useState<boolean>(false);
   const [ fundTitle, setFundTitle ] = useState<string>(name);
 

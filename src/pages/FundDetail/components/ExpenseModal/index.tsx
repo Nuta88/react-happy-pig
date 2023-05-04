@@ -1,7 +1,8 @@
 import { Form } from 'antd';
-import { memo } from 'react';
+import { memo, FC } from 'react';
 
 import { BasicModal, Input } from '../../../../components';
+import { layout } from '../../../../constants/form';
 import { Expense } from '../../../../types';
 import { disablePreviousDate } from '../../../../utils/date';
 
@@ -11,11 +12,6 @@ import {
   IFormValues
 } from './helpers';
 
-const layout = {
-  labelCol: { span: 6 },
-  wrapperCol: { span: 32 }
-};
-
 interface IExpenseModalProps {
   isOpen: boolean;
   expense: Expense | null;
@@ -23,11 +19,7 @@ interface IExpenseModalProps {
   onCancel: () => void
 }
 
-function ExpenseModal ({ isOpen, expense, onSave, onCancel }: IExpenseModalProps): JSX.Element | null {
-  if (!isOpen) {
-    return null;
-  }
-
+const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, onSave, onCancel }) => {
   const title: string = expense ? 'Edit expense' : 'Add expense';
   const initialValues = createInitFormValues(expense);
   const [ form ] = Form.useForm();
@@ -107,10 +99,6 @@ function ExpenseModal ({ isOpen, expense, onSave, onCancel }: IExpenseModalProps
       </Form>
     </BasicModal>
   );
-}
-
-ExpenseModal.defaultProps = {
-  isOpen: false
 };
 
 export default memo(ExpenseModal);

@@ -1,5 +1,5 @@
 import Icon from '@ant-design/icons';
-import React from 'react';
+import { ForwardRefExoticComponent } from 'react';
 
 import logo from '../../../assets/logo.png';
 import { apiUrls } from '../../../constants/apiUrls';
@@ -26,13 +26,6 @@ import {
 const Header = (): JSX.Element => {
   const { onLogout } = useAuth();
 
-  const menuList = [
-    {
-      label: <TextButton icon={<LogoutIcon />} onClick={onLogout}>Logout</TextButton>,
-      key: 'logout'
-    }
-  ];
-
   return (
     <LayoutHeaderStyled data-testid="layout-header">
       <RowStyled align="middle" gutter={[ 16, 16 ]}>
@@ -48,14 +41,21 @@ const Header = (): JSX.Element => {
               to={navigation.link}
             >
               <InlineCenter>
-                <Icon component={navigation.icon as React.ForwardRefExoticComponent<any>} />
+                <Icon component={navigation.icon as ForwardRefExoticComponent<any>} />
                 {navigation.name}
               </InlineCenter>
             </LinkStyled>
           ))}
         </ColStyled>
         <Col>
-          <Dropdown items={menuList}>
+          <Dropdown items={
+            [
+              {
+                label: <TextButton icon={<LogoutIcon />} onClick={onLogout}>Logout</TextButton>,
+                key: 'logout'
+              }
+            ]
+          }>
             <CircleButton size="large" icon={<AvatarIcon />} />
           </Dropdown>
         </Col>

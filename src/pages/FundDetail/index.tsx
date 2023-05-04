@@ -65,12 +65,14 @@ const FundDetail = (): JSX.Element => {
         title={() => 'Expenses'}
         scroll={{ y: 350 }}
       />
-      <ExpenseModal
-        isOpen={isOpenModal}
-        expense={selectedExpense}
-        onSave={onUpdateOrCreateExpense}
-        onCancel={hideModal}
-      />
+      {isOpenModal && (
+        <ExpenseModal
+          isOpen={isOpenModal}
+          expense={selectedExpense}
+          onSave={onUpdateOrCreateExpense}
+          onCancel={hideModal}
+        />
+      )}
     </Page>
   );
 };

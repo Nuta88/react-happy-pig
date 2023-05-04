@@ -1,5 +1,6 @@
 import {
   memo,
+  FC,
   MouseEvent
 } from 'react';
 import { Link } from 'react-router-dom';
@@ -33,7 +34,7 @@ interface IFundCardProps {
   onDelete: (fund: Fund) => void
 }
 
-const FundCard = ({ fund, onDelete }: IFundCardProps): JSX.Element => {
+const FundCard: FC<IFundCardProps> = ({ fund, onDelete }) => {
   const title: string = `${fund.name} (${getAmount(fund.currentAmount as number)})`;
   const confirmRemoveActivity: string = fund.expenses.length ? 'close' : 'delete';
   const confirmRemoveTitle: string = `Are you sure you want to ${confirmRemoveActivity} "${fund.name}" fund?`;

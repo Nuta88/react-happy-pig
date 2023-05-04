@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { SpaceBetween } from '../../Space/SpaceBetween';
@@ -13,15 +13,22 @@ interface IPageProps {
   onBack?: () => void
 }
 
-const Page = ({ title = 'Page Title', isBack = false, extra, onBack, children, ...rest }: IPageProps): JSX.Element => {
+const Page: FC<IPageProps> = ({
+  title = 'Page Title',
+  isBack = false,
+  extra,
+  onBack,
+  children,
+  ...rest
+}) => {
   const navigate = useNavigate();
 
   const handleBack = (): void => {
     if (onBack) {
       onBack();
-    } else {
-      navigate(-1);
+      return;
     }
+    navigate(-1);
   };
 
   return (

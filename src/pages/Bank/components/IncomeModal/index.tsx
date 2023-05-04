@@ -1,8 +1,9 @@
 import { Form } from 'antd';
-import { memo } from 'react';
+import { memo, FC } from 'react';
 
 import { BasicModal, Input, Select, SelectOption } from '../../../../components';
 import { IncomeSource } from '../../../../constants/bank';
+import { layout } from '../../../../constants/form';
 import { useUpdateIncomeMutation } from '../../../../services/bank';
 import { Income } from '../../../../types';
 import { disablePreviousDate } from '../../../../utils/date';
@@ -14,11 +15,6 @@ import {
   updateSelectedIncome
 } from './helpers';
 
-const layout = {
-  labelCol: { span: 6 },
-  wrapperCol: { span: 32 }
-};
-
 interface IIncomeModalProps {
   isOpen: boolean;
   income: Income | null;
@@ -26,10 +22,7 @@ interface IIncomeModalProps {
   onCancel: () => void
 }
 
-function IncomeModal ({ isOpen, income, onCreate, onCancel }: IIncomeModalProps): JSX.Element | null {
-  if (!isOpen) {
-    return null;
-  }
+const IncomeModal: FC<IIncomeModalProps> = ({ isOpen, income, onCreate, onCancel }) => {
   const title: string = income ? 'Edit income' : 'Add new income';
   const sourceOptions = Object.entries(IncomeSource);
   const initialValues = createInitFormValues(income);
@@ -113,6 +106,6 @@ function IncomeModal ({ isOpen, income, onCreate, onCancel }: IIncomeModalProps)
       </Form>
     </BasicModal>
   );
-}
+};
 
 export default memo(IncomeModal);

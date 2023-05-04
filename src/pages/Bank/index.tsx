@@ -55,12 +55,14 @@ const Bank = (): JSX.Element => {
         columns={columns}
         dataSource={incomes}
       />
-      <IncomeModal
-        income={selectedIncome}
-        isOpen={isOpenModal}
-        onCancel={hideModal}
-        onCreate={createIncome}
-      />
+      {isOpenModal && (
+        <IncomeModal
+          income={selectedIncome}
+          isOpen={isOpenModal}
+          onCancel={hideModal}
+          onCreate={createIncome}
+        />
+      )}
     </Page>
   );
 };

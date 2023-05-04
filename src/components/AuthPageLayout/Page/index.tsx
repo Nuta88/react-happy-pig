@@ -1,5 +1,5 @@
 import { Form } from 'antd';
-import { ReactNode } from 'react';
+import { ReactNode, FC } from 'react';
 import styled from 'styled-components';
 
 import { SubmitButton } from '../../Buttons/SubmitButton';
@@ -25,7 +25,13 @@ interface IPageProps {
   onSave: (user: any) => void
 }
 
-export const AuthForm = ({ title, redirectTitle, redirectTo, onSave, children }: IPageProps): JSX.Element => {
+export const AuthForm: FC<IPageProps> = ({
+  title,
+  redirectTitle,
+  redirectTo,
+  onSave,
+  children
+}) => {
   const [ form ] = Form.useForm();
 
   return (

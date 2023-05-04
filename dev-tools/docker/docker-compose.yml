@@ -25,12 +25,11 @@ services:
     links:
       - db
   app-ui:
-    image: avagner/react-happy-pig:0.0.0.1
+    image: alkruhglov777/happy-pig-ui:0.0.0.1
     container_name: happy-pig-ui
     ports:
-      - '3000:3000'
-    environment:
-      - REACT_APP_BASE_URL=http://localhost:8080/api
+      - '4200:4200'
+    command: bash -c "cd /app && ng serve --host 0.0.0.0"
     restart: always
     links:
       - app
