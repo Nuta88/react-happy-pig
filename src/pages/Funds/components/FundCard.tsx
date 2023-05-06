@@ -10,7 +10,6 @@ import {
   Col,
   Confirm,
   DeleteIcon,
-  CloseIcon,
   ProgressBar,
   SecondaryText
 } from '../../../components';
@@ -36,8 +35,7 @@ interface IFundCardProps {
 
 const FundCard: FC<IFundCardProps> = ({ fund, onDelete }) => {
   const title: string = `${fund.name} (${getAmount(fund.currentAmount as number)})`;
-  const confirmRemoveActivity: string = fund.expenses.length ? 'close' : 'delete';
-  const confirmRemoveTitle: string = `Are you sure you want to ${confirmRemoveActivity} "${fund.name}" fund?`;
+  const confirmRemoveTitle: string = `Are you sure you want to close "${fund.name}" fund?`;
   const currencyAmount: string = getAmount(fund.plannedAmount);
   const fundDetailLocation: string = apiUrls.funds.rootWithId(fund.id ?? 0);
 
@@ -68,7 +66,7 @@ const FundCard: FC<IFundCardProps> = ({ fund, onDelete }) => {
               onCancel={handlePreventFundOpening}
             >
               <CircleButton
-                icon={fund.expenses.length ? <CloseIcon /> : <DeleteIcon />}
+                icon={<DeleteIcon />}
                 data-fund={fund.id}
                 data-testid={`fund-${fund.name}-remove-fund`}
               />
