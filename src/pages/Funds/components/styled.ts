@@ -11,6 +11,12 @@ export const CardStyled = styled(Card)`
     background-color: #536da14f;
     box-shadow: #536da138 0 .5rem 1.5rem;
   }
+
+  .ant-card-head-title {
+    &:first-letter {
+      text-transform: uppercase;
+    }
+  }
 `;
 
 export const cardHeadStyle = {

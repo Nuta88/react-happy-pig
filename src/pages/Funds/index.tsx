@@ -7,8 +7,7 @@ import {
   Page,
   Row
 } from '../../components';
-import { useModal } from '../../hooks';
-import { useNotification } from '../../hooks/useNotification';
+import { useModal, useNotification } from '../../hooks';
 import {
   useCreateFundMutation,
   useDeleteFundMutation,

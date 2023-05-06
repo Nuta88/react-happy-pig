@@ -1,5 +1,5 @@
 import { Form } from 'antd';
-import { memo } from 'react';
+import { memo, FC } from 'react';
 
 import { BasicModal, Input } from '../../../../components';
 import { Fund } from '../../../../types';
@@ -21,7 +21,7 @@ interface IFundModalProps {
   onCancel: () => void
 }
 
-const FundModal = ({ isOpen = false, onSave, onCancel }: IFundModalProps): JSX.Element => {
+const FundModal: FC<IFundModalProps> = ({ isOpen = false, onSave, onCancel }) => {
   const [ form ] = Form.useForm();
 
   const onCloseModal = (): void => {
