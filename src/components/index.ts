@@ -29,7 +29,9 @@ import {
   CheckIcon,
   LockIcon,
   MailIcon,
-  LogoutIcon
+  LogoutIcon,
+  ArrowUpIcon,
+  ArrowDownIcon
 } from './Icons';
 import { Loading } from './Loading';
 import { BasicModal } from './Modal';
@@ -40,6 +42,7 @@ import { Row } from './Row';
 import { Search } from './Search';
 import { SpaceBetween } from './Space/SpaceBetween';
 import { SpaceCenter } from './Space/SpaceCenter';
+import { Statistic } from './Statistic';
 import { Table, ColumnsType } from './Table';
 import { Tooltip } from './Tooltip';
 import { Link } from './Typography/Link';
@@ -90,9 +93,12 @@ export {
   LockIcon,
   MailIcon,
   LogoutIcon,
+  ArrowUpIcon,
+  ArrowDownIcon,
   TooltipIconButton,
   TextButton,
-  Dropdown
+  Dropdown,
+  Statistic
 };
 
 export type { ColumnsType };

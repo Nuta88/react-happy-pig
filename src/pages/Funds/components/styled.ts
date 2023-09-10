@@ -1,15 +1,16 @@
 import styled from 'styled-components';
 
+import { colors } from '../../../assets/colors';
 import { Card } from '../../../components';
 
 export const CardStyled = styled(Card)`
   min-height: 12.75rem;
-  background-color: #536da138;
+  background-color: ${colors.background};
   transition: 0.85s;
 
   &:hover {
     background-color: #536da14f;
-    box-shadow: #536da138 0 .5rem 1.5rem;
+    box-shadow: ${colors.background} 0 .5rem 1.5rem;
   }
 
   .ant-card-head-title {
@@ -21,7 +22,7 @@ export const CardStyled = styled(Card)`
 
 export const cardHeadStyle = {
   padding: '0 1rem',
-  color: '#1c3463e0'
+  color: colors.primaryText
 };
 
 export const cardBodyStyle = {

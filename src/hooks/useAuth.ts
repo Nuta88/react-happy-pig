@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { authorizedPaths } from '../constants/apiUrls';
@@ -12,17 +13,19 @@ export const useAuth = <T extends Partial<T>>(): {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const onLogin = (user: T): void => {
+  const onLogin = useCallback((user: T): void => {
     localStorage.setItem('user', JSON.stringify(user));
     navigate('/');
-  };
-  const onRegister = (user: T): void => {
+  }, []);
+
+  const onRegister = useCallback((user: T): void => {
     onLogin(user);
-  };
-  const onLogout = (): void => {
+  }, []);
+
+  const onLogout = useCallback((): void => {
     localStorage.removeItem('user');
     navigate('/login');
-  };
+  }, []);
 
   return {
     isUserAuthorized: !!localStorage.getItem('user'),

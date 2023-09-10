@@ -74,7 +74,7 @@ const FundCard: FC<IFundCardProps> = ({ fund, onDelete }) => {
           }
         >
           <SecondaryText>{currencyAmount}</SecondaryText>
-          <ProgressBar percent={getPercentage(fund)} />
+          <ProgressBar percent={getPercentage(fund)} aria-label="Fund bar" />
         </CardStyled>
       </Link>
     </Col>

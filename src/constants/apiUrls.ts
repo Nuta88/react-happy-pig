@@ -1,5 +1,6 @@
 export const apiUrls = {
   root: '/',
+  home: '/home',
   funds: {
     root: '/funds',
     rootWithId: (id: number) => `/funds/${id}`

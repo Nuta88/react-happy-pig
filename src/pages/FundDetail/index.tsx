@@ -29,7 +29,7 @@ const FundDetail = (): JSX.Element => {
   const expenses: Expense[] = fund?.expenses ?? [];
 
   const navigateToFunds = (): void => {
-    navigate(apiUrls.root, { replace: true });
+    navigate(apiUrls.funds.root, { replace: true });
   };
 
   const handleOpenCreateModal = useCallback(() => {

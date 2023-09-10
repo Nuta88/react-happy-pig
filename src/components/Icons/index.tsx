@@ -10,7 +10,9 @@ import {
   DollarOutlined,
   LockOutlined,
   MailOutlined,
-  LogoutOutlined
+  LogoutOutlined,
+  ArrowUpOutlined,
+  ArrowDownOutlined
 } from '@ant-design/icons';
 
 export {
@@ -25,5 +27,7 @@ export {
   DollarOutlined as DollarIcon,
   LockOutlined as LockIcon,
   MailOutlined as MailIcon,
-  LogoutOutlined as LogoutIcon
+  LogoutOutlined as LogoutIcon,
+  ArrowUpOutlined as ArrowUpIcon,
+  ArrowDownOutlined as ArrowDownIcon
 };

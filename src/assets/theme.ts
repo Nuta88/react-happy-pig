@@ -1,5 +1,7 @@
+import { colors } from './colors';
+
 export const theme = {
   token: {
-    colorPrimary: '#49659b'
+    colorPrimary: colors.primary
   }
 };

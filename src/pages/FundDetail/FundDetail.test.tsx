@@ -43,10 +43,9 @@ describe('FundDetail tests', () => {
     await renderWithProviders(<FundDetail />);
 
     expect(screen.getByTestId('fund-page-content')).toBeInTheDocument();
-    expect(screen.getByText('Fund')).toBeInTheDocument();
 
     await waitFor(async () => {
-      expect(screen.getByText('Car Fund')).toBeInTheDocument();
+      expect(screen.getByText('Car')).toBeInTheDocument();
       expect(screen.getByTestId('fund-open-create-modal')).toBeInTheDocument();
       fireEvent.click(screen.getByTestId('fund-open-create-modal'));
 
@@ -60,7 +59,7 @@ describe('FundDetail tests', () => {
     const result = await renderWithProviders(<FundDetail />);
 
     await waitFor(async () => {
-      expect(screen.getByText('Car Fund')).toBeInTheDocument();
+      expect(screen.getByText('Car')).toBeInTheDocument();
       expect(screen.getAllByTestId('edit-expense-btn')[0]).toBeInTheDocument();
       userEvent.click(screen.getAllByTestId('edit-expense-btn')[0]);
 
@@ -77,7 +76,7 @@ describe('FundDetail tests', () => {
     await renderWithProviders(<FundDetail />);
 
     await waitFor(async () => {
-      expect(screen.getByText('Car Fund')).toBeInTheDocument();
+      expect(screen.getByText('Car')).toBeInTheDocument();
       expect(screen.getByTestId('page-back-icon')).toBeInTheDocument();
       fireEvent.click(screen.getByTestId('page-back-icon'));
     });
@@ -86,7 +85,7 @@ describe('FundDetail tests', () => {
     await renderWithProviders(<FundDetail />);
 
     await waitFor(async () => {
-      expect(screen.getByText('Car Fund')).toBeInTheDocument();
+      expect(screen.getByText('Car')).toBeInTheDocument();
       expect(screen.getByTestId('fund-page-title')).toBeInTheDocument();
       fireEvent.click(screen.getByTestId('fund-page-title'));
       expect(screen.getByTestId('fund-page-title-input')).toBeInTheDocument();

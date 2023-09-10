@@ -2,6 +2,7 @@ import { Form } from 'antd';
 import { ReactNode, FC } from 'react';
 import styled from 'styled-components';
 
+import { colors } from '../../../assets/colors';
 import { SubmitButton } from '../../Buttons/SubmitButton';
 import { Link } from '../../Typography/Link';
 import { Title } from '../../Typography/Title';
@@ -10,11 +11,16 @@ const TitleStyled = styled(Title)`
   margin: 0 0 1rem;
   font-size: 20px;
   text-align: center;
-  color: #1c3463e0!important;
+  color: ${colors.primaryText}!important;
 `;
 
 const ButtonStyled = styled(SubmitButton)`
   margin-bottom: 1rem;
+`;
+
+const LinkStyled = styled(Link)`
+  color: ${colors.primaryText}!important;
+  font-weight: 600;
 `;
 
 interface IPageProps {
@@ -50,9 +56,9 @@ export const AuthForm: FC<IPageProps> = ({
           <ButtonStyled>
             Submit
           </ButtonStyled>
-          <Link href={redirectTo}>
+          <LinkStyled href={redirectTo}>
             {redirectTitle}
-          </Link>
+          </LinkStyled>
         </Form.Item>
       </Form>
     </>
