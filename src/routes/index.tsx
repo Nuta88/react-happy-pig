@@ -1,5 +1,5 @@
 import { lazy } from 'react';
-import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { AuthPageLayout, PageLayout, ErrorBoundary } from '../components';
 
@@ -8,6 +8,7 @@ const FundDetail = lazy(async (): Promise<{ readonly default: () => JSX.Element 
 const Bank = lazy(async (): Promise<{ readonly default: () => JSX.Element }> => await import('../pages/Bank'));
 const Login = lazy(async (): Promise<{ readonly default: () => JSX.Element }> => await import('../pages/Login'));
 const Register = lazy(async (): Promise<{ readonly default: () => JSX.Element }> => await import('../pages/Register'));
+const Home = lazy(async (): Promise<{ readonly default: () => JSX.Element }> => await import('../pages/Home'));
 
 const routers = createBrowserRouter([
   {
@@ -16,7 +17,7 @@ const routers = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Navigate to="/funds" replace />
+        element: <Home />
       },
       {
         path: 'funds',

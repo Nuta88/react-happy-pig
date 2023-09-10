@@ -7,10 +7,9 @@ import { Card } from '../Card';
 import { Col } from '../Col';
 import { Row } from '../Row';
 
-const LogoStyled = styled.img`
+export const LogoStyled = styled.img`
   z-index: 1000;
   display: block;
-  width: 9.4rem;
   margin: 0 auto;
 `;
 
@@ -39,7 +38,7 @@ export const AuthPageLayout = (): JSX.Element => {
   return (
     <RowStyled justify="center" align="middle">
       <ColStyled lg={12} xs={24}>
-        <LogoStyled src={pigLogo} />
+        <LogoStyled src={pigLogo} alt="Happy Pig Logo" width="180" height="180" />
         <CardStyled>
           <Outlet />
         </CardStyled>

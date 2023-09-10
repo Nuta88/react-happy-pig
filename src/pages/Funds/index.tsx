@@ -25,7 +25,7 @@ const Funds = (): JSX.Element => {
   const [ deleteFund ] = useDeleteFundMutation();
   const [ createFund ] = useCreateFundMutation();
   const { notificationContext, openNotification } = useNotification();
-  const isEmptyComponent: boolean = !(funds.length || isLoading);
+  const isEmptyComponent: boolean = !funds.length && !isLoading;
 
   const handleCreateNewFund = useCallback((fund: Fund) => {
     void createFund(fund)

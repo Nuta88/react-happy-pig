@@ -1,5 +1,8 @@
 import Icon from '@ant-design/icons';
-import { ForwardRefExoticComponent } from 'react';
+import {
+  ForwardRefExoticComponent,
+  memo
+} from 'react';
 
 import logo from '../../../assets/logo.png';
 import { apiUrls } from '../../../constants/apiUrls';
@@ -19,8 +22,7 @@ import {
   ColStyled,
   LinkStyled,
   LayoutHeaderStyled,
-  RowStyled,
-  LogoStyled
+  RowStyled
 } from './styled';
 
 const Header = (): JSX.Element => {
@@ -31,7 +33,7 @@ const Header = (): JSX.Element => {
       <RowStyled align="middle" gutter={[ 16, 16 ]}>
         <Col>
           <LinkStyled to={apiUrls.root}>
-            <LogoStyled src={logo} />
+            <img src={logo} width="50" height="38" alt="HP" />
           </LinkStyled>
         </Col>
         <ColStyled flex={1}>
@@ -64,4 +66,4 @@ const Header = (): JSX.Element => {
   );
 };
 
-export default Header;
+export default memo(Header);

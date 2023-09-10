@@ -1,4 +1,5 @@
 import { useState, ChangeEvent, FC } from 'react';
+import styled from 'styled-components';
 
 import {
   TextInput,
@@ -7,6 +8,12 @@ import {
   CloseIcon,
   CheckIcon
 } from '../../../../components';
+
+const FundPageTitleNameStyled = styled.span`
+  &:first-letter {
+    text-transform: uppercase;
+  }
+`;
 
 interface IPageTitleProps {
   name: string;
@@ -66,9 +73,9 @@ const FundPageTitle: FC<IPageTitleProps> = ({ name, onChange }) => {
 
   return (
     <Tooltip title="Click to edit fund name">
-      <span onClick={onEditFundName} data-testid="fund-page-title">
-        {`${name} Fund`}
-      </span>
+      <FundPageTitleNameStyled onClick={onEditFundName} data-testid="fund-page-title">
+        {name}
+      </FundPageTitleNameStyled>
     </Tooltip>
   );
 };
