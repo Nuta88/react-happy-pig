@@ -5,14 +5,15 @@ import { NotificationType } from '../types/notification';
 
 export const useNotification = (): {
   notificationContext: ReactNode;
-  openNotification: (type: NotificationType, content: string) => void
+  openNotification: (type: NotificationType, content: string, duration?: number) => void
 } => {
   const [ messageApi, contextHolder ] = message.useMessage();
 
-  const openNotification = (type: NotificationType, content: string): void => {
+  const openNotification = (type: NotificationType, content: string, duration: number = 3): void => {
     void messageApi.open({
       type,
-      content
+      content,
+      duration
     });
   };
 
