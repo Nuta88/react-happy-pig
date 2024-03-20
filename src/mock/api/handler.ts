@@ -5,7 +5,7 @@ export const handlers = [
     return res(ctx.status(200), ctx.json([
       {
         id: 1,
-        name: 'Car',
+        name: 'Test_Car_Name',
         plannedAmount: 1000000,
         currentAmount: 649300,
         expenses: [

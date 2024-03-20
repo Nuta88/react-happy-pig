@@ -3,13 +3,15 @@ import { useCallback } from 'react';
 import {
   AddIcon,
   Empty,
-  TooltipIconButton,
   Page,
-  Row
+  Row,
+  TooltipIconButton
 } from '../../components';
-import { useModal, useNotification } from '../../hooks';
 import {
-  useCreateFundMutation,
+  useModal,
+  useNotification
+} from '../../hooks';
+import {
   useDeleteFundMutation,
   useFetchFundsQuery
 } from '../../services/funds';
@@ -23,24 +25,15 @@ const Funds = (): JSX.Element => {
   const { isOpenModal, hideModal, openModal } = useModal();
   const { data: funds = [], isLoading } = useFetchFundsQuery(undefined, { refetchOnMountOrArgChange: true });
   const [ deleteFund ] = useDeleteFundMutation();
-  const [ createFund ] = useCreateFundMutation();
   const { notificationContext, openNotification } = useNotification();
   const isEmptyComponent: boolean = !funds.length && !isLoading;
-
-  const handleCreateNewFund = useCallback((fund: Fund) => {
-    void createFund(fund)
-      .then(() => {
-        openNotification(NotificationType.SUCCESS, `Fund "${fund.name}" was created successfully!`);
-        hideModal();
-      });
-  }, [ createFund, hideModal, openNotification ]);
 
   const handleDeleteFund = useCallback((fund: Fund) => {
     void deleteFund(fund.id ?? 0)
       .then(() => {
         openNotification(NotificationType.SUCCESS, `Fund "${fund.name}" was deleted successfully!`);
       });
-  }, [ createFund, hideModal, openNotification ]);
+  }, [ deleteFund, openNotification ]);
 
   return (
     <Page
@@ -69,7 +62,7 @@ const Funds = (): JSX.Element => {
       <FundModal
         isOpen={isOpenModal}
         onCancel={hideModal}
-        onSave={handleCreateNewFund}
+        openNotification={openNotification}
       />
     </Page>
   );

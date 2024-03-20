@@ -1,8 +1,21 @@
 import { Form } from 'antd';
-import { memo, FC } from 'react';
+import {
+  FC,
+  memo
+} from 'react';
 
-import { BasicModal, Input } from '../../../../components';
+import {
+  BasicModal,
+  Input
+} from '../../../../components';
+import { useFetchBankQuery } from '../../../../services/bank';
+import { useCreateFundMutation } from '../../../../services/funds';
 import { Fund } from '../../../../types';
+import { NotificationType } from '../../../../types/notification';
+import {
+  errorFundAmountMessage,
+  generateError
+} from '../../../../utils/form';
 import { convertToPennies } from '../../../../utils/fund';
 
 const layout = {
@@ -17,11 +30,13 @@ interface IFormValues {
 
 interface IFundModalProps {
   isOpen: boolean;
-  onSave: (fund: Fund) => void;
+  openNotification: (type: NotificationType, content: string) => void;
   onCancel: () => void
 }
 
-const FundModal: FC<IFundModalProps> = ({ isOpen = false, onSave, onCancel }) => {
+const FundModal: FC<IFundModalProps> = ({ isOpen = false, onCancel, openNotification }) => {
+  const { data: { amount = 0 } = {} } = useFetchBankQuery({});
+  const [ createFund ] = useCreateFundMutation();
   const [ form ] = Form.useForm();
 
   const onCloseModal = (): void => {
@@ -29,11 +44,32 @@ const FundModal: FC<IFundModalProps> = ({ isOpen = false, onSave, onCancel }) =>
     onCancel();
   };
 
-  const onFinish = (values: IFormValues): void => {
-    const { name, paymentAmount } = values;
+  const setAmountFormError = (amount: number): void => {
+    form.setFields([ generateError('paymentAmount', [ errorFundAmountMessage(amount) ]) ]);
+  };
 
-    onSave(new Fund(name, convertToPennies(paymentAmount)));
-    form.resetFields();
+  const generateNewFund = (values: IFormValues): Fund | undefined => {
+    const { name, paymentAmount } = values;
+    const penniesAmount = convertToPennies(paymentAmount);
+
+    if (penniesAmount > amount) {
+      setAmountFormError(amount);
+      return;
+    }
+
+    return new Fund(name, penniesAmount);
+  };
+
+  const onFinish = (values: IFormValues): void => {
+    const fund = generateNewFund(values);
+
+    if (fund) {
+      void createFund(fund)
+        .then(() => {
+          openNotification(NotificationType.SUCCESS, `Fund "${fund.name}" was created successfully!`);
+          onCloseModal();
+        });
+    }
   };
 
   return (
