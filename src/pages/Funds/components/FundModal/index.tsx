@@ -13,7 +13,7 @@ import { useCreateFundMutation } from '../../../../services/funds';
 import { Fund } from '../../../../types';
 import { NotificationType } from '../../../../types/notification';
 import {
-  errorFundAmountMessage,
+  errorBankAmountMessage,
   generateError
 } from '../../../../utils/form';
 import { convertToPennies } from '../../../../utils/fund';
@@ -45,7 +45,7 @@ const FundModal: FC<IFundModalProps> = ({ isOpen = false, onCancel, openNotifica
   };
 
   const setAmountFormError = (amount: number): void => {
-    form.setFields([ generateError('paymentAmount', [ errorFundAmountMessage(amount) ]) ]);
+    form.setFields([ generateError('paymentAmount', [ errorBankAmountMessage(amount) ]) ]);
   };
 
   const generateNewFund = (values: IFormValues): Fund | undefined => {

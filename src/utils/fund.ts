@@ -36,3 +36,7 @@ export const upsertExpense = (expenses: Expense[], expense: Expense): Expense[] 
 
   return fundExpenses;
 };
+
+export const countPaymentAmounts = (expenses: Expense[]): number => {
+  return expenses.reduce((prevValue, curValue) => prevValue + curValue.paymentAmount, 0);
+};

@@ -1,10 +1,21 @@
 import { Form } from 'antd';
-import { memo, FC } from 'react';
+import {
+  FC,
+  memo
+} from 'react';
 
-import { BasicModal, Input } from '../../../../components';
+import {
+  BasicModal,
+  Input
+} from '../../../../components';
 import { layout } from '../../../../constants/form';
 import { Expense } from '../../../../types';
 import { disablePreviousDate } from '../../../../utils/date';
+import {
+  errorFundAmountMessage,
+  generateError
+} from '../../../../utils/form';
+import { convertToPennies } from '../../../../utils/fund';
 
 import {
   convertFormValuesToExpense,
@@ -14,12 +25,13 @@ import {
 
 interface IExpenseModalProps {
   isOpen: boolean;
+  availableAmount: number;
   expense: Expense | null;
   onSave: (expense: Expense) => void;
   onCancel: () => void
 }
 
-const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, onSave, onCancel }) => {
+const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, availableAmount, onSave, onCancel }) => {
   const title: string = expense ? 'Edit expense' : 'Add expense';
   const initialValues = createInitFormValues(expense);
   const [ form ] = Form.useForm();
@@ -29,7 +41,17 @@ const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, onSave, onCance
     onCancel();
   };
 
+  const setAmountFormError = (amount: number): void => {
+    form.setFields([ generateError('paymentAmount', [ errorFundAmountMessage(amount) ]) ]);
+  };
+
   const onFinish = (values: IFormValues): void => {
+    const penniesAmount = convertToPennies(values.paymentAmount);
+
+    if (penniesAmount > availableAmount) {
+      setAmountFormError(availableAmount);
+      return;
+    }
     form.resetFields();
     onSave(convertFormValuesToExpense(expense, values));
   };

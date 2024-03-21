@@ -33,6 +33,7 @@ const CardStyled = styled(Card)`
   
   .ant-card-body {
     height: 100%;
+    padding: 1rem 1.2rem;
   }
 `;
 
