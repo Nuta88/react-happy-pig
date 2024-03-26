@@ -1,9 +1,8 @@
-
 import {
+  errorBankAmountMessage,
   errorFundAmountMessage,
   generateError
 } from './form';
-import { convertToCurrency } from './fund';
 
 describe('Form util tests', () => {
   test('should create error', () => {
@@ -16,8 +15,12 @@ describe('Form util tests', () => {
   });
 
   describe('Fund Amount Error', () => {
-    test('should create error message', () => {
-      const message = `The amount must be less than or equal to ${convertToCurrency(1000)} (available bank money)`;
+    test('should create bank error message', () => {
+      const message = 'Available money of the bank is equal to 10$';
+      expect(errorBankAmountMessage(1000)).toEqual(message);
+    });
+    test('should create fund error message', () => {
+      const message = 'Available money of the fund is equal to 10$';
       expect(errorFundAmountMessage(1000)).toEqual(message);
     });
   });

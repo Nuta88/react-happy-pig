@@ -10,6 +10,9 @@ export const generateError = (fieldName: string, errors: string[]): IFormError =
   errors
 });
 
-export const errorFundAmountMessage = (bankAmount: number): string => {
-  return `The amount must be less than or equal to ${convertToCurrency(bankAmount)} (available bank money)`;
+export const errorBankAmountMessage = (bankAmount: number): string => {
+  return `Available money of the bank is equal to ${convertToCurrency(bankAmount)}$`;
+};
+export const errorFundAmountMessage = (expenseAmount: number): string => {
+  return `Available money of the fund is equal to ${convertToCurrency(expenseAmount)}$`;
 };

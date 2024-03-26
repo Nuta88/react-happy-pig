@@ -12,6 +12,10 @@ import { apiUrls } from '../../constants/apiUrls';
 import { useModal, useNotification } from '../../hooks';
 import { useFetchFundQuery } from '../../services/funds';
 import { Expense } from '../../types';
+import {
+  convertToCurrency,
+  countPaymentAmounts
+} from '../../utils/fund';
 
 import { generateColumns } from './columns';
 import ExpenseModal from './components/ExpenseModal';
@@ -27,6 +31,8 @@ const FundDetail = (): JSX.Element => {
   const { onUpdateOrCreateExpense, onRemoveExpense, onUpdateFundName } = useUpdateFund(fund, openNotification, hideModal);
   const columns: ColumnsType<Expense> = generateColumns(onRemoveExpense, openModal);
   const expenses: Expense[] = fund?.expenses ?? [];
+  const totalAmountOfExpenses = countPaymentAmounts(expenses);
+  const tableTitle = `Expenses (${convertToCurrency(totalAmountOfExpenses)}$)`;
 
   const navigateToFunds = (): void => {
     navigate(apiUrls.funds.root, { replace: true });
@@ -53,6 +59,7 @@ const FundDetail = (): JSX.Element => {
           icon={<AddIcon />}
           data-testid="fund-open-create-modal"
           onClick={handleOpenCreateModal}
+          disabled={totalAmountOfExpenses === fund?.currentAmount}
         />
       }
     >
@@ -62,7 +69,7 @@ const FundDetail = (): JSX.Element => {
         size="small"
         columns={columns}
         dataSource={expenses}
-        title={() => 'Expenses'}
+        title={() => tableTitle}
         scroll={{ y: 350 }}
       />
       {isOpenModal && (
@@ -71,6 +78,7 @@ const FundDetail = (): JSX.Element => {
           expense={selectedExpense}
           onSave={onUpdateOrCreateExpense}
           onCancel={hideModal}
+          availableAmount={(fund?.currentAmount ?? 0) - totalAmountOfExpenses}
         />
       )}
     </Page>

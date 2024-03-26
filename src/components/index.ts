@@ -40,6 +40,7 @@ import Page from './PageLayout/Page';
 import { ProgressBar } from './ProgressBar';
 import { Row } from './Row';
 import { Search } from './Search';
+import { InlineCenter } from './Space/InlineCenter';
 import { SpaceBetween } from './Space/SpaceBetween';
 import { SpaceCenter } from './Space/SpaceCenter';
 import { Statistic } from './Statistic';
@@ -98,7 +99,8 @@ export {
   TooltipIconButton,
   TextButton,
   Dropdown,
-  Statistic
+  Statistic,
+  InlineCenter
 };
 
 export type { ColumnsType };
