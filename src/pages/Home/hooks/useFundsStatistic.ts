@@ -7,8 +7,8 @@ interface IUpdateFund {
 
 export const useFundsStatistic = (): IUpdateFund => {
   const { data: funds = [] } = useFetchFundsQuery(undefined, { refetchOnMountOrArgChange: true });
-  const overrunFunds = (funds.filter(f => (f.currentAmount ?? 0) < 0).length / funds.length) * 100;
-  const activeFunds = (funds.filter(f => f.expenses.length).length / funds.length) * 100;
+  const overrunFunds = funds.filter.length ? (funds.filter(f => (f.currentAmount ?? 0) < 0).length / funds.length) * 100 : 0;
+  const activeFunds = funds.filter.length ? (funds.filter(f => f.expenses.length).length / funds.length) * 100 : 0;
 
   return {
     overrunFunds,
