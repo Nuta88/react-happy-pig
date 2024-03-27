@@ -34,10 +34,10 @@ const fundsApi = api.injectEndpoints({
       }),
       invalidatesTags: [ 'Fund' ]
     }),
-    deleteFund: builder.mutation<Fund, number>({
+    closeFund: builder.mutation<Fund, number>({
       query: (id, ...params) => ({
-        url: apiUrls.funds.rootWithId(id),
-        method: 'DELETE',
+        url: apiUrls.funds.close(id),
+        method: 'POST',
         params
       }),
       invalidatesTags: [ 'Funds' ]
@@ -49,6 +49,6 @@ export const {
   useFetchFundsQuery,
   useFetchFundQuery,
   useCreateFundMutation,
-  useDeleteFundMutation,
+  useCloseFundMutation,
   useUpdateFundMutation
 } = fundsApi;

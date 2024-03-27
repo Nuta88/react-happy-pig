@@ -14,7 +14,9 @@ import {
   SecondaryText
 } from '../../../components';
 import { apiUrls } from '../../../constants/apiUrls';
+import { useCloseFundMutation } from '../../../services/funds';
 import { Fund } from '../../../types';
+import { NotificationType } from '../../../types/notification';
 import {
   getAmount,
   getPercentage
@@ -30,10 +32,11 @@ const layout = {
 
 interface IFundCardProps {
   fund: Fund;
-  onDelete: (fund: Fund) => void
+  openNotification: (type: NotificationType, content: string) => void
 }
 
-const FundCard: FC<IFundCardProps> = ({ fund, onDelete }) => {
+const FundCard: FC<IFundCardProps> = ({ fund, openNotification }) => {
+  const [ closeFund ] = useCloseFundMutation();
   const title: string = `${fund.name} (${getAmount(fund.currentAmount as number)})`;
   const confirmRemoveTitle: string = `Are you sure you want to close "${fund.name}" fund?`;
   const currencyAmount: string = getAmount(fund.plannedAmount);
@@ -46,7 +49,10 @@ const FundCard: FC<IFundCardProps> = ({ fund, onDelete }) => {
 
   const onRemoveFund = (event: MouseEvent<HTMLElement> | undefined): void => {
     handlePreventFundOpening(event);
-    onDelete(fund);
+    void closeFund(fund.id as number)
+      .then(() => {
+        openNotification(NotificationType.SUCCESS, `Fund "${fund.name}" was deleted successfully!`);
+      });
   };
 
   return (
