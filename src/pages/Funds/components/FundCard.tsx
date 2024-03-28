@@ -37,7 +37,7 @@ interface IFundCardProps {
 
 const FundCard: FC<IFundCardProps> = ({ fund, openNotification }) => {
   const [ closeFund ] = useCloseFundMutation();
-  const title: string = `${fund.name} (${getAmount(fund.currentAmount as number)})`;
+  const title: string = `${fund.name} (${getAmount(fund.currentAmount)})`;
   const confirmRemoveTitle: string = `Are you sure you want to close "${fund.name}" fund?`;
   const currencyAmount: string = getAmount(fund.plannedAmount);
   const fundDetailLocation: string = apiUrls.funds.rootWithId(fund.id ?? 0);
@@ -51,7 +51,7 @@ const FundCard: FC<IFundCardProps> = ({ fund, openNotification }) => {
     handlePreventFundOpening(event);
     void closeFund(fund.id as number)
       .then(() => {
-        openNotification(NotificationType.SUCCESS, `Fund "${fund.name}" was deleted successfully!`);
+        openNotification(NotificationType.SUCCESS, `Fund "${fund.name}" was closed successfully!`);
       });
   };
 

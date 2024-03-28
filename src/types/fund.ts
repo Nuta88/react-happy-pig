@@ -24,14 +24,12 @@ export class Fund {
   id: number | null;
   name: string;
   plannedAmount: number;
-  currentAmount?: number | null;
-  expenses: Expense[];
-
+  currentAmount: number;
   constructor (
     name: string = '',
     plannedAmount: number = 0,
+    currentAmount: number = 0,
     id: number | null = null,
-    currentAmount: number | null = null,
     expenses: Expense[] = []
   ) {
     this.id = id;
@@ -40,4 +38,6 @@ export class Fund {
     this.currentAmount = currentAmount;
     this.expenses = expenses;
   }
+
+  expenses: Expense[];
 }

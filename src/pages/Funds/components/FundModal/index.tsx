@@ -8,25 +8,14 @@ import {
   BasicModal,
   Input
 } from '../../../../components';
-import { useFetchBankQuery } from '../../../../services/bank';
-import { useCreateFundMutation } from '../../../../services/funds';
-import { Fund } from '../../../../types';
 import { NotificationType } from '../../../../types/notification';
-import {
-  errorBankAmountMessage,
-  generateError
-} from '../../../../utils/form';
-import { convertToPennies } from '../../../../utils/fund';
+
+import { useFundCreate } from './hooks/useFundCreate';
 
 const layout = {
-  labelCol: { span: 6 },
-  wrapperCol: { span: 32 }
+  labelCol: { span: 8 },
+  wrapperCol: { span: 30 }
 };
-
-interface IFormValues {
-  name: string;
-  paymentAmount: number
-}
 
 interface IFundModalProps {
   isOpen: boolean;
@@ -35,42 +24,12 @@ interface IFundModalProps {
 }
 
 const FundModal: FC<IFundModalProps> = ({ isOpen = false, onCancel, openNotification }) => {
-  const { data: { amount = 0 } = {} } = useFetchBankQuery({});
-  const [ createFund ] = useCreateFundMutation();
   const [ form ] = Form.useForm();
-
-  const onCloseModal = (): void => {
-    form.resetFields();
-    onCancel();
-  };
-
-  const setAmountFormError = (amount: number): void => {
-    form.setFields([ generateError('paymentAmount', [ errorBankAmountMessage(amount) ]) ]);
-  };
-
-  const generateNewFund = (values: IFormValues): Fund | undefined => {
-    const { name, paymentAmount } = values;
-    const penniesAmount = convertToPennies(paymentAmount);
-
-    if (penniesAmount > amount) {
-      setAmountFormError(amount);
-      return;
-    }
-
-    return new Fund(name, penniesAmount);
-  };
-
-  const onFinish = (values: IFormValues): void => {
-    const fund = generateNewFund(values);
-
-    if (fund) {
-      void createFund(fund)
-        .then(() => {
-          openNotification(NotificationType.SUCCESS, `Fund "${fund.name}" was created successfully!`);
-          onCloseModal();
-        });
-    }
-  };
+  const { onCreateFund, onCloseModal } = useFundCreate({
+    openNotification,
+    onCancel,
+    form
+  });
 
   return (
     <BasicModal
@@ -85,7 +44,7 @@ const FundModal: FC<IFundModalProps> = ({ isOpen = false, onCancel, openNotifica
         {...layout}
         name="fund-modal"
         autoComplete="off"
-        onFinish={onFinish}
+        onFinish={onCreateFund}
       >
         <Form.Item
           label="Name"
@@ -95,11 +54,17 @@ const FundModal: FC<IFundModalProps> = ({ isOpen = false, onCancel, openNotifica
           <Input data-testid="fund-input-name" />
         </Form.Item>
         <Form.Item
-          label="Amount"
-          name="paymentAmount"
-          rules={[ { required: true, message: 'Please input Amount!' } ]}
+          label="Current Amount"
+          name="currentAmount"
+          rules={[ { required: true, message: 'Please input Current Amount!' } ]}
         >
-          <Input type="number" addonAfter="$" min={1} data-testid="fund-input-paymentAmount" />
+          <Input type="number" addonAfter="$" min={1} data-testid="fund-input-currentAmount" />
+        </Form.Item>
+        <Form.Item
+          label="Planned Amount"
+          name="plannedAmount"
+        >
+          <Input type="number" addonAfter="$" min={0} data-testid="fund-input-plannedAmount" />
         </Form.Item>
       </Form>
     </BasicModal>
