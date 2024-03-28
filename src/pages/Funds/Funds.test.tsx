@@ -69,11 +69,11 @@ describe('Funds tests', () => {
       // @ts-expect-error
       expect(screen.getByTestId('fund-input-name').value).toBe('New test fund');
 
-      expect(screen.getByTestId('fund-input-paymentAmount')).toBeInTheDocument();
-      fireEvent.change(screen.getByTestId('fund-input-paymentAmount'), { target: { value: 1000 } });
+      expect(screen.getByTestId('fund-input-currentAmount')).toBeInTheDocument();
+      fireEvent.change(screen.getByTestId('fund-input-currentAmount'), { target: { value: 1000 } });
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
-      expect(screen.getByTestId('fund-input-paymentAmount').value).toBe('1000');
+      expect(screen.getByTestId('fund-input-currentAmount').value).toBe('1000');
 
       fireEvent.click(screen.getByText('Create'));
     });

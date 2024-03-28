@@ -45,11 +45,15 @@ const Funds = (): JSX.Element => {
           />
         ))}
       </Row>
-      <FundModal
-        isOpen={isOpenModal}
-        onCancel={hideModal}
-        openNotification={openNotification}
-      />
+      {
+        isOpenModal && (
+          <FundModal
+            isOpen={isOpenModal}
+            onCancel={hideModal}
+            openNotification={openNotification}
+          />
+        )
+      }
     </Page>
   );
 };

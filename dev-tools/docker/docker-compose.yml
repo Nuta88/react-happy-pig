@@ -14,7 +14,7 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
   app:
-    image: alkruhglov777/happy-pig-core:0.0.0.1
+    image: alkruhglov777/happy-pig-core:latest
     container_name: happy-pig-app
     ports:
       - '8080:8080'
@@ -25,11 +25,12 @@ services:
     links:
       - db
   app-ui:
-    image: alkruhglov777/happy-pig-ui:0.0.0.1
+    image: avagner/react-happy-pig:latest
     container_name: happy-pig-ui
+    environment:
+      - REACT_APP_BASE_URL=http://localhost:8080/api
     ports:
-      - '4200:4200'
-    command: bash -c "cd /app && ng serve --host 0.0.0.0"
+      - "3000:3000"
     restart: always
     links:
       - app
