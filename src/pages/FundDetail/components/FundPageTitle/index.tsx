@@ -17,10 +17,11 @@ const FundPageTitleNameStyled = styled.span`
 
 interface IPageTitleProps {
   name: string;
+  secondaryText?: string;
   onChange: (title: string) => void
 }
 
-const FundPageTitle: FC<IPageTitleProps> = ({ name, onChange }) => {
+const FundPageTitle: FC<IPageTitleProps> = ({ name, secondaryText, onChange }) => {
   const [ isEditing, setIsEditing ] = useState<boolean>(false);
   const [ fundTitle, setFundTitle ] = useState<string>(name);
 
@@ -75,6 +76,7 @@ const FundPageTitle: FC<IPageTitleProps> = ({ name, onChange }) => {
     <Tooltip title="Click to edit fund name">
       <FundPageTitleNameStyled onClick={onEditFundName} data-testid="fund-page-title">
         {name}
+        {secondaryText ?? ''}
       </FundPageTitleNameStyled>
     </Tooltip>
   );

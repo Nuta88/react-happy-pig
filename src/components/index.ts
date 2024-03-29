@@ -31,7 +31,8 @@ import {
   MailIcon,
   LogoutIcon,
   ArrowUpIcon,
-  ArrowDownIcon
+  ArrowDownIcon,
+  TransactionIcon
 } from './Icons';
 import { Loading } from './Loading';
 import { BasicModal } from './Modal';
@@ -96,6 +97,7 @@ export {
   LogoutIcon,
   ArrowUpIcon,
   ArrowDownIcon,
+  TransactionIcon,
   TooltipIconButton,
   TextButton,
   Dropdown,

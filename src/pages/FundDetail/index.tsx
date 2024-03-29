@@ -6,7 +6,9 @@ import {
   Page,
   Table,
   AddIcon,
-  ColumnsType
+  TransactionIcon,
+  ColumnsType,
+  SpaceBetween
 } from '../../components';
 import { apiUrls } from '../../constants/apiUrls';
 import { useModal, useNotification } from '../../hooks';
@@ -14,7 +16,8 @@ import { useFetchFundQuery } from '../../services/funds';
 import { Expense } from '../../types';
 import {
   convertToCurrency,
-  countPaymentAmounts
+  countPaymentAmounts,
+  getAmount
 } from '../../utils/fund';
 
 import { generateColumns } from './columns';
@@ -47,13 +50,22 @@ const FundDetail = (): JSX.Element => {
       title={
       <FundPageTitle
         name={fund?.name ?? ''}
+        secondaryText={`(${getAmount(fund?.currentAmount)})`}
         onChange={onUpdateFundName}
       />
     }
       isBack
       data-testid="fund-page-content"
       onBack={navigateToFunds}
-      extra={
+      extra={[
+      <div key="curr">Planned Amount: {getAmount(fund?.plannedAmount)}</div>,
+      <SpaceBetween key="actions">
+        <TooltipIconButton
+          tooltip="Add transaction"
+          icon={<TransactionIcon />}
+          data-testid="fund-open-transaction-modal"
+          onClick={handleOpenCreateModal}
+        />
         <TooltipIconButton
           tooltip="Add expense"
           icon={<AddIcon />}
@@ -61,7 +73,8 @@ const FundDetail = (): JSX.Element => {
           onClick={handleOpenCreateModal}
           disabled={fund?.currentAmount === 0}
         />
-      }
+      </SpaceBetween>
+      ]}
     >
       {notificationContext}
       <Table
