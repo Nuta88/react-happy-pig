@@ -59,7 +59,7 @@ const FundDetail = (): JSX.Element => {
           icon={<AddIcon />}
           data-testid="fund-open-create-modal"
           onClick={handleOpenCreateModal}
-          disabled={totalAmountOfExpenses === fund?.currentAmount}
+          disabled={fund?.currentAmount === 0}
         />
       }
     >
@@ -78,7 +78,7 @@ const FundDetail = (): JSX.Element => {
           expense={selectedExpense}
           onSave={onUpdateOrCreateExpense}
           onCancel={hideModal}
-          availableAmount={(fund?.currentAmount ?? 0) - totalAmountOfExpenses}
+          availableAmount={(fund?.currentAmount ?? 0)}
         />
       )}
     </Page>

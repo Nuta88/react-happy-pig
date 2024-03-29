@@ -22,7 +22,7 @@ const Bank = (): JSX.Element => {
     hideModal,
     openModal
   } = useModal<Income>();
-  const { data: { amount, incomes = [] } = {}, isLoading } = useFetchBankQuery({});
+  const { data: { amount, incomes = [] } = {}, isLoading } = useFetchBankQuery(undefined, { refetchOnMountOrArgChange: true });
   const [ createIncome ] = useCreateIncomeMutation();
   const [ deleteIncome ] = useDeleteIncomeMutation();
   const columns: ColumnsType<Income> = generateColumns(openModal, deleteIncome);
