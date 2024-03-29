@@ -48,10 +48,19 @@ const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, availableAmount
   const onFinish = (values: IFormValues): void => {
     const penniesAmount = convertToPennies(values.paymentAmount);
 
-    if (penniesAmount > availableAmount) {
+    if (!expense && penniesAmount > availableAmount) {
       setAmountFormError(availableAmount);
       return;
     }
+
+    if (expense) {
+      const availableExpense = availableAmount + expense?.paymentAmount;
+      if (penniesAmount > availableExpense) {
+        setAmountFormError(availableExpense);
+        return;
+      }
+    }
+
     form.resetFields();
     onSave(convertFormValuesToExpense(expense, values));
   };
