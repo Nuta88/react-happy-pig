@@ -7,8 +7,14 @@ import {
   Table,
   TooltipIconButton
 } from '../../components';
-import { useModal } from '../../hooks';
-import { useFetchBankQuery, useCreateIncomeMutation, useDeleteIncomeMutation } from '../../services/bank';
+import {
+  useModal,
+  useNotification
+} from '../../hooks';
+import {
+  useDeleteIncomeMutation,
+  useFetchBankQuery
+} from '../../services/bank';
 import { Income } from '../../types';
 import { getAmount } from '../../utils/fund';
 
@@ -16,6 +22,7 @@ import { generateColumns } from './columns';
 import IncomeModal from './components/IncomeModal';
 
 const Bank = (): JSX.Element => {
+  const { notificationContext, openNotification } = useNotification();
   const {
     isOpenModal,
     modalContent: selectedIncome,
@@ -23,9 +30,8 @@ const Bank = (): JSX.Element => {
     openModal
   } = useModal<Income>();
   const { data: { amount, incomes = [] } = {}, isLoading } = useFetchBankQuery(undefined, { refetchOnMountOrArgChange: true });
-  const [ createIncome ] = useCreateIncomeMutation();
   const [ deleteIncome ] = useDeleteIncomeMutation();
-  const columns: ColumnsType<Income> = generateColumns(openModal, deleteIncome);
+  const columns: ColumnsType<Income> = generateColumns(openModal, deleteIncome, openNotification);
   const pageTitle = `Bank (${getAmount(amount)})`;
 
   const handleOpenCreateModal = useCallback(() => {
@@ -46,6 +52,7 @@ const Bank = (): JSX.Element => {
         />
       }
     >
+      {notificationContext}
       <Table
         rowKey="id"
         size="small"
@@ -60,7 +67,7 @@ const Bank = (): JSX.Element => {
           income={selectedIncome}
           isOpen={isOpenModal}
           onCancel={hideModal}
-          onCreate={createIncome}
+          openNotification={openNotification}
         />
       )}
     </Page>

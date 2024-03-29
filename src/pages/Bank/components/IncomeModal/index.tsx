@@ -4,9 +4,14 @@ import { memo, FC } from 'react';
 import { BasicModal, Input, Select, SelectOption } from '../../../../components';
 import { IncomeSource } from '../../../../constants/bank';
 import { layout } from '../../../../constants/form';
-import { useUpdateIncomeMutation } from '../../../../services/bank';
+import {
+  useCreateIncomeMutation,
+  useUpdateIncomeMutation
+} from '../../../../services/bank';
 import { Income } from '../../../../types';
+import { NotificationType } from '../../../../types/notification';
 import { disablePreviousDate } from '../../../../utils/date';
+import { generateError } from '../../../../utils/form';
 
 import {
   IFormValues,
@@ -18,14 +23,15 @@ import {
 interface IIncomeModalProps {
   isOpen: boolean;
   income: Income | null;
-  onCreate: (income: Income) => void;
-  onCancel: () => void
+  onCancel: () => void;
+  openNotification: (type: NotificationType, content: string) => void
 }
 
-const IncomeModal: FC<IIncomeModalProps> = ({ isOpen, income, onCreate, onCancel }) => {
+const IncomeModal: FC<IIncomeModalProps> = ({ isOpen, income, onCancel, openNotification }) => {
   const title: string = income ? 'Edit income' : 'Add new income';
   const sourceOptions = Object.entries(IncomeSource);
   const initialValues = createInitFormValues(income);
+  const [ createIncome ] = useCreateIncomeMutation();
   const [ updateIncome ] = useUpdateIncomeMutation();
   const [ form ] = Form.useForm();
 
@@ -34,13 +40,35 @@ const IncomeModal: FC<IIncomeModalProps> = ({ isOpen, income, onCreate, onCancel
     onCancel();
   };
 
+  const setAmountFormError = (error: string): void => {
+    form.setFields([ generateError('amount', [ error ]) ]);
+  };
+
+  const handleEditIncome = (values: IFormValues): void => {
+    void updateIncome(updateSelectedIncome(values, income as Income))
+      .unwrap()
+      .then(() => {
+        openNotification(NotificationType.SUCCESS, `Income "${income?.source as keyof typeof IncomeSource}" was edited successfully!`);
+        onCloseModal();
+      })
+      .catch(({ data }) => { setAmountFormError(data.message); });
+  };
+
+  const handleCreateIncome = (values: IFormValues): void => {
+    void createIncome(createNewIncome(values))
+      .unwrap()
+      .then(() => {
+        openNotification(NotificationType.SUCCESS, `Income "${values.source as keyof typeof IncomeSource}" was created successfully!`);
+        onCloseModal();
+      });
+  };
+
   const onFinish = (values: IFormValues): void => {
     if (income) {
-      void updateIncome(updateSelectedIncome(values, income));
-    } else {
-      onCreate(createNewIncome(values));
+      handleEditIncome(values);
+      return;
     }
-    onCloseModal();
+    handleCreateIncome(values);
   };
 
   return (
