@@ -1,3 +1,6 @@
+import { SerializedError } from '@reduxjs/toolkit';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+
 import {
   CircleButton,
   ColumnsType,
@@ -7,13 +10,23 @@ import {
   SpaceBetween
 } from '../../components';
 import { IncomeSource } from '../../constants/bank';
-import { Income } from '../../types';
+import {
+  IBank,
+  Income
+} from '../../types';
+import { NotificationType } from '../../types/notification';
 import { getAmount } from '../../utils/fund';
 
 type TShowModal = (income: Income) => void;
-type TDeleteIncome = (id: number) => void;
+type TDeleteIncome = (id: number) => Promise<{ data: IBank } | { error: FetchBaseQueryError | SerializedError }>;
+type TNotification = (type: NotificationType, content: string) => void;
+interface TError {
+  data: {
+    message: string
+  }
+}
 
-export const generateColumns = (showModal: TShowModal, onDelete: TDeleteIncome): ColumnsType<Income> => [
+export const generateColumns = (showModal: TShowModal, onDelete: TDeleteIncome, openNotification: TNotification): ColumnsType<Income> => [
   {
     title: 'Source',
     dataIndex: 'source',
@@ -35,22 +48,40 @@ export const generateColumns = (showModal: TShowModal, onDelete: TDeleteIncome):
     title: 'Action',
     key: 'action',
     width: 100,
-    render: (_, income: Income) => (
-      <SpaceBetween size="middle">
-        <CircleButton
-          type="primary"
-          icon={<EditIcon />}
-          onClick={() => { showModal(income); }}
-          data-testid="edit-income-btn"
-        />
-        <Confirm
-          title={`Are you sure to delete "${IncomeSource[income.source]}" income?`}
-          placement="leftTop"
-          onConfirm={() => { onDelete(income.id as number); }}
-        >
-          <CircleButton type="primary" icon={<DeleteIcon />} data-testid="delete-income-btn" />
-        </Confirm>
-      </SpaceBetween>
-    )
+    render: (_, income: Income) => {
+      const handleEdit = (): void => {
+        showModal(income);
+      };
+
+      const handleDelete = (): void => {
+        void onDelete(income.id as number)
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-expect-error
+          .unwrap()
+          .then(() => {
+            openNotification(NotificationType.SUCCESS, `Income "${income.source}" was deleted successfully!`);
+          })
+          .catch(({ data }: TError) => {
+            openNotification(NotificationType.ERROR, data.message);
+          });
+      };
+      return (
+        <SpaceBetween size="middle">
+          <CircleButton
+            type="primary"
+            icon={<EditIcon />}
+            onClick={handleEdit}
+            data-testid="edit-income-btn"
+          />
+          <Confirm
+            title={`Are you sure to delete "${IncomeSource[income.source]}" income?`}
+            placement="leftTop"
+            onConfirm={handleDelete}
+          >
+            <CircleButton type="primary" icon={<DeleteIcon />} data-testid="delete-income-btn" />
+          </Confirm>
+        </SpaceBetween>
+      );
+    }
   }
 ];
