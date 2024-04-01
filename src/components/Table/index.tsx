@@ -15,6 +15,9 @@ const TableStyled = styled(AntdTable)`
       padding: 0 0 .6rem;
       text-transform: uppercase;
       color: #1c3463e0;
+      & * {
+        color: #1c3463e0;
+      }
     }
   }
   .ant-table-thead {

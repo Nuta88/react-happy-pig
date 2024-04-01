@@ -1,3 +1,5 @@
+import { BankTransferType } from '../constants/bank';
+
 export class Expense {
   id: number | null;
   paymentAmount: number;
@@ -40,4 +42,10 @@ export class Fund {
   }
 
   expenses: Expense[];
+}
+
+export interface Transfer {
+  fundId: number;
+  amount: number;
+  transferType: keyof typeof BankTransferType
 }

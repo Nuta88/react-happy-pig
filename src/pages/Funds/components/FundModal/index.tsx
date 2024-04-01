@@ -56,9 +56,8 @@ const FundModal: FC<IFundModalProps> = ({ isOpen = false, onCancel, openNotifica
         <Form.Item
           label="Current Amount"
           name="currentAmount"
-          rules={[ { required: true, message: 'Please input Current Amount!' } ]}
         >
-          <Input type="number" addonAfter="$" min={1} data-testid="fund-input-currentAmount" />
+          <Input type="number" addonAfter="$" min={0} data-testid="fund-input-currentAmount" />
         </Form.Item>
         <Form.Item
           label="Planned Amount"

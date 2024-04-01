@@ -1,5 +1,6 @@
 import { apiUrls } from '../constants/apiUrls';
 import { Fund } from '../types';
+import { Transfer } from '../types/fund';
 
 import api from './api';
 
@@ -34,6 +35,14 @@ const fundsApi = api.injectEndpoints({
       }),
       invalidatesTags: [ 'Fund' ]
     }),
+    transaction: builder.mutation<Fund, Transfer>({
+      query: (body) => ({
+        url: apiUrls.funds.transfer(body.fundId),
+        method: 'PUT',
+        body
+      }),
+      invalidatesTags: [ 'Fund' ]
+    }),
     closeFund: builder.mutation<Fund, number>({
       query: (id, ...params) => ({
         url: apiUrls.funds.close(id),
@@ -50,5 +59,6 @@ export const {
   useFetchFundQuery,
   useCreateFundMutation,
   useCloseFundMutation,
-  useUpdateFundMutation
+  useUpdateFundMutation,
+  useTransactionMutation
 } = fundsApi;
