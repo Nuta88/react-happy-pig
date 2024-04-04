@@ -12,7 +12,8 @@ import {
   MailOutlined,
   LogoutOutlined,
   ArrowUpOutlined,
-  ArrowDownOutlined
+  ArrowDownOutlined,
+  TransactionOutlined
 } from '@ant-design/icons';
 
 export {
@@ -29,5 +30,6 @@ export {
   MailOutlined as MailIcon,
   LogoutOutlined as LogoutIcon,
   ArrowUpOutlined as ArrowUpIcon,
-  ArrowDownOutlined as ArrowDownIcon
+  ArrowDownOutlined as ArrowDownIcon,
+  TransactionOutlined as TransactionIcon
 };

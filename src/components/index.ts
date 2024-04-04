@@ -31,7 +31,8 @@ import {
   MailIcon,
   LogoutIcon,
   ArrowUpIcon,
-  ArrowDownIcon
+  ArrowDownIcon,
+  TransactionIcon
 } from './Icons';
 import { Loading } from './Loading';
 import { BasicModal } from './Modal';
@@ -48,6 +49,7 @@ import { Table, ColumnsType } from './Table';
 import { Tooltip } from './Tooltip';
 import { Link } from './Typography/Link';
 import { SecondaryText } from './Typography/SecondaryText';
+import { Text } from './Typography/Text';
 import { Title } from './Typography/Title';
 
 export {
@@ -68,6 +70,7 @@ export {
   IconButton,
   SecondaryText,
   Title,
+  Text,
   Link,
   Confirm,
   Table,
@@ -96,6 +99,7 @@ export {
   LogoutIcon,
   ArrowUpIcon,
   ArrowDownIcon,
+  TransactionIcon,
   TooltipIconButton,
   TextButton,
   Dropdown,

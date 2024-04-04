@@ -7,3 +7,8 @@ export enum IncomeSource {
   INVESTMENTS = 'Investments',
   SALES_REVENUE = 'Sales revenue'
 }
+
+export enum BankTransferType {
+  FROM_FUND = 'FROM_FUND',
+  TO_FUND = 'TO_FUND'
+}
