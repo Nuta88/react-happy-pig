@@ -5,14 +5,11 @@ import {
 } from 'react-router-dom';
 
 import {
-  AddIcon,
   ColumnsType,
   Page,
   SpaceBetween,
   Table,
-  Text,
-  TooltipIconButton,
-  TransactionIcon
+  Text
 } from '../../components';
 import { apiUrls } from '../../constants/apiUrls';
 import {
@@ -28,6 +25,7 @@ import {
 
 import { generateColumns } from './columns';
 import ExpenseModal from './components/ExpenseModal';
+import { FundActions } from './components/FundActions';
 import FundPageTitle from './components/FundPageTitle';
 import TransactionModal from './components/TransactionModal';
 import { useUpdateFund } from './hooks/useUpdateFund';
@@ -69,21 +67,12 @@ const FundDetail = (): JSX.Element => {
       data-testid="fund-page-content"
       onBack={navigateToFunds}
       extra={[
-      <SpaceBetween key="actions">
-        <TooltipIconButton
-          tooltip="Add transaction"
-          icon={<TransactionIcon />}
-          data-testid="fund-open-transaction-modal"
-          onClick={handleOpenTransactionModal}
+        <FundActions
+          key="actions"
+          isDisabledExpense={fund?.currentAmount === 0}
+          openTransactionModal={handleOpenTransactionModal}
+          openCreateModal={handleOpenCreateModal}
         />
-        <TooltipIconButton
-          tooltip="Add expense"
-          icon={<AddIcon />}
-          data-testid="fund-open-create-modal"
-          onClick={handleOpenCreateModal}
-          disabled={fund?.currentAmount === 0}
-        />
-      </SpaceBetween>
       ]}
     >
       {notificationContext}
