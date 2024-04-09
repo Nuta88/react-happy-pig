@@ -9,7 +9,8 @@ import {
   Page,
   SpaceBetween,
   Table,
-  Text
+  Text,
+  EditableTitle
 } from '../../components';
 import { apiUrls } from '../../constants/apiUrls';
 import {
@@ -19,6 +20,7 @@ import {
 import { useFetchFundQuery } from '../../services/funds';
 import { Expense } from '../../types';
 import {
+  convertToCurrency,
   countPaymentAmounts,
   getAmount
 } from '../../utils/fund';
@@ -26,7 +28,6 @@ import {
 import { generateColumns } from './columns';
 import ExpenseModal from './components/ExpenseModal';
 import { FundActions } from './components/FundActions';
-import FundPageTitle from './components/FundPageTitle';
 import TransactionModal from './components/TransactionModal';
 import { useUpdateFund } from './hooks/useUpdateFund';
 
@@ -37,7 +38,7 @@ const FundDetail = (): JSX.Element => {
   const { isOpenModal, modalContent: selectedExpense, hideModal, openModal } = useModal<Expense>();
   const { isOpenModal: isOpenTransactionModal, hideModal: hideTransactionModal, openModal: openTransactionModal } = useModal();
   const { notificationContext, openNotification } = useNotification();
-  const { onUpdateOrCreateExpense, onRemoveExpense, onUpdateFundName } = useUpdateFund(fund, openNotification, hideModal);
+  const { onUpdateOrCreateExpense, onRemoveExpense, onUpdateFundName, onUpdatePlannedAmount } = useUpdateFund(fund, openNotification, hideModal);
   const columns: ColumnsType<Expense> = generateColumns(onRemoveExpense, openModal);
   const expenses: Expense[] = fund?.expenses ?? [];
   const totalAmountOfExpenses = countPaymentAmounts(expenses);
@@ -57,8 +58,10 @@ const FundDetail = (): JSX.Element => {
   return (
     <Page
       title={
-      <FundPageTitle
-        name={fund?.name ?? ''}
+      <EditableTitle
+        data-testid="fund-page-name"
+        title={fund?.name ?? ''}
+        tooltip="Click to edit fund name"
         secondaryText={`(${getAmount(fund?.currentAmount)})`}
         onChange={onUpdateFundName}
       />
@@ -84,7 +87,14 @@ const FundDetail = (): JSX.Element => {
         title={() => (
           <SpaceBetween>
             <Text>Expenses: {getAmount(totalAmountOfExpenses)}</Text>
-            <Text>Planned Amount: {getAmount(fund?.plannedAmount)}</Text>
+            <EditableTitle
+              data-testid="fund-planned-amount"
+              type="number"
+              title={convertToCurrency(fund?.plannedAmount ?? 0)}
+              tooltip="Click to edit planned amount"
+              secondaryTextBefore="Planned Amount: $"
+              onChange={onUpdatePlannedAmount}
+            />
           </SpaceBetween>
         )}
         scroll={{ y: 350 }}
