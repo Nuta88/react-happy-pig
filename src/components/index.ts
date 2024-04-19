@@ -47,6 +47,7 @@ import { SpaceCenter } from './Space/SpaceCenter';
 import { Statistic } from './Statistic';
 import { Table, ColumnsType } from './Table';
 import { Tooltip } from './Tooltip';
+import { EditableTitle } from './Typography/EditableTitle';
 import { Link } from './Typography/Link';
 import { SecondaryText } from './Typography/SecondaryText';
 import { Text } from './Typography/Text';
@@ -71,6 +72,7 @@ export {
   SecondaryText,
   Title,
   Text,
+  EditableTitle,
   Link,
   Confirm,
   Table,

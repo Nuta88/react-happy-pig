@@ -1,31 +1,26 @@
 import {
-  Input as SimpleInput,
-  InputNumber,
   DatePicker,
-  InputRef
+  Input as SimpleInput,
+  InputNumber
 } from 'antd';
 import { DatePickerProps } from 'antd/es/date-picker';
-import { TextAreaProps, PasswordProps, InputProps } from 'antd/es/input';
+import {
+  PasswordProps,
+  TextAreaProps
+} from 'antd/es/input';
 import { InputNumberProps } from 'antd/es/input-number';
-import { RefAttributes } from 'react';
 
 import PasswordInput from './PasswordInput';
 import TextInput from './TextInput';
 
 const { TextArea } = SimpleInput;
 
-interface IInput {
-  type?: string
-}
-
-type TInput = IInput & PasswordProps & TextAreaProps & DatePickerProps & JSX.IntrinsicAttributes & InputProps & RefAttributes<InputRef>;
-
-export const Input = ({ type, ...props }: TInput): JSX.Element => {
+export const Input = ({ type, ...props }: any): JSX.Element => {
   switch (type) {
     case 'number': return <InputNumber {...props as InputNumberProps} />;
-    case 'textarea': return <TextArea {...props} />;
+    case 'textarea': return <TextArea {...props as TextAreaProps} />;
     case 'datepicker': return <DatePicker {...props as DatePickerProps} />;
-    case 'password': return <PasswordInput {...props} />;
+    case 'password': return <PasswordInput {...props as PasswordProps} />;
     default: return <TextInput {...props} />;
   }
 };

@@ -29,6 +29,11 @@ export const generateColumns = (onDelete: TDeleteFund, showModal: TShowModal): C
     key: 'description'
   },
   {
+    title: 'Date',
+    dataIndex: 'date',
+    key: 'date'
+  },
+  {
     title: 'Action',
     key: 'action',
     width: 100,

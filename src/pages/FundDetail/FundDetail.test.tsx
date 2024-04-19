@@ -45,7 +45,8 @@ describe('FundDetail tests', () => {
     expect(screen.getByTestId('fund-page-content')).toBeInTheDocument();
 
     await waitFor(async () => {
-      expect(screen.getByText('Car')).toBeInTheDocument();
+      expect(screen.getByTestId('fund-page-name')).toBeInTheDocument();
+      expect(screen.getByText('Car($6,493)')).toBeInTheDocument();
       expect(screen.getByTestId('fund-open-create-modal')).toBeInTheDocument();
       fireEvent.click(screen.getByTestId('fund-open-create-modal'));
 
@@ -59,7 +60,7 @@ describe('FundDetail tests', () => {
     const result = await renderWithProviders(<FundDetail />);
 
     await waitFor(async () => {
-      expect(screen.getByText('Car')).toBeInTheDocument();
+      expect(screen.getByText('Car($6,493)')).toBeInTheDocument();
       expect(screen.getAllByTestId('edit-expense-btn')[0]).toBeInTheDocument();
       userEvent.click(screen.getAllByTestId('edit-expense-btn')[0]);
 
@@ -76,7 +77,7 @@ describe('FundDetail tests', () => {
     await renderWithProviders(<FundDetail />);
 
     await waitFor(async () => {
-      expect(screen.getByText('Car')).toBeInTheDocument();
+      expect(screen.getByText('Car($6,493)')).toBeInTheDocument();
       expect(screen.getByTestId('page-back-icon')).toBeInTheDocument();
       fireEvent.click(screen.getByTestId('page-back-icon'));
     });
@@ -85,12 +86,12 @@ describe('FundDetail tests', () => {
     await renderWithProviders(<FundDetail />);
 
     await waitFor(async () => {
-      expect(screen.getByText('Car')).toBeInTheDocument();
-      expect(screen.getByTestId('fund-page-title')).toBeInTheDocument();
-      fireEvent.click(screen.getByTestId('fund-page-title'));
-      expect(screen.getByTestId('fund-page-title-input')).toBeInTheDocument();
-      expect(screen.getByTestId('fund-page-title-input-close')).toBeInTheDocument();
-      fireEvent.click(screen.getByTestId('fund-page-title-input-close'));
+      expect(screen.getByTestId('fund-page-name')).toBeInTheDocument();
+      expect(screen.getByText('Car($6,493)')).toBeInTheDocument();
+      fireEvent.click(screen.getByTestId('fund-page-name'));
+      expect(screen.getByTestId('title-input')).toBeInTheDocument();
+      expect(screen.getByTestId('title-input-close')).toBeInTheDocument();
+      fireEvent.click(screen.getByTestId('title-input-close'));
     });
   });
 });
