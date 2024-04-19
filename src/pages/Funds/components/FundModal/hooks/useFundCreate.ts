@@ -1,15 +1,25 @@
 import { FormInstance } from 'antd/es/form/hooks/useForm';
+import dayjs from 'dayjs';
 
+import { FundPriority } from '../../../../../constants/fund';
 import { useCreateFundMutation } from '../../../../../services/funds';
-import { Fund } from '../../../../../types';
+import { CreationFund } from '../../../../../types/fund';
 import { NotificationType } from '../../../../../types/notification';
+import {
+  convertDateToString,
+  today
+} from '../../../../../utils/date';
 import { generateError } from '../../../../../utils/form';
 import { convertToPennies } from '../../../../../utils/fund';
 
 interface IFormValues {
   name: string;
   plannedAmount: number;
-  currentAmount: number
+  requestedAmount: number;
+  links: string[];
+  priority: string;
+  description: string;
+  creationDate: string
 }
 
 interface IUseCreateFund {
@@ -22,8 +32,9 @@ export const useFundCreate = ({
   openNotification,
   onCancel,
   form
-}: IUseCreateFund): { onCreateFund: (values: IFormValues) => void; onCloseModal: () => void } => {
+}: IUseCreateFund): { initialValues: { priority: FundPriority; creationDate: dayjs.Dayjs }; onCreateFund: (values: IFormValues) => void; onCloseModal: () => void } => {
   const [ createFund ] = useCreateFundMutation();
+  const initialValues = { priority: FundPriority.LOW, creationDate: today };
 
   const onCloseModal = (): void => {
     form.resetFields();
@@ -34,18 +45,27 @@ export const useFundCreate = ({
     form.setFields([ generateError('currentAmount', [ error ]) ]);
   };
 
-  const successfulFoundCreation = (fund: Fund): void => {
-    openNotification(NotificationType.SUCCESS, `Fund "${fund.name}" was created successfully!`);
+  const successfulFoundCreation = (name: string): void => {
+    openNotification(NotificationType.SUCCESS, `Fund "${name}" was created successfully!`);
     onCloseModal();
   };
 
-  const generateNewFund = (values: IFormValues): Fund | undefined => {
-    const { name, plannedAmount = 0, currentAmount } = values;
+  const generateNewFund = (values: IFormValues): CreationFund | undefined => {
+    const {
+      name,
+      priority,
+      creationDate,
+      plannedAmount = 0,
+      requestedAmount = 0,
+      links = [],
+      description
+    } = values;
 
     const penniesPlannedAmount = convertToPennies(plannedAmount);
-    const penniesCurrentAmount = convertToPennies(currentAmount);
+    const penniesCurrentAmount = convertToPennies(requestedAmount);
+    const date = convertDateToString(creationDate);
 
-    return new Fund(name, penniesPlannedAmount, penniesCurrentAmount);
+    return new CreationFund(name, priority, date, penniesPlannedAmount, penniesCurrentAmount, links, description);
   };
 
   const onCreateFund = (values: IFormValues): void => {
@@ -54,10 +74,10 @@ export const useFundCreate = ({
     if (fund) {
       void createFund(fund)
         .unwrap()
-        .then(() => { successfulFoundCreation(fund); })
+        .then(() => { successfulFoundCreation(fund.name); })
         .catch(({ data }) => { setAmountFormError(data.message); });
     }
   };
 
-  return { onCreateFund, onCloseModal };
+  return { initialValues, onCreateFund, onCloseModal };
 };

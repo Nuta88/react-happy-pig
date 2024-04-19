@@ -13,7 +13,8 @@ import {
   LogoutOutlined,
   ArrowUpOutlined,
   ArrowDownOutlined,
-  TransactionOutlined
+  TransactionOutlined,
+  MinusCircleOutlined
 } from '@ant-design/icons';
 
 export {
@@ -31,5 +32,6 @@ export {
   LogoutOutlined as LogoutIcon,
   ArrowUpOutlined as ArrowUpIcon,
   ArrowDownOutlined as ArrowDownIcon,
-  TransactionOutlined as TransactionIcon
+  TransactionOutlined as TransactionIcon,
+  MinusCircleOutlined as MinusCircleIcon
 };

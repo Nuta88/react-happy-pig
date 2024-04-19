@@ -62,7 +62,7 @@ const FundDetail = (): JSX.Element => {
         data-testid="fund-page-name"
         title={fund?.name ?? ''}
         tooltip="Click to edit fund name"
-        secondaryText={`(${getAmount(fund?.currentAmount)})`}
+        secondaryText={`(${getAmount(fund?.receivedAmount)})`}
         onChange={onUpdateFundName}
       />
     }
@@ -72,7 +72,7 @@ const FundDetail = (): JSX.Element => {
       extra={[
         <FundActions
           key="actions"
-          isDisabledExpense={fund?.currentAmount === 0}
+          isDisabledExpense={fund?.receivedAmount === 0}
           openTransactionModal={handleOpenTransactionModal}
           openCreateModal={handleOpenCreateModal}
         />
@@ -105,7 +105,7 @@ const FundDetail = (): JSX.Element => {
           expense={selectedExpense}
           onSave={onUpdateOrCreateExpense}
           onCancel={hideModal}
-          availableAmount={(fund?.currentAmount ?? 0)}
+          availableAmount={(fund?.receivedAmount ?? 0)}
         />
       )}
       {isOpenTransactionModal && (

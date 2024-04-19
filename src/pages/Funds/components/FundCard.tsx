@@ -37,7 +37,7 @@ interface IFundCardProps {
 
 const FundCard: FC<IFundCardProps> = ({ fund, openNotification }) => {
   const [ closeFund ] = useCloseFundMutation();
-  const title: string = `${fund.name} (${getAmount(fund.currentAmount)})`;
+  const title: string = `${fund.name} (${getAmount(fund.receivedAmount)})`;
   const confirmRemoveTitle: string = `Are you sure you want to close "${fund.name}" fund?`;
   const currencyAmount: string = getAmount(fund.plannedAmount);
   const fundDetailLocation: string = apiUrls.funds.rootWithId(fund.id ?? 0);

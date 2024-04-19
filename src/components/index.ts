@@ -2,6 +2,7 @@ import { AuthPageLayout } from './AuthPageLayout';
 import { AuthForm } from './AuthPageLayout/Page';
 import { Button } from './Buttons';
 import { CircleButton } from './Buttons/CircleButton';
+import { DashedButton } from './Buttons/DashedButton';
 import { IconButton } from './Buttons/IconButton';
 import { SubmitButton } from './Buttons/SubmitButton';
 import { TextButton } from './Buttons/TextButton';
@@ -32,7 +33,8 @@ import {
   LogoutIcon,
   ArrowUpIcon,
   ArrowDownIcon,
-  TransactionIcon
+  TransactionIcon,
+  MinusCircleIcon
 } from './Icons';
 import { Loading } from './Loading';
 import { BasicModal } from './Modal';
@@ -58,6 +60,7 @@ export {
   AuthForm,
   Button,
   SubmitButton,
+  DashedButton,
   EmptyData as Empty,
   PageLayout,
   Loading,
@@ -102,6 +105,7 @@ export {
   ArrowUpIcon,
   ArrowDownIcon,
   TransactionIcon,
+  MinusCircleIcon,
   TooltipIconButton,
   TextButton,
   Dropdown,
