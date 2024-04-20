@@ -1,18 +1,17 @@
 import {
-  Form,
-  Radio
-} from 'antd';
-import {
   FC,
   memo
 } from 'react';
+import styled from 'styled-components';
 
 import {
   AddIcon,
   BasicModal,
   DashedButton,
+  Form,
   Input,
-  MinusCircleIcon
+  MinusCircleIcon,
+  Radio
 } from '../../../../components';
 import { FundPriority } from '../../../../constants/fund';
 import { NotificationType } from '../../../../types/notification';
@@ -36,6 +35,10 @@ const formItemLayoutWithOutLabel = {
     sm: { span: 20, offset: 8 }
   }
 };
+
+const MinusIconStyled = styled(MinusCircleIcon)`
+  margin-left: .5rem;
+`;
 
 interface IFundModalProps {
   isOpen: boolean;
@@ -143,8 +146,7 @@ const FundModal: FC<IFundModalProps> = ({ isOpen = false, onCancel, openNotifica
                   </Form.Item>
                   {fields.length
                     ? (
-                    <MinusCircleIcon
-                      className="dynamic-delete-button"
+                    <MinusIconStyled
                       onClick={() => { remove(field.name); }}
                     />
                       )

@@ -1,3 +1,8 @@
+import {
+  Form,
+  Radio
+} from 'antd';
+
 import { AuthPageLayout } from './AuthPageLayout';
 import { AuthForm } from './AuthPageLayout/Page';
 import { Button } from './Buttons';
@@ -13,7 +18,6 @@ import { Confirm } from './Confirm';
 import { Dropdown } from './Dropdown';
 import { EmptyData } from './EmptyData';
 import ErrorBoundary from './ErrorBoundary';
-import { Form } from './Form';
 import { Input } from './Form/Input';
 import PasswordInput from './Form/Input/PasswordInput';
 import TextInput from './Form/Input/TextInput';
@@ -110,7 +114,8 @@ export {
   TextButton,
   Dropdown,
   Statistic,
-  InlineCenter
+  InlineCenter,
+  Radio
 };
 
 export type { ColumnsType };
