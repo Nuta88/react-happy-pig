@@ -1,7 +1,13 @@
+import {
+  Form,
+  Radio
+} from 'antd';
+
 import { AuthPageLayout } from './AuthPageLayout';
 import { AuthForm } from './AuthPageLayout/Page';
 import { Button } from './Buttons';
 import { CircleButton } from './Buttons/CircleButton';
+import { DashedButton } from './Buttons/DashedButton';
 import { IconButton } from './Buttons/IconButton';
 import { SubmitButton } from './Buttons/SubmitButton';
 import { TextButton } from './Buttons/TextButton';
@@ -12,7 +18,6 @@ import { Confirm } from './Confirm';
 import { Dropdown } from './Dropdown';
 import { EmptyData } from './EmptyData';
 import ErrorBoundary from './ErrorBoundary';
-import { Form } from './Form';
 import { Input } from './Form/Input';
 import PasswordInput from './Form/Input/PasswordInput';
 import TextInput from './Form/Input/TextInput';
@@ -32,7 +37,8 @@ import {
   LogoutIcon,
   ArrowUpIcon,
   ArrowDownIcon,
-  TransactionIcon
+  TransactionIcon,
+  MinusCircleIcon
 } from './Icons';
 import { Loading } from './Loading';
 import { BasicModal } from './Modal';
@@ -58,6 +64,7 @@ export {
   AuthForm,
   Button,
   SubmitButton,
+  DashedButton,
   EmptyData as Empty,
   PageLayout,
   Loading,
@@ -102,11 +109,13 @@ export {
   ArrowUpIcon,
   ArrowDownIcon,
   TransactionIcon,
+  MinusCircleIcon,
   TooltipIconButton,
   TextButton,
   Dropdown,
   Statistic,
-  InlineCenter
+  InlineCenter,
+  Radio
 };
 
 export type { ColumnsType };
