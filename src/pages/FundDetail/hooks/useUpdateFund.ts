@@ -1,5 +1,8 @@
 import { useUpdateFundMutation } from '../../../services/funds';
 import { Fund, Expense } from '../../../types';
+import {
+  IFundInfo
+} from '../../../types/fund';
 import { NotificationType } from '../../../types/notification';
 import { MutationResult } from '../../../types/query';
 import {
@@ -11,6 +14,7 @@ interface IUpdateFund extends MutationResult {
   onUpdateOrCreateExpense: (expense: Expense) => void;
   onUpdateFundName: (name: string | number) => void;
   onUpdatePlannedAmount: (amount: string | number) => void;
+  onUpdateFundInfo: (info: IFundInfo) => void;
   onRemoveExpense: (id: number) => void
 }
 
@@ -56,7 +60,6 @@ export const useUpdateFund = (
     );
   };
   const onUpdatePlannedAmount = (amount: string | number): void => {
-    console.log(amount, 'kgj777777nbj');
     onShowNotification(
       updateFund({ ...fund, plannedAmount: convertToPennies(amount as number) }),
       'Planned Amount was updated successfully!',
@@ -74,11 +77,20 @@ export const useUpdateFund = (
     );
   };
 
+  const onUpdateFundInfo = (info: any): void => {
+    onShowNotification(
+      updateFund({ ...fund, ...info }),
+      'Fund info was updated successfully!',
+      'Fund info was not updated!'
+    );
+  };
+
   return {
     onUpdateOrCreateExpense,
     onRemoveExpense,
     onUpdateFundName,
     onUpdatePlannedAmount,
+    onUpdateFundInfo,
     ...result
   };
 };

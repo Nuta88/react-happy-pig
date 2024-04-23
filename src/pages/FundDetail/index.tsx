@@ -1,4 +1,7 @@
-import { useCallback } from 'react';
+import {
+  useCallback,
+  useState
+} from 'react';
 import {
   useNavigate,
   useParams
@@ -28,6 +31,7 @@ import {
 import { generateColumns } from './columns';
 import ExpenseModal from './components/ExpenseModal';
 import { FundActions } from './components/FundActions';
+import { FundInfo } from './components/FundInfo';
 import TransactionModal from './components/TransactionModal';
 import { useUpdateFund } from './hooks/useUpdateFund';
 
@@ -35,10 +39,17 @@ const FundDetail = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { data: fund } = useFetchFundQuery(Number(id));
+  const [ openInfo, setOpenInfo ] = useState(false);
   const { isOpenModal, modalContent: selectedExpense, hideModal, openModal } = useModal<Expense>();
   const { isOpenModal: isOpenTransactionModal, hideModal: hideTransactionModal, openModal: openTransactionModal } = useModal();
   const { notificationContext, openNotification } = useNotification();
-  const { onUpdateOrCreateExpense, onRemoveExpense, onUpdateFundName, onUpdatePlannedAmount } = useUpdateFund(fund, openNotification, hideModal);
+  const {
+    onUpdateOrCreateExpense,
+    onRemoveExpense,
+    onUpdateFundName,
+    onUpdatePlannedAmount,
+    onUpdateFundInfo
+  } = useUpdateFund(fund, openNotification, hideModal);
   const columns: ColumnsType<Expense> = generateColumns(onRemoveExpense, openModal);
   const expenses: Expense[] = fund?.expenses ?? [];
   const totalAmountOfExpenses = countPaymentAmounts(expenses);
@@ -50,6 +61,10 @@ const FundDetail = (): JSX.Element => {
   const handleOpenCreateModal = useCallback(() => {
     openModal();
   }, [ openModal ]);
+
+  const handleToggleInfo = useCallback(() => {
+    setOpenInfo(open => !open);
+  }, [ setOpenInfo ]);
 
   const handleOpenTransactionModal = useCallback(() => {
     openTransactionModal();
@@ -75,6 +90,7 @@ const FundDetail = (): JSX.Element => {
           isDisabledExpense={fund?.receivedAmount === 0}
           openTransactionModal={handleOpenTransactionModal}
           openCreateModal={handleOpenCreateModal}
+          openInfo={handleToggleInfo}
         />
       ]}
     >
@@ -98,6 +114,12 @@ const FundDetail = (): JSX.Element => {
           </SpaceBetween>
         )}
         scroll={{ y: 350 }}
+      />
+      <FundInfo
+        fund={fund}
+        open={openInfo}
+        onSave={onUpdateFundInfo}
+        onClose={handleToggleInfo}
       />
       {isOpenModal && (
         <ExpenseModal

@@ -33,7 +33,7 @@ const fundsApi = api.injectEndpoints({
         method: 'PUT',
         body
       }),
-      invalidatesTags: [ 'Fund' ]
+      invalidatesTags: [ 'Fund', 'Funds' ]
     }),
     transaction: builder.mutation<Fund, Transfer>({
       query: (body) => ({

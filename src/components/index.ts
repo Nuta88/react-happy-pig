@@ -9,12 +9,14 @@ import { Button } from './Buttons';
 import { CircleButton } from './Buttons/CircleButton';
 import { DashedButton } from './Buttons/DashedButton';
 import { IconButton } from './Buttons/IconButton';
+import { PrimaryButton } from './Buttons/PrimaryButton';
 import { SubmitButton } from './Buttons/SubmitButton';
 import { TextButton } from './Buttons/TextButton';
 import { TooltipIconButton } from './Buttons/TooltipIconButton';
 import { Card } from './Card';
 import { Col } from './Col';
 import { Confirm } from './Confirm';
+import { Drawer } from './Drawer';
 import { Dropdown } from './Dropdown';
 import { EmptyData } from './EmptyData';
 import ErrorBoundary from './ErrorBoundary';
@@ -38,7 +40,9 @@ import {
   ArrowUpIcon,
   ArrowDownIcon,
   TransactionIcon,
-  MinusCircleIcon
+  MinusCircleIcon,
+  InfoIcon,
+  LinkIcon
 } from './Icons';
 import { Loading } from './Loading';
 import { BasicModal } from './Modal';
@@ -47,6 +51,7 @@ import Page from './PageLayout/Page';
 import { ProgressBar } from './ProgressBar';
 import { Row } from './Row';
 import { Search } from './Search';
+import { Space } from './Space';
 import { InlineCenter } from './Space/InlineCenter';
 import { SpaceBetween } from './Space/SpaceBetween';
 import { SpaceCenter } from './Space/SpaceCenter';
@@ -65,6 +70,7 @@ export {
   Button,
   SubmitButton,
   DashedButton,
+  PrimaryButton,
   EmptyData as Empty,
   PageLayout,
   Loading,
@@ -84,6 +90,7 @@ export {
   Confirm,
   Table,
   BasicModal,
+  Space,
   SpaceBetween,
   SpaceCenter,
   Tooltip,
@@ -93,6 +100,7 @@ export {
   PasswordInput,
   Search,
   Select,
+  Drawer,
   SelectOption,
   AddIcon,
   AvatarIcon,
@@ -110,6 +118,8 @@ export {
   ArrowDownIcon,
   TransactionIcon,
   MinusCircleIcon,
+  InfoIcon,
+  LinkIcon,
   TooltipIconButton,
   TextButton,
   Dropdown,
