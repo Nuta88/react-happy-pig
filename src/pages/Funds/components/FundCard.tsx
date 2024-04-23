@@ -1,20 +1,27 @@
 import {
-  memo,
   FC,
+  memo,
   MouseEvent
 } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
-  CircleButton,
+  CheckIcon,
   Col,
   Confirm,
   DeleteIcon,
+  Dropdown,
   ProgressBar,
-  SecondaryText
+  SecondaryText,
+  Text,
+  TooltipIconButton
 } from '../../../components';
 import { apiUrls } from '../../../constants/apiUrls';
-import { useCloseFundMutation } from '../../../services/funds';
+import { FundPriority } from '../../../constants/fund';
+import {
+  useCloseFundMutation,
+  useUpdateFundMutation
+} from '../../../services/funds';
 import { Fund } from '../../../types';
 import { NotificationType } from '../../../types/notification';
 import {
@@ -22,7 +29,13 @@ import {
   getPercentage
 } from '../../../utils/fund';
 
-import { CardStyled, cardHeadStyle, cardBodyStyle } from './styled';
+import {
+  ButtonPriority,
+  cardBodyStyle,
+  cardHeadStyle,
+  CardStyled,
+  PriorityIcon
+} from './styled';
 
 const layout = {
   xs: 24,
@@ -37,7 +50,9 @@ interface IFundCardProps {
 
 const FundCard: FC<IFundCardProps> = ({ fund, openNotification }) => {
   const [ closeFund ] = useCloseFundMutation();
+  const [ updateFund ] = useUpdateFundMutation();
   const title: string = `${fund.name} (${getAmount(fund.receivedAmount)})`;
+  const priorityOptions = Object.values(FundPriority);
   const confirmRemoveTitle: string = `Are you sure you want to close "${fund.name}" fund?`;
   const currencyAmount: string = getAmount(fund.plannedAmount);
   const fundDetailLocation: string = apiUrls.funds.rootWithId(fund.id ?? 0);
@@ -55,6 +70,12 @@ const FundCard: FC<IFundCardProps> = ({ fund, openNotification }) => {
       });
   };
 
+  const onUpdateFundPriority = (event: MouseEvent<HTMLElement> | undefined, priority: string): void => {
+    event?.preventDefault();
+
+    void updateFund({ ...fund, priority });
+  };
+
   return (
     <Col
       {...layout}
@@ -66,17 +87,47 @@ const FundCard: FC<IFundCardProps> = ({ fund, openNotification }) => {
           bodyStyle={cardBodyStyle}
           title={title}
           extra={
-            <Confirm
-              title={confirmRemoveTitle}
-              onConfirm={onRemoveFund}
-              onCancel={handlePreventFundOpening}
-            >
-              <CircleButton
-                icon={<DeleteIcon />}
-                data-fund={fund.id}
-                data-testid={`fund-${fund.name}-remove-fund`}
-              />
-            </Confirm>
+            <>
+              <Dropdown items={[
+                ...priorityOptions.map(priority => (
+                  {
+                    label: (
+                      <Text
+                        onClick={(e) => { onUpdateFundPriority(e, priority); }}
+                      >
+                        <PriorityIcon isShowIcon={priority === fund.priority}>
+                          <CheckIcon /> {priority}
+                        </PriorityIcon>
+                      </Text>
+                    ),
+                    key: priority
+                  }
+                ))
+              ]}>
+                <ButtonPriority priority={fund.priority}>
+                  <TooltipIconButton
+                    tooltip="Fund priority"
+                    size="small"
+                    data-testid={`fund-${fund.name}-priority`}
+                    onClick={(e) => { e.preventDefault(); }}
+                  >
+                    {fund.priority.substring(0, 1).toUpperCase()}
+                  </TooltipIconButton>
+                </ButtonPriority>
+              </Dropdown>
+              <Confirm
+                title={confirmRemoveTitle}
+                onConfirm={onRemoveFund}
+                onCancel={handlePreventFundOpening}
+              >
+                <TooltipIconButton
+                  tooltip="Remove fund"
+                  size="small"
+                  icon={<DeleteIcon />}
+                  data-testid={`fund-${fund.name}-remove-fund`}
+                />
+              </Confirm>
+            </>
           }
         >
           <SecondaryText>{currencyAmount}</SecondaryText>

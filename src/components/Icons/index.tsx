@@ -14,7 +14,9 @@ import {
   ArrowUpOutlined,
   ArrowDownOutlined,
   TransactionOutlined,
-  MinusCircleOutlined
+  MinusCircleOutlined,
+  InfoCircleOutlined,
+  LinkOutlined
 } from '@ant-design/icons';
 
 export {
@@ -33,5 +35,7 @@ export {
   ArrowUpOutlined as ArrowUpIcon,
   ArrowDownOutlined as ArrowDownIcon,
   TransactionOutlined as TransactionIcon,
-  MinusCircleOutlined as MinusCircleIcon
+  MinusCircleOutlined as MinusCircleIcon,
+  InfoCircleOutlined as InfoIcon,
+  LinkOutlined as LinkIcon
 };

@@ -26,6 +26,7 @@ export class Fund {
   id: number | null;
   name: string;
   priority: string;
+  creationDate: string;
   plannedAmount: number;
   receivedAmount: number;
   description?: string | null;
@@ -36,6 +37,7 @@ export class Fund {
     plannedAmount: number = 0,
     receivedAmount: number = 0,
     id: number | null = null,
+    creationDate: string = '',
     expenses: Expense[] = [],
     links: string[] = [],
     description: string | null
@@ -48,6 +50,7 @@ export class Fund {
     this.description = description;
     this.priority = priority;
     this.links = links;
+    this.creationDate = creationDate;
   }
 
   expenses: Expense[];
@@ -84,4 +87,11 @@ export interface Transfer {
   fundId: number;
   amount: number;
   transferType: keyof typeof BankTransferType
+}
+
+export interface IFundInfo {
+  priority: string;
+  creationDate: string;
+  description?: string | null;
+  links: string[]
 }
