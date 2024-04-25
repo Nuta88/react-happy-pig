@@ -77,7 +77,7 @@ const FundDetail = (): JSX.Element => {
         data-testid="fund-page-name"
         title={fund?.name ?? ''}
         tooltip="Click to edit fund name"
-        secondaryText={`(${getAmount(fund?.receivedAmount)})`}
+        secondaryText={`(${getAmount(fund?.currentAmount)})`}
         onChange={onUpdateFundName}
       />
     }
@@ -87,7 +87,7 @@ const FundDetail = (): JSX.Element => {
       extra={[
         <FundActions
           key="actions"
-          isDisabledExpense={fund?.receivedAmount === 0}
+          isDisabledExpense={fund?.currentAmount === 0}
           openTransactionModal={handleOpenTransactionModal}
           openCreateModal={handleOpenCreateModal}
           openInfo={handleToggleInfo}
@@ -106,7 +106,7 @@ const FundDetail = (): JSX.Element => {
             <EditableTitle
               data-testid="fund-planned-amount"
               type="number"
-              title={convertToCurrency(fund?.plannedAmount ?? 0)}
+              title={convertToCurrency(fund?.plannedAmount)}
               tooltip="Click to edit planned amount"
               secondaryTextBefore="Planned Amount: $"
               onChange={onUpdatePlannedAmount}
@@ -127,7 +127,7 @@ const FundDetail = (): JSX.Element => {
           expense={selectedExpense}
           onSave={onUpdateOrCreateExpense}
           onCancel={hideModal}
-          availableAmount={(fund?.receivedAmount ?? 0)}
+          availableAmount={(fund?.currentAmount ?? 0)}
         />
       )}
       {isOpenTransactionModal && (

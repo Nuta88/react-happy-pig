@@ -4,8 +4,7 @@ import {
   toUSD,
   getAmount,
   getPercentage,
-  upsertExpense,
-  countPaymentAmounts
+  upsertExpense
 } from './fund';
 
 describe('FundDetail util tests', () => {
@@ -106,26 +105,5 @@ describe('FundDetail util tests', () => {
 
       expect(upsertExpense(expenses, expense)).toEqual(result);
     });
-  });
-  test('should count all payment amounts', () => {
-    const expenses = [
-      {
-        id: 1,
-        paymentAmount: 150,
-        recipient: 'Test recipient',
-        description: 'Test',
-        date: '2022-12-03'
-      },
-      {
-        id: 2,
-        paymentAmount: 150,
-        recipient: 'Test recipient',
-        description: 'Test',
-        date: '2022-12-03'
-      }
-    ];
-    const result = 300;
-
-    expect(countPaymentAmounts(expenses)).toEqual(result);
   });
 });

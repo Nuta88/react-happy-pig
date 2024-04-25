@@ -27,6 +27,7 @@ export class Fund {
   name: string;
   priority: string;
   creationDate: string;
+  currentAmount: number;
   plannedAmount: number;
   receivedAmount: number;
   description?: string | null;
@@ -34,6 +35,7 @@ export class Fund {
   constructor (
     name: string = '',
     priority: string = '',
+    currentAmount: number = 0,
     plannedAmount: number = 0,
     receivedAmount: number = 0,
     id: number | null = null,
@@ -44,6 +46,7 @@ export class Fund {
   ) {
     this.id = id;
     this.name = name;
+    this.currentAmount = currentAmount;
     this.plannedAmount = plannedAmount;
     this.receivedAmount = receivedAmount;
     this.expenses = expenses;

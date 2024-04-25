@@ -28,6 +28,7 @@ import {
   getAmount,
   getPercentage
 } from '../../../utils/fund';
+import { getFirstUpperCaseLetter } from '../../../utils/string';
 
 import {
   ButtonPriority,
@@ -51,7 +52,7 @@ interface IFundCardProps {
 const FundCard: FC<IFundCardProps> = ({ fund, openNotification }) => {
   const [ closeFund ] = useCloseFundMutation();
   const [ updateFund ] = useUpdateFundMutation();
-  const title: string = `${fund.name} (${getAmount(fund.receivedAmount)})`;
+  const title: string = `${fund.name} (${getAmount(fund.currentAmount)})`;
   const priorityOptions = Object.values(FundPriority);
   const confirmRemoveTitle: string = `Are you sure you want to close "${fund.name}" fund?`;
   const currencyAmount: string = getAmount(fund.plannedAmount);
@@ -111,7 +112,7 @@ const FundCard: FC<IFundCardProps> = ({ fund, openNotification }) => {
                     data-testid={`fund-${fund.name}-priority`}
                     onClick={(e) => { e.preventDefault(); }}
                   >
-                    {fund.priority.substring(0, 1).toUpperCase()}
+                    {getFirstUpperCaseLetter(fund.priority)}
                   </TooltipIconButton>
                 </ButtonPriority>
               </Dropdown>
