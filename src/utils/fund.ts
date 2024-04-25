@@ -5,7 +5,7 @@ interface IPercentage {
   plannedAmount?: number
 }
 
-export const convertToCurrency = (amount: number): number => (amount / 100);
+export const convertToCurrency = (amount: number = 0): number => (amount / 100);
 
 export const convertToPennies = (amount: number): number => (amount * 100);
 

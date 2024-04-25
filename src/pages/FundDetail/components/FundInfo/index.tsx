@@ -30,6 +30,7 @@ import {
   convertDateToString,
   disablePreviousDate
 } from '../../../../utils/date';
+import { getAmount } from '../../../../utils/fund';
 
 const MinusIconStyled = styled(MinusCircleIcon)`
   margin-left: .5rem;
@@ -203,6 +204,9 @@ export const FundInfo: FC<InfoProps> = ({ open, fund, onClose, onSave }): JSX.El
             )
           : (
             <>
+              <p>
+                <Text>Received Amount:</Text> <SecondaryText>{getAmount(fund?.receivedAmount)}</SecondaryText>
+              </p>
               <p>
                 <Text>Priority:</Text> <SecondaryText>{fund?.priority}</SecondaryText>
               </p>
