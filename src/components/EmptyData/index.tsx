@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 export const EmptyStyled = styled(Empty)`
   height: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
   flex-direction: column;

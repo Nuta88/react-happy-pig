@@ -10,6 +10,7 @@ import {
   Button,
   DashedButton,
   Drawer,
+  Empty,
   Form,
   Input,
   Link,
@@ -222,7 +223,8 @@ export const FundInfo: FC<InfoProps> = ({ open, fund, onClose, onSave }): JSX.El
                   <List.Item>
                     {item
                       ? <Link href={item} target="_blank"><LinkIcon /> {item}</Link>
-                      : <SecondaryText>Empty data</SecondaryText>}
+                      : <Empty description="No links" />
+                    }
                   </List.Item>
                 )}
               />
