@@ -1,6 +1,4 @@
-import {
-  List
-} from 'antd';
+import { List } from 'antd';
 import {
   FC,
   useState
@@ -12,25 +10,28 @@ import {
   Button,
   DashedButton,
   Drawer,
+  Empty,
   Form,
   Input,
   Link,
-  Space,
   LinkIcon,
   MinusCircleIcon,
   PrimaryButton,
   Radio,
   SecondaryText,
+  Space,
   Text
 } from '../../../../components';
 import { FundPriority } from '../../../../constants/fund';
 import { Fund } from '../../../../types';
 import { IFundInfo } from '../../../../types/fund';
-import {
-  convertDateToString,
-  disablePreviousDate
-} from '../../../../utils/date';
+import { disablePreviousDate } from '../../../../utils/date';
 import { getAmount } from '../../../../utils/fund';
+
+import {
+  convertFormValuesToFund,
+  createInitialValues
+} from './helpers';
 
 const MinusIconStyled = styled(MinusCircleIcon)`
   margin-left: .5rem;
@@ -69,7 +70,7 @@ export const FundInfo: FC<InfoProps> = ({ open, fund, onClose, onSave }): JSX.El
   const [ isEdit, setIsEdit ] = useState(false);
   const [ form ] = Form.useForm();
   const priorityOptions = Object.entries(FundPriority);
-  const initialValues = { description: fund?.description, links: fund?.links, priority: fund?.priority };
+  const initialValues = createInitialValues(fund);
 
   const handleEdit = (): void => {
     form.setFieldsValue(initialValues);
@@ -87,9 +88,7 @@ export const FundInfo: FC<InfoProps> = ({ open, fund, onClose, onSave }): JSX.El
     form.resetFields();
   };
   const handleUpdateFund = (values: IFundInfo): void => {
-    const date = convertDateToString(values.creationDate);
-
-    onSave({ ...values, creationDate: date });
+    onSave(convertFormValuesToFund(values));
     handleHideEdit();
   };
 
@@ -224,7 +223,8 @@ export const FundInfo: FC<InfoProps> = ({ open, fund, onClose, onSave }): JSX.El
                   <List.Item>
                     {item
                       ? <Link href={item} target="_blank"><LinkIcon /> {item}</Link>
-                      : <SecondaryText>Empty data</SecondaryText>}
+                      : <Empty description="No links" />
+                    }
                   </List.Item>
                 )}
               />

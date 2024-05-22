@@ -9,7 +9,7 @@ export const useNotification = (): {
 } => {
   const [ messageApi, contextHolder ] = message.useMessage();
 
-  const openNotification = (type: NotificationType, content: string, duration: number = 3): void => {
+  const openNotification = (type: NotificationType, content: string, duration: number = 1): void => {
     void messageApi.open({
       type,
       content,
