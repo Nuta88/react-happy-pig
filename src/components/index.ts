@@ -42,7 +42,8 @@ import {
   TransactionIcon,
   MinusCircleIcon,
   InfoIcon,
-  LinkIcon
+  LinkIcon,
+  TagIcon
 } from './Icons';
 import { Loading } from './Loading';
 import { BasicModal } from './Modal';
@@ -120,6 +121,7 @@ export {
   MinusCircleIcon,
   InfoIcon,
   LinkIcon,
+  TagIcon,
   TooltipIconButton,
   TextButton,
   Dropdown,
