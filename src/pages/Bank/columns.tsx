@@ -14,17 +14,12 @@ import {
   IBank,
   Income
 } from '../../types';
-import { NotificationType } from '../../types/notification';
+import { TNotification } from '../../types/columns';
 import { getAmount } from '../../utils/fund';
+import { onWrapQuery } from '../../utils/query';
 
 type TShowModal = (income: Income) => void;
 type TDeleteIncome = (id: number) => Promise<{ data: IBank } | { error: FetchBaseQueryError | SerializedError }>;
-type TNotification = (type: NotificationType, content: string) => void;
-interface TError {
-  data: {
-    message: string
-  }
-}
 
 export const generateColumns = (showModal: TShowModal, onDelete: TDeleteIncome, openNotification: TNotification): ColumnsType<Income> => [
   {
@@ -54,16 +49,11 @@ export const generateColumns = (showModal: TShowModal, onDelete: TDeleteIncome, 
       };
 
       const handleDelete = (): void => {
-        void onDelete(income.id as number)
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-expect-error
-          .unwrap()
-          .then(() => {
-            openNotification(NotificationType.SUCCESS, `Income "${income.source}" was deleted successfully!`);
-          })
-          .catch(({ data }: TError) => {
-            openNotification(NotificationType.ERROR, data.message);
-          });
+        onWrapQuery(
+          onDelete(income.id as number),
+          `Income "${income.source}" was deleted successfully!`,
+          openNotification
+        );
       };
       return (
         <SpaceBetween size="middle">
