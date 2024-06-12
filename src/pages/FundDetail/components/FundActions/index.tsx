@@ -4,6 +4,7 @@ import {
   AddIcon,
   InfoIcon,
   SpaceBetween,
+  TagIcon,
   TooltipIconButton,
   TransactionIcon
 } from '../../../../components';
@@ -12,12 +13,25 @@ interface IFundActionsProps {
   isDisabledExpense: boolean;
   openTransactionModal: () => void;
   openCreateModal: () => void;
-  openInfo: () => void
+  openInfo: () => void;
+  openAssigningFundTag: () => void
 }
 
-export const FundActions: FC<IFundActionsProps> = ({ isDisabledExpense, openTransactionModal, openCreateModal, openInfo }) => {
+export const FundActions: FC<IFundActionsProps> = ({
+  isDisabledExpense,
+  openTransactionModal,
+  openCreateModal,
+  openInfo,
+  openAssigningFundTag
+}) => {
   return (
     <SpaceBetween key="actions">
+      <TooltipIconButton
+        tooltip="Assigning Tag to Fund"
+        icon={<TagIcon />}
+        data-testid="fund-open-tag"
+        onClick={openAssigningFundTag}
+      />
       <TooltipIconButton
         tooltip="Open fund info"
         icon={<InfoIcon />}

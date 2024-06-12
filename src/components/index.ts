@@ -5,6 +5,7 @@ import {
 
 import { AuthPageLayout } from './AuthPageLayout';
 import { AuthForm } from './AuthPageLayout/Page';
+import { AutoComplete } from './AutoComplete';
 import { Button } from './Buttons';
 import { CircleButton } from './Buttons/CircleButton';
 import { DashedButton } from './Buttons/DashedButton';
@@ -16,6 +17,7 @@ import { TooltipIconButton } from './Buttons/TooltipIconButton';
 import { Card } from './Card';
 import { Col } from './Col';
 import { Confirm } from './Confirm';
+import { Divider } from './Divider';
 import { Drawer } from './Drawer';
 import { Dropdown } from './Dropdown';
 import { EmptyData } from './EmptyData';
@@ -43,7 +45,8 @@ import {
   MinusCircleIcon,
   InfoIcon,
   LinkIcon,
-  TagIcon
+  TagIcon,
+  TagsIcon
 } from './Icons';
 import { Loading } from './Loading';
 import { BasicModal } from './Modal';
@@ -58,6 +61,7 @@ import { SpaceBetween } from './Space/SpaceBetween';
 import { SpaceCenter } from './Space/SpaceCenter';
 import { Statistic } from './Statistic';
 import { Table, ColumnsType } from './Table';
+import { Tag } from './Tag';
 import { Tooltip } from './Tooltip';
 import { EditableTitle } from './Typography/EditableTitle';
 import { Link } from './Typography/Link';
@@ -67,10 +71,12 @@ import { Title } from './Typography/Title';
 
 export {
   AuthPageLayout,
+  AutoComplete,
   AuthForm,
   Button,
   SubmitButton,
   DashedButton,
+  Divider,
   PrimaryButton,
   EmptyData as Empty,
   PageLayout,
@@ -122,6 +128,8 @@ export {
   InfoIcon,
   LinkIcon,
   TagIcon,
+  TagsIcon,
+  Tag,
   TooltipIconButton,
   TextButton,
   Dropdown,

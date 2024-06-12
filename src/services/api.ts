@@ -11,7 +11,8 @@ const api = createApi({
     'Funds',
     'Fund',
     'Bank',
-    'Tags'
+    'Tags',
+    'TagAssociations'
   ],
   endpoints: () => ({})
 });

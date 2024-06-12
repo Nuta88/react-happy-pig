@@ -1,19 +1,15 @@
-import {
-  useCallback,
-  useState
-} from 'react';
-import {
-  useNavigate,
-  useParams
-} from 'react-router-dom';
+import { useCallback, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import styled from 'styled-components';
 
 import {
   ColumnsType,
+  Drawer,
+  EditableTitle,
   Page,
   SpaceBetween,
   Table,
-  Text,
-  EditableTitle
+  Text
 } from '../../components';
 import { apiUrls } from '../../constants/apiUrls';
 import {
@@ -22,6 +18,7 @@ import {
 } from '../../hooks';
 import { useFetchFundQuery } from '../../services/funds';
 import { Expense } from '../../types';
+import { AssociatedObjectType } from '../../types/tag';
 import {
   convertToCurrency,
   countPaymentAmounts,
@@ -29,11 +26,18 @@ import {
 } from '../../utils/fund';
 
 import { generateColumns } from './columns';
+import { AssigningTag } from './components/AssigningTag';
 import ExpenseModal from './components/ExpenseModal';
 import { FundActions } from './components/FundActions';
 import { FundInfo } from './components/FundInfo';
 import TransactionModal from './components/TransactionModal';
 import { useUpdateFund } from './hooks/useUpdateFund';
+
+const DrawerStyled = styled(Drawer)`
+  .ant-drawer-body {
+    padding: 0 1.5rem 1.5rem;
+  }
+`;
 
 const FundDetail = (): JSX.Element => {
   const navigate = useNavigate();
@@ -41,6 +45,7 @@ const FundDetail = (): JSX.Element => {
   const { data: fund } = useFetchFundQuery(Number(id));
   const [ openInfo, setOpenInfo ] = useState(false);
   const { isOpenModal, modalContent: selectedExpense, hideModal, openModal } = useModal<Expense>();
+  const [ isOpenAssigning, setIsOpenAssigning ] = useState<boolean>(false);
   const { isOpenModal: isOpenTransactionModal, hideModal: hideTransactionModal, openModal: openTransactionModal } = useModal();
   const { notificationContext, openNotification } = useNotification();
   const {
@@ -65,6 +70,10 @@ const FundDetail = (): JSX.Element => {
   const handleToggleInfo = useCallback(() => {
     setOpenInfo(open => !open);
   }, [ setOpenInfo ]);
+
+  const handleToggleAssigning = useCallback(() => {
+    setIsOpenAssigning(open => !open);
+  }, [ setIsOpenAssigning ]);
 
   const handleOpenTransactionModal = useCallback(() => {
     openTransactionModal();
@@ -91,6 +100,7 @@ const FundDetail = (): JSX.Element => {
           openTransactionModal={handleOpenTransactionModal}
           openCreateModal={handleOpenCreateModal}
           openInfo={handleToggleInfo}
+          openAssigningFundTag={handleToggleAssigning}
         />
       ]}
     >
@@ -121,6 +131,18 @@ const FundDetail = (): JSX.Element => {
         onSave={onUpdateFundInfo}
         onClose={handleToggleInfo}
       />
+      <DrawerStyled
+        title="Fund tags"
+        placement="right"
+        width={500}
+        onClose={handleToggleAssigning}
+        open={isOpenAssigning}
+      >
+        <AssigningTag
+          associatedObjectId={fund?.id as number}
+          asociatedObjectType={AssociatedObjectType.FUND}
+        />
+      </DrawerStyled>
       {isOpenModal && (
         <ExpenseModal
           isOpen={isOpenModal}
