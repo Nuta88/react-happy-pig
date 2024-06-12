@@ -17,7 +17,8 @@ import {
   MinusCircleOutlined,
   InfoCircleOutlined,
   LinkOutlined,
-  TagOutlined
+  TagOutlined,
+  TagsOutlined
 } from '@ant-design/icons';
 
 export {
@@ -39,5 +40,6 @@ export {
   MinusCircleOutlined as MinusCircleIcon,
   InfoCircleOutlined as InfoIcon,
   LinkOutlined as LinkIcon,
-  TagOutlined as TagIcon
+  TagOutlined as TagIcon,
+  TagsOutlined as TagsIcon
 };

@@ -1,7 +1,7 @@
 import {
   BankIcon,
   DollarIcon,
-  TagIcon
+  TagsIcon
 } from '../components';
 
 import { apiUrls } from './apiUrls';
@@ -22,6 +22,6 @@ export const navigationLinks = [
   {
     name: 'Tags',
     link: apiUrls.tags.root,
-    icon: TagIcon
+    icon: TagsIcon
   }
 ];

@@ -14,7 +14,8 @@ export const apiUrls = {
   },
   tags: {
     root: '/tags',
-    rootWithId: (id: string) => `/tags/${id}`
+    rootWithId: (id: string) => `/tags/${id}`,
+    associations: '/tags/associations'
   }
 };
 

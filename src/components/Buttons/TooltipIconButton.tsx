@@ -7,13 +7,14 @@ import { ButtonProps } from './types';
 
 interface IMainCircleButton {
   tooltip: string;
+  size?: string;
   icon?: ReactNode
 }
 
-export const TooltipIconButton = ({ tooltip, ...props }: IMainCircleButton & ButtonProps): JSX.Element => (
+export const TooltipIconButton = ({ tooltip, size = 'large', ...props }: IMainCircleButton & ButtonProps): JSX.Element => (
   <Tooltip title={tooltip}>
     <CircleButton
-      size="large"
+      size={size}
       type="primary"
       {...props}
     />
