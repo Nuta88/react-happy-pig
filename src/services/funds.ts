@@ -1,5 +1,8 @@
 import { apiUrls } from '../constants/apiUrls';
-import { Fund } from '../types';
+import {
+  Expense,
+  Fund
+} from '../types';
 import { Transfer } from '../types/fund';
 
 import api from './api';
@@ -15,6 +18,13 @@ const fundsApi = api.injectEndpoints({
     fetchFund: builder.query<Fund, number>({
       query: (id, ...params) => ({
         url: apiUrls.funds.rootWithId(id),
+        params
+      }),
+      providesTags: [ 'Fund' ]
+    }),
+    fetchExpenses: builder.query<Expense[], Record<string, any> | undefined>({
+      query: params => ({
+        url: apiUrls.funds.expenses,
         params
       }),
       providesTags: [ 'Fund' ]
@@ -57,6 +67,7 @@ const fundsApi = api.injectEndpoints({
 export const {
   useFetchFundsQuery,
   useFetchFundQuery,
+  useFetchExpensesQuery,
   useCreateFundMutation,
   useCloseFundMutation,
   useUpdateFundMutation,

@@ -9,3 +9,7 @@ export interface GeneralQueryProps {
 export interface MutationResult extends GeneralQueryProps {
   reset: () => void
 }
+
+export interface TQueryFilter {
+  date: string
+}

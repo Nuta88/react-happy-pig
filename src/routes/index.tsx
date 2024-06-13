@@ -10,6 +10,7 @@ const Login = lazy(async (): Promise<{ readonly default: () => JSX.Element }> =>
 const Register = lazy(async (): Promise<{ readonly default: () => JSX.Element }> => await import('../pages/Register'));
 const Home = lazy(async (): Promise<{ readonly default: () => JSX.Element }> => await import('../pages/Home'));
 const Tag = lazy(async (): Promise<{ readonly default: () => JSX.Element }> => await import('../pages/Tag'));
+const Expenses = lazy(async (): Promise<{ readonly default: () => JSX.Element }> => await import('../pages/Expenses'));
 
 const routers = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const routers = createBrowserRouter([
       {
         path: 'funds/:id',
         element: <FundDetail />
+      },
+      {
+        path: 'funds/expenses',
+        element: <Expenses />
       },
       {
         path: 'bank',

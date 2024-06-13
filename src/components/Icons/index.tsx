@@ -1,5 +1,6 @@
 import {
   ArrowLeftOutlined,
+  BookOutlined,
   DeleteOutlined,
   PlusOutlined,
   EditOutlined,
@@ -18,11 +19,13 @@ import {
   InfoCircleOutlined,
   LinkOutlined,
   TagOutlined,
-  TagsOutlined
+  TagsOutlined,
+  CalendarOutlined
 } from '@ant-design/icons';
 
 export {
   ArrowLeftOutlined as ArrowLeftIcon,
+  BookOutlined as BookIcon,
   DeleteOutlined as DeleteIcon,
   PlusOutlined as AddIcon,
   EditOutlined as EditIcon,
@@ -41,5 +44,6 @@ export {
   InfoCircleOutlined as InfoIcon,
   LinkOutlined as LinkIcon,
   TagOutlined as TagIcon,
-  TagsOutlined as TagsIcon
+  TagsOutlined as TagsIcon,
+  CalendarOutlined as CalendarIcon
 };

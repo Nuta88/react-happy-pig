@@ -17,6 +17,7 @@ import { TooltipIconButton } from './Buttons/TooltipIconButton';
 import { Card } from './Card';
 import { Col } from './Col';
 import { Confirm } from './Confirm';
+import { DatePicker } from './DatePicker';
 import { Divider } from './Divider';
 import { Drawer } from './Drawer';
 import { Dropdown } from './Dropdown';
@@ -31,6 +32,7 @@ import {
   AvatarIcon,
   ArrowLeftIcon,
   BankIcon,
+  BookIcon,
   DollarIcon,
   DeleteIcon,
   EditIcon,
@@ -46,7 +48,8 @@ import {
   InfoIcon,
   LinkIcon,
   TagIcon,
-  TagsIcon
+  TagsIcon,
+  CalendarIcon
 } from './Icons';
 import { Loading } from './Loading';
 import { BasicModal } from './Modal';
@@ -74,6 +77,7 @@ export {
   AutoComplete,
   AuthForm,
   Button,
+  DatePicker,
   SubmitButton,
   DashedButton,
   Divider,
@@ -113,6 +117,7 @@ export {
   AvatarIcon,
   ArrowLeftIcon,
   BankIcon,
+  BookIcon,
   DollarIcon,
   DeleteIcon,
   EditIcon,
@@ -129,6 +134,7 @@ export {
   LinkIcon,
   TagIcon,
   TagsIcon,
+  CalendarIcon,
   Tag,
   TooltipIconButton,
   TextButton,

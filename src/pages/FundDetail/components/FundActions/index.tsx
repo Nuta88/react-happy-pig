@@ -31,6 +31,7 @@ export const FundActions: FC<IFundActionsProps> = ({
         icon={<TagIcon />}
         data-testid="fund-open-tag"
         onClick={openAssigningFundTag}
+        disabled
       />
       <TooltipIconButton
         tooltip="Open fund info"
