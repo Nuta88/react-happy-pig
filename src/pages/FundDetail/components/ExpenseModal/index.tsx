@@ -37,6 +37,8 @@ const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, availableAmount
   const title: string = expense ? 'Edit expense' : 'Add expense';
   const initialValues = createInitFormValues(expense);
   const [ form ] = Form.useForm();
+  // TODO: remove
+  const isHideAssigningTag: boolean = true;
 
   const onCloseModal = (): void => {
     form.resetFields();
@@ -130,7 +132,7 @@ const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, availableAmount
             <Input type="textarea" rows={4} />
           </Form.Item>
         </Form>
-        {expense && (
+        {expense && !isHideAssigningTag && (
           <AssigningTag
             associatedObjectId={expense?.id as number}
             asociatedObjectType={AssociatedObjectType.EXPENSE}
