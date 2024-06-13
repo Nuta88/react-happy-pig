@@ -1,10 +1,13 @@
 import {
   AddIcon,
+  BookIcon,
   Empty,
   Page,
   Row,
-  TooltipIconButton
+  TooltipIconButton,
+  SpaceBetween
 } from '../../components';
+import { apiUrls } from '../../constants/apiUrls';
 import {
   useModal,
   useNotification
@@ -25,14 +28,23 @@ const Funds = (): JSX.Element => {
     <Page
       title="Funds"
       data-testid="funds-page-content"
-      extra={
-        <TooltipIconButton
-          tooltip="Add fund"
-          data-testid="create-fund-btn"
-          icon={<AddIcon />}
-          onClick={openModal}
-        />
-      }
+      extra={[
+        <SpaceBetween key="actions">
+          <TooltipIconButton
+            href={apiUrls.funds.expenses}
+            tooltip="Expenditures of funds"
+            data-testid="expenses-btn"
+            icon={<BookIcon />}
+            onClick={openModal}
+          />,
+          <TooltipIconButton
+            tooltip="Add fund"
+            data-testid="create-fund-btn"
+            icon={<AddIcon />}
+            onClick={openModal}
+          />
+        </SpaceBetween>
+      ]}
     >
       {notificationContext}
       {isEmptyComponent && <Empty description="No funds" data-testid="empty-funds"/>}

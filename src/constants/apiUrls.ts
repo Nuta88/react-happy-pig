@@ -5,7 +5,8 @@ export const apiUrls = {
     root: '/funds',
     rootWithId: (id: number) => `/funds/${id}`,
     close: (id: number) => `/funds/close/${id}`,
-    transfer: (id: number) => `/funds/${id}/amount`
+    transfer: (id: number) => `/funds/${id}/amount`,
+    expenses: '/funds/expenses'
   },
   bank: {
     root: '/bank',
