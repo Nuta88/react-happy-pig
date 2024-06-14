@@ -37,7 +37,9 @@ import {
   DeleteIcon,
   EditIcon,
   CloseIcon,
+  CloseCircleIcon,
   CheckIcon,
+  CheckCircleIcon,
   LockIcon,
   MailIcon,
   LogoutIcon,
@@ -49,7 +51,8 @@ import {
   LinkIcon,
   TagIcon,
   TagsIcon,
-  CalendarIcon
+  CalendarIcon,
+  FilterIcon
 } from './Icons';
 import { Loading } from './Loading';
 import { BasicModal } from './Modal';
@@ -122,6 +125,7 @@ export {
   DeleteIcon,
   EditIcon,
   CloseIcon,
+  CloseCircleIcon,
   CheckIcon,
   LockIcon,
   MailIcon,
@@ -135,6 +139,8 @@ export {
   TagIcon,
   TagsIcon,
   CalendarIcon,
+  FilterIcon,
+  CheckCircleIcon,
   Tag,
   TooltipIconButton,
   TextButton,

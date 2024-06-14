@@ -15,28 +15,27 @@ import {
   SecondaryText,
   Text,
   TooltipIconButton
-} from '../../../components';
-import { apiUrls } from '../../../constants/apiUrls';
-import { FundPriority } from '../../../constants/fund';
+} from '../../../../components';
+import { apiUrls } from '../../../../constants/apiUrls';
+import { FundPriority } from '../../../../constants/fund';
 import {
   useCloseFundMutation,
   useUpdateFundMutation
-} from '../../../services/funds';
-import { Fund } from '../../../types';
-import { NotificationType } from '../../../types/notification';
+} from '../../../../services/funds';
+import { Fund } from '../../../../types';
+import { NotificationType } from '../../../../types/notification';
 import {
   getAmount,
   getPercentage
-} from '../../../utils/fund';
-import { getFirstUpperCaseLetter } from '../../../utils/string';
-
+} from '../../../../utils/fund';
+import { getFirstUpperCaseLetter } from '../../../../utils/string';
 import {
   ButtonPriority,
   cardBodyStyle,
   cardHeadStyle,
   CardStyled,
   PriorityIcon
-} from './styled';
+} from '../styled';
 
 const layout = {
   xs: 24,

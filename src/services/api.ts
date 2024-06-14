@@ -10,6 +10,7 @@ const api = createApi({
   tagTypes: [
     'Funds',
     'Fund',
+    'Expenses',
     'Bank',
     'Tags',
     'TagAssociations'

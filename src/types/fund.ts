@@ -98,3 +98,8 @@ export interface IFundInfo {
   description?: string | null;
   links: string[]
 }
+export interface IFundFilter {
+  priority?: string;
+  name?: string;
+  date?: string
+}
