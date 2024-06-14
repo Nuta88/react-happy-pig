@@ -1,11 +1,16 @@
 import {
+  useDeferredValue,
+  useState
+} from 'react';
+
+import {
   AddIcon,
   BookIcon,
   Empty,
   Page,
   Row,
-  TooltipIconButton,
-  SpaceBetween
+  SpaceBetween,
+  TooltipIconButton
 } from '../../components';
 import { apiUrls } from '../../constants/apiUrls';
 import {
@@ -14,13 +19,17 @@ import {
 } from '../../hooks';
 import { useFetchFundsQuery } from '../../services/funds';
 import { Fund } from '../../types';
+import { IFundFilter } from '../../types/fund';
 
 import FundCard from './components/FundCard';
+import FundFilters from './components/FundFilters';
 import FundModal from './components/FundModal';
 
 const Funds = (): JSX.Element => {
   const { isOpenModal, hideModal, openModal } = useModal();
-  const { data: funds = [], isLoading } = useFetchFundsQuery(undefined, { refetchOnMountOrArgChange: true });
+  const [ filter, setFilter ] = useState<IFundFilter>({});
+  const deferredQuery = useDeferredValue(filter);
+  const { data: funds = [], isLoading } = useFetchFundsQuery(deferredQuery, { refetchOnMountOrArgChange: true });
   const { notificationContext, openNotification } = useNotification();
   const isEmptyComponent: boolean = !funds.length && !isLoading;
 
@@ -36,7 +45,7 @@ const Funds = (): JSX.Element => {
             data-testid="expenses-btn"
             icon={<BookIcon />}
             onClick={openModal}
-          />,
+          />
           <TooltipIconButton
             tooltip="Add fund"
             data-testid="create-fund-btn"
@@ -46,6 +55,7 @@ const Funds = (): JSX.Element => {
         </SpaceBetween>
       ]}
     >
+      <FundFilters filter={filter} onFilters={setFilter} />
       {notificationContext}
       {isEmptyComponent && <Empty description="No funds" data-testid="empty-funds"/>}
       <Row gutter={[ 16, 16 ]}>

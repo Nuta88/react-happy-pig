@@ -10,8 +10,9 @@ import api from './api';
 const fundsApi = api.injectEndpoints({
   endpoints: builder => ({
     fetchFunds: builder.query<Fund[], Record<string, any> | undefined>({
-      query: () => ({
-        url: apiUrls.funds.root
+      query: params => ({
+        url: apiUrls.funds.root,
+        params
       }),
       providesTags: [ 'Funds' ]
     }),
@@ -27,7 +28,7 @@ const fundsApi = api.injectEndpoints({
         url: apiUrls.funds.expenses,
         params
       }),
-      providesTags: [ 'Fund' ]
+      providesTags: [ 'Expenses' ]
     }),
     createFund: builder.mutation<Fund, Partial<Fund>>({
       query: ({ ...body }) => ({
