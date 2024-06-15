@@ -10,8 +10,8 @@ const HomeStyled = styled.div`
   margin: 2rem auto;
 `;
 
-const Home = (): JSX.Element => {
-  const { activeFunds, overrunFunds } = useFundsStatistic();
+const Statistics = (): JSX.Element => {
+  const { bankAmount, fundsSum } = useFundsStatistic();
 
   return (
     <HomeStyled>
@@ -20,24 +20,24 @@ const Home = (): JSX.Element => {
         <Col span={12}>
           <Card bordered={false}>
             <Statistic
-              title="Active"
-              value={activeFunds}
+              title="Bank Amount"
+              value={bankAmount}
               precision={2}
-              valueStyle={{ color: colors.success }}
-              prefix={<ArrowUpIcon />}
-              suffix="%"
+              valueStyle={{ color: bankAmount > 0 ? colors.success : colors.error }}
+              prefix={bankAmount > 0 ? <ArrowUpIcon /> : <ArrowDownIcon />}
+              suffix="$"
             />
           </Card>
         </Col>
         <Col span={12}>
           <Card bordered={false}>
             <Statistic
-              title="Cost overrun"
-              value={overrunFunds}
+              title="Funds Amount"
+              value={fundsSum}
               precision={2}
-              valueStyle={{ color: colors.error }}
-              prefix={<ArrowDownIcon />}
-              suffix="%"
+              valueStyle={{ color: bankAmount > fundsSum ? colors.success : colors.error }}
+              prefix={bankAmount > fundsSum ? <ArrowUpIcon /> : <ArrowDownIcon />}
+              suffix="$"
             />
           </Card>
         </Col>
@@ -46,4 +46,4 @@ const Home = (): JSX.Element => {
   );
 };
 
-export default Home;
+export default Statistics;

@@ -25,7 +25,7 @@ services:
     links:
       - db
   app-ui:
-    image: avagner/react-happy-pig:latest
+    image: avagner/react-happy-pig:develop
     container_name: happy-pig-ui
     environment:
       - REACT_APP_BASE_URL=http://localhost:8080/api
