@@ -3,14 +3,16 @@ import { convertToCurrency } from '../../../utils/fund';
 
 interface IUpdateFund {
   fundsSum: number;
-  bankAmount: number
+  bankAmount: number;
+  isLoading: boolean
 }
 
 export const useFundsStatistic = (): IUpdateFund => {
-  const { data: { bankAmount, fundsCurrentAmountSum } = {} } = useFetchStatisticsQuery(undefined, { refetchOnMountOrArgChange: true });
+  const { data: { bankAmount, fundsCurrentAmountSum } = {}, isLoading, isFetching } = useFetchStatisticsQuery(undefined, { refetchOnMountOrArgChange: true });
 
   return {
     bankAmount: convertToCurrency(bankAmount),
-    fundsSum: convertToCurrency(fundsCurrentAmountSum)
+    fundsSum: convertToCurrency(fundsCurrentAmountSum),
+    isLoading: isLoading || isFetching
   };
 };
