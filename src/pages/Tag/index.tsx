@@ -22,7 +22,7 @@ import TagModal from './components/TagModal';
 const Bank = (): JSX.Element => {
   const { notificationContext, openNotification } = useNotification();
   const { isOpenModal, hideModal, openModal } = useModal();
-  const { data: tags = [], isLoading } = useFetchTagQuery(undefined, { refetchOnMountOrArgChange: true });
+  const { data: tags = [], isLoading, isFetching } = useFetchTagQuery(undefined, { refetchOnMountOrArgChange: true });
   const [ deleteTag ] = useDeleteTagMutation({});
   const columns: ColumnsType<string[]> = generateColumns(openNotification, deleteTag);
 
@@ -49,7 +49,7 @@ const Bank = (): JSX.Element => {
         rowKey="id"
         size="small"
         scroll={{ y: 350 }}
-        loading={isLoading}
+        loading={isLoading || isFetching}
         columns={columns}
         dataSource={tags.map(tag => ({ name: tag, id: tag }))}
       />

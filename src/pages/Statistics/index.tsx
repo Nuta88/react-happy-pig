@@ -1,21 +1,26 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import { colors } from '../../assets/colors';
-import { Card, Col, Title, Row, Statistic, ArrowUpIcon, ArrowDownIcon } from '../../components';
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  Card,
+  Col,
+  Page,
+  Row,
+  Statistic
+} from '../../components';
 
 import { useFundsStatistic } from './hooks/useFundsStatistic';
 
-const HomeStyled = styled.div`
-  margin: 2rem auto;
-`;
-
 const Statistics = (): JSX.Element => {
-  const { bankAmount, fundsSum } = useFundsStatistic();
+  const { bankAmount, fundsSum, isLoading } = useFundsStatistic();
 
   return (
-    <HomeStyled>
-      <Title>Fund statistics</Title>
+    <Page
+      title="Fund statistics"
+      isLoading={isLoading}
+    >
       <Row gutter={16}>
         <Col span={12}>
           <Card bordered={false}>
@@ -35,14 +40,14 @@ const Statistics = (): JSX.Element => {
               title="Funds Amount"
               value={fundsSum}
               precision={2}
-              valueStyle={{ color: bankAmount > fundsSum ? colors.success : colors.error }}
-              prefix={bankAmount > fundsSum ? <ArrowUpIcon /> : <ArrowDownIcon />}
+              valueStyle={{ color: colors.success }}
+              prefix={<ArrowUpIcon />}
               suffix="$"
             />
           </Card>
         </Col>
       </Row>
-    </HomeStyled>
+    </Page>
   );
 };
 

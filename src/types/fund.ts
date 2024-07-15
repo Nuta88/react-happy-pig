@@ -1,4 +1,9 @@
 import { BankTransferType } from '../constants/bank';
+import {
+  convertDateToString,
+  today
+} from '../utils/date';
+import { convertToPennies } from '../utils/fund';
 
 export class Expense {
   id: number | null;
@@ -8,8 +13,8 @@ export class Expense {
   description?: string;
 
   constructor (
-    paymentAmount: number = 0,
-    date: string = '',
+    paymentAmount: number = convertToPennies(1),
+    date: string = convertDateToString(today),
     recipient: string = '',
     description: string = '',
     id: number | null = null

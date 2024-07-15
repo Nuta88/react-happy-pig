@@ -29,7 +29,7 @@ const Funds = (): JSX.Element => {
   const { isOpenModal, hideModal, openModal } = useModal();
   const [ filter, setFilter ] = useState<IFundFilter>({});
   const deferredQuery = useDeferredValue(filter);
-  const { data: funds = [], isLoading } = useFetchFundsQuery(deferredQuery, { refetchOnMountOrArgChange: true });
+  const { data: funds = [], isLoading, isFetching } = useFetchFundsQuery(deferredQuery, { refetchOnMountOrArgChange: true });
   const { notificationContext, openNotification } = useNotification();
   const isEmptyComponent: boolean = !funds.length && !isLoading;
 
@@ -37,6 +37,7 @@ const Funds = (): JSX.Element => {
     <Page
       title="Funds"
       data-testid="funds-page-content"
+      isLoading={isLoading || isFetching}
       extra={[
         <SpaceBetween key="actions">
           <TooltipIconButton

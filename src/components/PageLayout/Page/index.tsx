@@ -2,6 +2,7 @@ import { ReactNode, FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { Loading } from '../../';
 import { colors } from '../../../assets/colors';
 import { Card } from '../../Card';
 import { ArrowLeftIcon } from '../../Icons';
@@ -44,6 +45,7 @@ const SectionStyled = styled.section`
 interface IPageProps {
   title?: string | ReactNode;
   isBack?: boolean;
+  isLoading?: boolean;
   extra?: ReactNode;
   children: ReactNode;
   onBack?: () => void
@@ -52,6 +54,7 @@ interface IPageProps {
 const Page: FC<IPageProps> = ({
   title = 'Page Title',
   isBack = false,
+  isLoading = false,
   extra,
   onBack,
   children,
@@ -69,6 +72,7 @@ const Page: FC<IPageProps> = ({
 
   return (
     <SectionStyled {...rest}>
+      {isLoading && <Loading />}
       <SpaceBetween>
         <TitleStyled>
           {isBack && <ArrowIconStyled data-testid="page-back-icon" onClick={handleBack} />}

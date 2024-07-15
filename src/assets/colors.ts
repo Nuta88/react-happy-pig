@@ -4,6 +4,7 @@ export const colors = {
   secondaryText: '#bfbfbf',
   background: '#536da138',
   cardBackground: '#dee3eb1c',
+  disabled: '#b8b8b8',
   success: '#3f8600',
   error: '#cf1322',
   title: '#536da138',

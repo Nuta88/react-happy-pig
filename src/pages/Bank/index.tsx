@@ -29,7 +29,7 @@ const Bank = (): JSX.Element => {
     hideModal,
     openModal
   } = useModal<Income>();
-  const { data: { amount, incomes = [] } = {}, isLoading } = useFetchBankQuery(undefined, { refetchOnMountOrArgChange: true });
+  const { data: { amount, incomes = [] } = {}, isLoading, isFetching } = useFetchBankQuery(undefined, { refetchOnMountOrArgChange: true });
   const [ deleteIncome ] = useDeleteIncomeMutation();
   const columns: ColumnsType<Income> = generateColumns(openModal, deleteIncome, openNotification);
   const pageTitle = `Bank (${getAmount(amount)})`;
@@ -58,7 +58,7 @@ const Bank = (): JSX.Element => {
         size="small"
         title={() => 'Incomes'}
         scroll={{ y: 350 }}
-        loading={isLoading}
+        loading={isLoading || isFetching}
         columns={columns}
         dataSource={incomes}
       />
