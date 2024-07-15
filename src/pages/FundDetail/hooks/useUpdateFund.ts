@@ -1,3 +1,6 @@
+import { useState } from 'react';
+
+import { useFocusElement } from '../../../hooks';
 import { useUpdateFundMutation } from '../../../services/funds';
 import { Fund, Expense } from '../../../types';
 import {
@@ -15,7 +18,8 @@ interface IUpdateFund extends MutationResult {
   onUpdateFundName: (name: string | number) => void;
   onUpdatePlannedAmount: (amount: string | number) => void;
   onUpdateFundInfo: (info: IFundInfo) => void;
-  onRemoveExpense: (id: number) => void
+  onRemoveExpense: (id: number) => void;
+  prevCreatedExpense: Expense
 }
 
 export const useUpdateFund = (
@@ -23,7 +27,9 @@ export const useUpdateFund = (
   openNotification: (type: NotificationType, content: string) => void,
   hideModal: () => void
 ): IUpdateFund => {
+  const focusOnExpenseButton = useFocusElement('fund-action-expense', 300);
   const [ updateFund, result ] = useUpdateFundMutation();
+  const [ prevCreatedExpense, setPrevCreatedExpense ] = useState<Expense>(new Expense());
 
   const onShowNotification = (
     updateFundFn: Promise<any>,
@@ -42,13 +48,27 @@ export const useUpdateFund = (
       });
   };
 
+  const onSetCreatedExpense = (expense: Expense): void => {
+    if (expense.id == null) {
+      setPrevCreatedExpense(prev => ({
+        ...prev,
+        paymentAmount: convertToPennies(1),
+        recipient: expense.recipient,
+        date: expense.date
+      }));
+    }
+  };
+
   const onUpdateOrCreateExpense = (expense: Expense): void => {
     if (fund) {
       const expenses = upsertExpense(fund.expenses, expense);
+      onSetCreatedExpense(expense);
+
       const message = `Expense was ${expense.id === null ? 'created' : 'updated'} successfully!`;
       const errMessage = `Expense was not ${expense.id === null ? 'created' : 'updated'}!`;
 
       onShowNotification(updateFund({ ...fund, expenses }), message, errMessage, true);
+      focusOnExpenseButton();
     }
   };
 
@@ -91,6 +111,7 @@ export const useUpdateFund = (
     onUpdateFundName,
     onUpdatePlannedAmount,
     onUpdateFundInfo,
+    prevCreatedExpense,
     ...result
   };
 };

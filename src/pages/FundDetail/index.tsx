@@ -42,7 +42,7 @@ const DrawerStyled = styled(Drawer)`
 const FundDetail = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { data: fund } = useFetchFundQuery(Number(id));
+  const { data: fund, isLoading, isFetching } = useFetchFundQuery(Number(id));
   const [ openInfo, setOpenInfo ] = useState(false);
   const { isOpenModal, modalContent: selectedExpense, hideModal, openModal } = useModal<Expense>();
   const [ isOpenAssigning, setIsOpenAssigning ] = useState<boolean>(false);
@@ -53,7 +53,8 @@ const FundDetail = (): JSX.Element => {
     onRemoveExpense,
     onUpdateFundName,
     onUpdatePlannedAmount,
-    onUpdateFundInfo
+    onUpdateFundInfo,
+    prevCreatedExpense
   } = useUpdateFund(fund, openNotification, hideModal);
   const columns: ColumnsType<Expense> = generateColumns(onRemoveExpense, openModal);
   const expenses: Expense[] = fund?.expenses ?? [];
@@ -110,6 +111,7 @@ const FundDetail = (): JSX.Element => {
         size="small"
         columns={columns}
         dataSource={expenses}
+        loading={isLoading || isFetching}
         title={() => (
           <SpaceBetween>
             <Text>Expenses: {getAmount(totalAmountOfExpenses)}</Text>
@@ -143,22 +145,18 @@ const FundDetail = (): JSX.Element => {
           asociatedObjectType={AssociatedObjectType.FUND}
         />
       </DrawerStyled>
-      {isOpenModal && (
-        <ExpenseModal
-          isOpen={isOpenModal}
-          expense={selectedExpense}
-          onSave={onUpdateOrCreateExpense}
-          onCancel={hideModal}
-          availableAmount={(fund?.currentAmount ?? 0)}
-        />
-      )}
-      {isOpenTransactionModal && (
-        <TransactionModal
-          isOpen={isOpenTransactionModal}
-          onCancel={hideTransactionModal}
-          openNotification={openNotification}
-        />
-      )}
+      <ExpenseModal
+        isOpen={isOpenModal}
+        expense={selectedExpense ?? prevCreatedExpense}
+        onSave={onUpdateOrCreateExpense}
+        onCancel={hideModal}
+        availableAmount={(fund?.currentAmount ?? 0)}
+      />
+      <TransactionModal
+        isOpen={isOpenTransactionModal}
+        onCancel={hideTransactionModal}
+        openNotification={openNotification}
+      />
     </Page>
   );
 };

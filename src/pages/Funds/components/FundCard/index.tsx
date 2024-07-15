@@ -121,7 +121,7 @@ const FundCard: FC<IFundCardProps> = ({ fund, openNotification }) => {
                 onCancel={handlePreventFundOpening}
               >
                 <TooltipIconButton
-                  tooltip="Remove fund"
+                  tooltip="Close fund"
                   size="small"
                   icon={<DeleteIcon />}
                   data-testid={`fund-${fund.name}-remove-fund`}

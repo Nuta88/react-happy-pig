@@ -1,7 +1,8 @@
 import { Form } from 'antd';
 import {
   FC,
-  memo
+  memo,
+  useEffect
 } from 'react';
 
 import {
@@ -28,17 +29,22 @@ import {
 interface IExpenseModalProps {
   isOpen: boolean;
   availableAmount: number;
-  expense: Expense | null;
+  expense: Expense;
   onSave: (expense: Expense) => void;
   onCancel: () => void
 }
 
 const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, availableAmount, onSave, onCancel }) => {
-  const title: string = expense ? 'Edit expense' : 'Add expense';
+  const isEdit: boolean = !(expense.id == null);
+  const title: string = isEdit ? 'Edit expense' : 'Add expense';
   const initialValues = createInitFormValues(expense);
   const [ form ] = Form.useForm();
   // TODO: remove
   const isHideAssigningTag: boolean = true;
+
+  useEffect(() => {
+    form.setFieldsValue(initialValues);
+  }, [ initialValues ]);
 
   const onCloseModal = (): void => {
     form.resetFields();
@@ -52,13 +58,13 @@ const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, availableAmount
   const onFinish = (values: IFormValues): void => {
     const penniesAmount = convertToPennies(values.paymentAmount);
 
-    if (!expense && penniesAmount > availableAmount) {
+    if (isEdit && penniesAmount > availableAmount) {
       setAmountFormError(availableAmount);
       return;
     }
 
-    if (expense) {
-      const availableExpense = availableAmount + expense?.paymentAmount;
+    if (!isEdit) {
+      const availableExpense = availableAmount + expense.paymentAmount;
       if (penniesAmount > availableExpense) {
         setAmountFormError(availableExpense);
         return;
@@ -73,7 +79,7 @@ const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, availableAmount
     <BasicModal
       title={title}
       isOpen={isOpen}
-      okText={expense ? 'Edit' : 'Add'}
+      okText={isEdit ? 'Edit' : 'Add'}
       onOk={form.submit}
       onCancel={onCloseModal}
     >
@@ -100,7 +106,7 @@ const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, availableAmount
               }
             ]}
           >
-            <Input />
+            <Input autoFocus />
           </Form.Item>
           <Form.Item
             label="Amount"
@@ -132,9 +138,9 @@ const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, availableAmount
             <Input type="textarea" rows={4} />
           </Form.Item>
         </Form>
-        {expense && !isHideAssigningTag && (
+        {((expense?.id) != null) && !isHideAssigningTag && (
           <AssigningTag
-            associatedObjectId={expense?.id as number}
+            associatedObjectId={expense?.id }
             asociatedObjectType={AssociatedObjectType.EXPENSE}
           />
         )}

@@ -46,6 +46,7 @@ export const FundActions: FC<IFundActionsProps> = ({
         onClick={openTransactionModal}
       />
       <TooltipIconButton
+        id="fund-action-expense"
         tooltip="Add expense"
         icon={<AddIcon />}
         data-testid="fund-open-create-modal"

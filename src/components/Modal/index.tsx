@@ -11,6 +11,8 @@ interface BasicModalProps {
 
 export const BasicModal = ({ title, isOpen, children, onSave, onCancel, ...props }: BasicModalProps & ModalProps): JSX.Element => (
   <Modal
+    destroyOnClose={true}
+    getContainer={false}
     title={title}
     open={isOpen}
     onOk={onSave}
