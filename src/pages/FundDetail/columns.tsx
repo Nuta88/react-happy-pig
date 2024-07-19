@@ -4,14 +4,16 @@ import {
   DeleteIcon,
   EditIcon,
   SpaceBetween,
-  ColumnsType
+  ColumnsType,
+  SendIcon,
+  TooltipIconButton
 } from '../../components';
 import { Expense } from '../../types';
 import { getAmount } from '../../utils/fund';
 
 type TDeleteFund = (id: number) => void;
 type TShowModal = (expense: Expense) => void;
-export const generateColumns = (onDelete: TDeleteFund, showModal: TShowModal): ColumnsType<Expense> => [
+export const generateColumns = (onDelete: TDeleteFund, showModal: TShowModal, openMovingModal: TShowModal): ColumnsType<Expense> => [
   {
     title: 'Recipient',
     dataIndex: 'recipient',
@@ -36,9 +38,16 @@ export const generateColumns = (onDelete: TDeleteFund, showModal: TShowModal): C
   {
     title: 'Action',
     key: 'action',
-    width: 100,
+    width: 150,
     render: (_, expense: Expense) => (
       <SpaceBetween size="middle">
+        <TooltipIconButton
+          tooltip="Move expense to other Fund"
+          data-testid="move-expense-btn"
+          size = "middle"
+          icon={<SendIcon />}
+          onClick={() => { openMovingModal(expense); }}
+        />
         <CircleButton
           data-testid="edit-expense-btn"
           icon={<EditIcon />}

@@ -3,7 +3,10 @@ import {
   Expense,
   Fund
 } from '../types';
-import { Transfer } from '../types/fund';
+import {
+  IMovingExpense,
+  Transfer
+} from '../types/fund';
 
 import api from './api';
 
@@ -61,6 +64,14 @@ const fundsApi = api.injectEndpoints({
         params
       }),
       invalidatesTags: [ 'Funds' ]
+    }),
+    movingExpense: builder.mutation<any, IMovingExpense>({
+      query: (body) => ({
+        url: apiUrls.funds.moveExpense(body.newFundId, body.expenseId),
+        method: 'PUT',
+        body
+      }),
+      invalidatesTags: [ 'Fund' ]
     })
   })
 });
@@ -72,5 +83,6 @@ export const {
   useCreateFundMutation,
   useCloseFundMutation,
   useUpdateFundMutation,
-  useTransactionMutation
+  useTransactionMutation,
+  useMovingExpenseMutation
 } = fundsApi;
