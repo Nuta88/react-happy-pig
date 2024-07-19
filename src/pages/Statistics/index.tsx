@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 import { colors } from '../../assets/colors';
 import {
@@ -13,8 +14,18 @@ import {
 
 import { useFundsStatistic } from './hooks/useFundsStatistic';
 
+const ColStyled = styled(Col)`
+  margin-bottom: .5rem;
+`;
+
 const Statistics = (): JSX.Element => {
-  const { bankAmount, fundsSum, isLoading } = useFundsStatistic();
+  const {
+    bankAmount,
+    fundsCurrentAmount,
+    fundsReceivedAmount,
+    fundsPlannedAmount,
+    isLoading
+  } = useFundsStatistic();
 
   return (
     <Page
@@ -22,7 +33,7 @@ const Statistics = (): JSX.Element => {
       isLoading={isLoading}
     >
       <Row gutter={16}>
-        <Col span={12}>
+        <ColStyled span={12}>
           <Card bordered={false}>
             <Statistic
               title="Bank Amount"
@@ -33,19 +44,43 @@ const Statistics = (): JSX.Element => {
               suffix="$"
             />
           </Card>
-        </Col>
-        <Col span={12}>
+        </ColStyled>
+        <ColStyled span={12}>
           <Card bordered={false}>
             <Statistic
-              title="Funds Amount"
-              value={fundsSum}
+              title="Funds Current Amount"
+              value={fundsCurrentAmount}
               precision={2}
               valueStyle={{ color: colors.success }}
               prefix={<ArrowUpIcon />}
               suffix="$"
             />
           </Card>
-        </Col>
+        </ColStyled>
+        <ColStyled span={12}>
+          <Card bordered={false}>
+            <Statistic
+              title="Funds Received Amount"
+              value={fundsReceivedAmount}
+              precision={2}
+              valueStyle={{ color: colors.success }}
+              prefix={<ArrowUpIcon />}
+              suffix="$"
+            />
+          </Card>
+        </ColStyled>
+        <ColStyled span={12}>
+          <Card bordered={false}>
+            <Statistic
+              title="Funds Planned Amount"
+              value={fundsPlannedAmount}
+              precision={2}
+              valueStyle={{ color: colors.success }}
+              prefix={<ArrowUpIcon />}
+              suffix="$"
+            />
+          </Card>
+        </ColStyled>
       </Row>
     </Page>
   );
