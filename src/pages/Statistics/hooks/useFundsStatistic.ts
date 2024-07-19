@@ -1,18 +1,26 @@
 import { useFetchStatisticsQuery } from '../../../services/statistics';
 import { convertToCurrency } from '../../../utils/fund';
 
-interface IUpdateFund {
-  fundsSum: number;
+interface IFundsStatistics {
   bankAmount: number;
+  fundsCurrentAmount: number;
+  fundsReceivedAmount: number;
+  fundsPlannedAmount: number;
   isLoading: boolean
 }
 
-export const useFundsStatistic = (): IUpdateFund => {
-  const { data: { bankAmount, fundsCurrentAmountSum } = {}, isLoading, isFetching } = useFetchStatisticsQuery(undefined, { refetchOnMountOrArgChange: true });
+export const useFundsStatistic = (): IFundsStatistics => {
+  const {
+    data: { bankAmount, fundsCurrentAmountSum, fundsReceivedAmountSum, fundsPlannedAmountSum } = {},
+    isLoading,
+    isFetching
+  } = useFetchStatisticsQuery(undefined, { refetchOnMountOrArgChange: true });
 
   return {
     bankAmount: convertToCurrency(bankAmount),
-    fundsSum: convertToCurrency(fundsCurrentAmountSum),
+    fundsCurrentAmount: convertToCurrency(fundsCurrentAmountSum),
+    fundsReceivedAmount: convertToCurrency(fundsReceivedAmountSum),
+    fundsPlannedAmount: convertToCurrency(fundsPlannedAmountSum),
     isLoading: isLoading || isFetching
   };
 };
