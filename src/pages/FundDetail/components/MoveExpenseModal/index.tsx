@@ -11,13 +11,10 @@ import {
 } from '../../../../components';
 import { layout } from '../../../../constants/form';
 import {
-  useFetchFundsQuery,
-  useMovingExpenseMutation
-} from '../../../../services/funds';
-import {
   Expense,
   Fund
 } from '../../../../types';
+import { useMovingExpense } from '../../hooks/useMovingExpense';
 
 interface IExpenseModalProps {
   isOpen: boolean;
@@ -26,25 +23,14 @@ interface IExpenseModalProps {
   onCancel: () => void
 }
 
-interface IFormValues {
-  fundId: number
-}
-
 const MoveExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, fundId, onCancel }) => {
-  const { data: funds = [] } = useFetchFundsQuery({});
-  const [ movingExpense ] = useMovingExpenseMutation();
-  const initialValues = {};
   const [ form ] = Form.useForm();
-
-  const onCloseModal = (): void => {
-    form.resetFields();
-    onCancel();
-  };
-
-  const onFinish = (values: IFormValues): void => {
-    void movingExpense({ newFundId: values.fundId, expenseId: expense?.id as number });
-    onCloseModal();
-  };
+  const { funds, initialValues, onMovingExpense, onCloseModal } = useMovingExpense({
+    fundId,
+    expense,
+    resetFields: form.resetFields,
+    onCancel
+  });
 
   return (
     <BasicModal
@@ -61,7 +47,7 @@ const MoveExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, fundId, onC
           initialValues={initialValues}
           name="move-expense-modal"
           autoComplete="off"
-          onFinish={onFinish}
+          onFinish={onMovingExpense}
         >
           <Form.Item
             label="Fund"
@@ -75,7 +61,7 @@ const MoveExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, fundId, onC
               placeholder="Select new fund"
               allowClear
             >
-              {funds.filter(f => f.id !== fundId).map((fund: Fund) => (
+              {funds.map((fund: Fund) => (
                 <SelectOption key={fund.id} value={fund.id}>{fund.name}</SelectOption>
               ))}
             </Select>
