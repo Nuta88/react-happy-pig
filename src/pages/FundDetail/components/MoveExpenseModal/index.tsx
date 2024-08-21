@@ -3,6 +3,7 @@ import {
   FC,
   memo
 } from 'react';
+import styled from 'styled-components';
 
 import {
   BasicModal,
@@ -15,6 +16,13 @@ import {
   Fund
 } from '../../../../types';
 import { useMovingExpense } from '../../hooks/useMovingExpense';
+
+const FundNameStyled = styled.span`
+    display: block;
+    &:first-letter {
+      text-transform: uppercase;
+    }
+`;
 
 interface IExpenseModalProps {
   isOpen: boolean;
@@ -54,7 +62,7 @@ const MoveExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, fundId, onC
             name="fundId"
             data-testid="recipient"
             rules={[
-              { required: true, message: 'Please input fund!' }
+              { required: true, message: 'Please select fund!' }
             ]}
           >
             <Select
@@ -62,7 +70,12 @@ const MoveExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, fundId, onC
               allowClear
             >
               {funds.map((fund: Fund) => (
-                <SelectOption key={fund.id} value={fund.id}>{fund.name}</SelectOption>
+                <SelectOption
+                  key={fund.id}
+                  value={fund.id}
+                >
+                  <FundNameStyled>{fund.name}</FundNameStyled>
+                  </SelectOption>
               ))}
             </Select>
           </Form.Item>
