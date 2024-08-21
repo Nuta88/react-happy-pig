@@ -52,7 +52,8 @@ import {
   TagIcon,
   TagsIcon,
   CalendarIcon,
-  FilterIcon
+  FilterIcon,
+  SendIcon
 } from './Icons';
 import { Loading } from './Loading';
 import { BasicModal } from './Modal';
@@ -141,6 +142,7 @@ export {
   CalendarIcon,
   FilterIcon,
   CheckCircleIcon,
+  SendIcon,
   Tag,
   TooltipIconButton,
   TextButton,

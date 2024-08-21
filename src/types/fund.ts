@@ -108,3 +108,8 @@ export interface IFundFilter {
   name?: string;
   date?: string
 }
+
+export interface IMovingExpense {
+  newFundId: number;
+  expenseId: number
+}

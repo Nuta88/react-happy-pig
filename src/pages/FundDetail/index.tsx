@@ -30,6 +30,7 @@ import { AssigningTag } from './components/AssigningTag';
 import ExpenseModal from './components/ExpenseModal';
 import { FundActions } from './components/FundActions';
 import { FundInfo } from './components/FundInfo';
+import MoveExpenseModal from './components/MoveExpenseModal';
 import TransactionModal from './components/TransactionModal';
 import { useUpdateFund } from './hooks/useUpdateFund';
 
@@ -45,6 +46,12 @@ const FundDetail = (): JSX.Element => {
   const { data: fund, isLoading, isFetching } = useFetchFundQuery(Number(id));
   const [ openInfo, setOpenInfo ] = useState(false);
   const { isOpenModal, modalContent: selectedExpense, hideModal, openModal } = useModal<Expense>();
+  const {
+    isOpenModal: isOpenMovingModal,
+    modalContent: movingExpense,
+    hideModal: hideMovingModal,
+    openModal: openMovingModal
+  } = useModal<Expense>();
   const [ isOpenAssigning, setIsOpenAssigning ] = useState<boolean>(false);
   const { isOpenModal: isOpenTransactionModal, hideModal: hideTransactionModal, openModal: openTransactionModal } = useModal();
   const { notificationContext, openNotification } = useNotification();
@@ -56,7 +63,7 @@ const FundDetail = (): JSX.Element => {
     onUpdateFundInfo,
     prevCreatedExpense
   } = useUpdateFund(fund, openNotification, hideModal);
-  const columns: ColumnsType<Expense> = generateColumns(onRemoveExpense, openModal);
+  const columns: ColumnsType<Expense> = generateColumns(onRemoveExpense, openModal, openMovingModal);
   const expenses: Expense[] = fund?.expenses ?? [];
   const totalAmountOfExpenses = countPaymentAmounts(expenses);
 
@@ -156,6 +163,12 @@ const FundDetail = (): JSX.Element => {
         isOpen={isOpenTransactionModal}
         onCancel={hideTransactionModal}
         openNotification={openNotification}
+      />
+      <MoveExpenseModal
+        isOpen={isOpenMovingModal}
+        expense={movingExpense}
+        fundId={fund?.id}
+        onCancel={hideMovingModal}
       />
     </Page>
   );
