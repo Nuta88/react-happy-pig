@@ -7,6 +7,7 @@ export const colors = {
   disabled: '#b8b8b8',
   success: '#3f8600',
   error: '#cf1322',
+  danger: '#631c1c',
   title: '#536da138',
   link: {
     root: '#97aabc',
