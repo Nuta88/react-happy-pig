@@ -2,6 +2,7 @@ import { colors } from './colors';
 
 export const theme = {
   token: {
-    colorPrimary: colors.primary
+    colorPrimary: colors.primary,
+    colorError: colors.danger
   }
 };
