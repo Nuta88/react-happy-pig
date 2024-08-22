@@ -21,6 +21,10 @@ export const apiUrls = {
   },
   statistics: {
     root: '/statistics'
+  },
+  billTracker: {
+    root: '/bill-tracker',
+    rootWithId: (id: number) => `/bill-tracker/${id}`
   }
 };
 
