@@ -25,7 +25,8 @@ import {
   TagOutlined,
   TagsOutlined,
   SendOutlined,
-  PlayCircleOutlined
+  PlayCircleOutlined,
+  PauseCircleOutlined
 } from '@ant-design/icons';
 
 export {
@@ -55,5 +56,6 @@ export {
   TagsOutlined as TagsIcon,
   CalendarOutlined as CalendarIcon,
   SendOutlined as SendIcon,
-  PlayCircleOutlined as PlayIcon
+  PlayCircleOutlined as PlayIcon,
+  PauseCircleOutlined as PauseIcon
 };

@@ -54,7 +54,8 @@ import {
   CalendarIcon,
   FilterIcon,
   SendIcon,
-  PlayIcon
+  PlayIcon,
+  PauseIcon
 } from './Icons';
 import { Loading } from './Loading';
 import { BasicModal } from './Modal';
@@ -145,6 +146,7 @@ export {
   CheckCircleIcon,
   SendIcon,
   PlayIcon,
+  PauseIcon,
   Tag,
   TooltipIconButton,
   TextButton,
