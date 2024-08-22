@@ -10,7 +10,8 @@ import {
   Page,
   Row,
   SpaceBetween,
-  TooltipIconButton
+  TooltipIconButton,
+  BillTrackerButton
 } from '../../components';
 import { apiUrls } from '../../constants/apiUrls';
 import {
@@ -40,6 +41,7 @@ const Funds = (): JSX.Element => {
       isLoading={isLoading || isFetching}
       extra={[
         <SpaceBetween key="actions">
+          <BillTrackerButton />
           <TooltipIconButton
             href={apiUrls.funds.expenses}
             tooltip="Expenditures of funds"

@@ -7,6 +7,7 @@ import { AuthPageLayout } from './AuthPageLayout';
 import { AuthForm } from './AuthPageLayout/Page';
 import { AutoComplete } from './AutoComplete';
 import { Button } from './Buttons';
+import { BillTrackerButton } from './Buttons/BillTrackerButton';
 import { CircleButton } from './Buttons/CircleButton';
 import { DashedButton } from './Buttons/DashedButton';
 import { IconButton } from './Buttons/IconButton';
@@ -150,6 +151,7 @@ export {
   Tag,
   TooltipIconButton,
   TextButton,
+  BillTrackerButton,
   Dropdown,
   Statistic,
   InlineCenter,

@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import {
   AddIcon,
+  BillTrackerButton,
   InfoIcon,
   SpaceBetween,
   TagIcon,
@@ -26,6 +27,7 @@ export const FundActions: FC<IFundActionsProps> = ({
 }) => {
   return (
     <SpaceBetween key="actions">
+      <BillTrackerButton />
       <TooltipIconButton
         tooltip="Assigning Tag to Fund"
         icon={<TagIcon />}
