@@ -62,6 +62,7 @@ import { Loading } from './Loading';
 import { BasicModal } from './Modal';
 import PageLayout from './PageLayout';
 import Page from './PageLayout/Page';
+import { Popover } from './Popover';
 import { ProgressBar } from './ProgressBar';
 import { Row } from './Row';
 import { Search } from './Search';
@@ -155,7 +156,8 @@ export {
   Dropdown,
   Statistic,
   InlineCenter,
-  Radio
+  Radio,
+  Popover
 };
 
 export type { ColumnsType };
