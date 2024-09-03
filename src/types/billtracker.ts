@@ -2,6 +2,6 @@ import { Expense } from './fund';
 
 export interface BillTracker {
   id: number;
-  expenses: Expense;
+  expenses: Expense[];
   expensesCurrentSum: number
 }
