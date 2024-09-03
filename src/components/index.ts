@@ -7,6 +7,7 @@ import { AuthPageLayout } from './AuthPageLayout';
 import { AuthForm } from './AuthPageLayout/Page';
 import { AutoComplete } from './AutoComplete';
 import { Button } from './Buttons';
+import { BillTrackerButton } from './Buttons/BillTrackerButton';
 import { CircleButton } from './Buttons/CircleButton';
 import { DashedButton } from './Buttons/DashedButton';
 import { IconButton } from './Buttons/IconButton';
@@ -53,12 +54,15 @@ import {
   TagsIcon,
   CalendarIcon,
   FilterIcon,
-  SendIcon
+  SendIcon,
+  PlayIcon,
+  PauseIcon
 } from './Icons';
 import { Loading } from './Loading';
 import { BasicModal } from './Modal';
 import PageLayout from './PageLayout';
 import Page from './PageLayout/Page';
+import { Popover } from './Popover';
 import { ProgressBar } from './ProgressBar';
 import { Row } from './Row';
 import { Search } from './Search';
@@ -143,13 +147,17 @@ export {
   FilterIcon,
   CheckCircleIcon,
   SendIcon,
+  PlayIcon,
+  PauseIcon,
   Tag,
   TooltipIconButton,
   TextButton,
+  BillTrackerButton,
   Dropdown,
   Statistic,
   InlineCenter,
-  Radio
+  Radio,
+  Popover
 };
 
 export type { ColumnsType };

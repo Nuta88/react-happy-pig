@@ -3,13 +3,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 import {
-  ColumnsType,
   Drawer,
   EditableTitle,
-  Page,
-  SpaceBetween,
-  Table,
-  Text
+  Page
 } from '../../components';
 import { apiUrls } from '../../constants/apiUrls';
 import {
@@ -20,17 +16,15 @@ import { useFetchFundQuery } from '../../services/funds';
 import { Expense } from '../../types';
 import { AssociatedObjectType } from '../../types/tag';
 import {
-  convertToCurrency,
   countPaymentAmounts,
   getAmount
 } from '../../utils/fund';
 
-import { generateColumns } from './columns';
 import { AssigningTag } from './components/AssigningTag';
 import ExpenseModal from './components/ExpenseModal';
+import ExpensesTable from './components/ExpensesTable';
 import { FundActions } from './components/FundActions';
 import { FundInfo } from './components/FundInfo';
-import MoveExpenseModal from './components/MoveExpenseModal';
 import TransactionModal from './components/TransactionModal';
 import { useUpdateFund } from './hooks/useUpdateFund';
 
@@ -46,12 +40,6 @@ const FundDetail = (): JSX.Element => {
   const { data: fund, isLoading, isFetching } = useFetchFundQuery(Number(id));
   const [ openInfo, setOpenInfo ] = useState(false);
   const { isOpenModal, modalContent: selectedExpense, hideModal, openModal } = useModal<Expense>();
-  const {
-    isOpenModal: isOpenMovingModal,
-    modalContent: movingExpense,
-    hideModal: hideMovingModal,
-    openModal: openMovingModal
-  } = useModal<Expense>();
   const [ isOpenAssigning, setIsOpenAssigning ] = useState<boolean>(false);
   const { isOpenModal: isOpenTransactionModal, hideModal: hideTransactionModal, openModal: openTransactionModal } = useModal();
   const { notificationContext, openNotification } = useNotification();
@@ -63,7 +51,6 @@ const FundDetail = (): JSX.Element => {
     onUpdateFundInfo,
     prevCreatedExpense
   } = useUpdateFund(fund, openNotification, hideModal);
-  const columns: ColumnsType<Expense> = generateColumns(onRemoveExpense, openModal, openMovingModal);
   const expenses: Expense[] = fund?.expenses ?? [];
   const totalAmountOfExpenses = countPaymentAmounts(expenses);
 
@@ -113,26 +100,15 @@ const FundDetail = (): JSX.Element => {
       ]}
     >
       {notificationContext}
-      <Table
-        rowKey="id"
-        size="small"
-        columns={columns}
-        dataSource={expenses}
-        loading={isLoading || isFetching}
-        title={() => (
-          <SpaceBetween>
-            <Text>Expenses: {getAmount(totalAmountOfExpenses)}</Text>
-            <EditableTitle
-              data-testid="fund-planned-amount"
-              type="number"
-              title={convertToCurrency(fund?.plannedAmount)}
-              tooltip="Click to edit planned amount"
-              secondaryTextBefore="Planned Amount: $"
-              onChange={onUpdatePlannedAmount}
-            />
-          </SpaceBetween>
-        )}
-        scroll={{ y: 350 }}
+      <ExpensesTable
+        expenses={expenses}
+        isLoading={isLoading || isFetching}
+        plannedAmount={fund?.plannedAmount}
+        totalAmountOfExpenses={totalAmountOfExpenses}
+        openExpenseModal={openModal}
+        fundId={fund?.id}
+        onUpdatePlannedAmount={onUpdatePlannedAmount}
+        onRemoveExpense={onRemoveExpense}
       />
       <FundInfo
         fund={fund}
@@ -163,12 +139,6 @@ const FundDetail = (): JSX.Element => {
         isOpen={isOpenTransactionModal}
         onCancel={hideTransactionModal}
         openNotification={openNotification}
-      />
-      <MoveExpenseModal
-        isOpen={isOpenMovingModal}
-        expense={movingExpense}
-        fundId={fund?.id}
-        onCancel={hideMovingModal}
       />
     </Page>
   );
