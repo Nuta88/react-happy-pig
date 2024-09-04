@@ -14,7 +14,6 @@ import {
 } from '../../../../components';
 import { BankTransferType } from '../../../../constants/bank';
 import { useTransactionMutation } from '../../../../services/funds';
-import { NotificationType } from '../../../../types/notification';
 import { generateError } from '../../../../utils/form';
 
 import {
@@ -29,11 +28,10 @@ const layout = {
 
 interface IExpenseModalProps {
   isOpen: boolean;
-  onCancel: () => void;
-  openNotification: (type: NotificationType, content: string) => void
+  onCancel: () => void
 }
 
-const TransactionModal: FC<IExpenseModalProps> = ({ isOpen, onCancel, openNotification }) => {
+const TransactionModal: FC<IExpenseModalProps> = ({ isOpen, onCancel }) => {
   const { id } = useParams();
   const initialValues = createInitFormValues();
   const [ form ] = Form.useForm();
@@ -48,7 +46,6 @@ const TransactionModal: FC<IExpenseModalProps> = ({ isOpen, onCancel, openNotifi
     void transaction(convertFormValuesToTransfer(values, Number(id)))
       .unwrap()
       .then(() => {
-        openNotification(NotificationType.SUCCESS, 'Transaction was created successfully!');
         onCloseModal();
       })
       .catch(({ data }) => {

@@ -5,6 +5,7 @@ import { useFocusElement } from './useFocusElement';
 import { useLocalStorage } from './useLocalStorage';
 import { useModal } from './useModal';
 import { useNotification } from './useNotification';
+import { useQueryNotification } from './useQueryNotification';
 
 export {
   useModal,
@@ -13,5 +14,6 @@ export {
   useClickOutside,
   useColumn,
   useFocusElement,
-  useLocalStorage
+  useLocalStorage,
+  useQueryNotification
 };

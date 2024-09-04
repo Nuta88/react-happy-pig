@@ -10,20 +10,17 @@ import {
 } from '../../../../components';
 import { layout } from '../../../../constants/form';
 import { useCreateTagMutation } from '../../../../services/tags';
-import { NotificationType } from '../../../../types/notification';
-import { onWrapQuery } from '../../../../utils/query';
 
 interface ITagModalProps {
   isOpen: boolean;
-  onCancel: () => void;
-  openNotification: (type: NotificationType, content: string) => void
+  onCancel: () => void
 }
 
 interface FormValues {
   name: string
 }
 
-const TagModal: FC<ITagModalProps> = ({ isOpen, onCancel, openNotification }) => {
+const TagModal: FC<ITagModalProps> = ({ isOpen, onCancel }) => {
   const title: string = 'Add new tag';
   const [ createTag ] = useCreateTagMutation({});
   const initialValues = {};
@@ -35,12 +32,10 @@ const TagModal: FC<ITagModalProps> = ({ isOpen, onCancel, openNotification }) =>
   };
 
   const onFinish = (values: FormValues): void => {
-    onWrapQuery(
-      createTag(values.name.toLowerCase()),
-      `Tag "${values.name}" was created successfully!`,
-      openNotification,
-      onCloseModal
-    );
+    void createTag(values.name.toLowerCase())
+      .then(() => {
+        onCloseModal();
+      });
   };
 
   return (

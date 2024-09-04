@@ -4,7 +4,6 @@ import dayjs from 'dayjs';
 import { FundPriority } from '../../../../../constants/fund';
 import { useCreateFundMutation } from '../../../../../services/funds';
 import { CreationFund } from '../../../../../types/fund';
-import { NotificationType } from '../../../../../types/notification';
 import {
   convertDateToString,
   today
@@ -23,13 +22,11 @@ interface IFormValues {
 }
 
 interface IUseCreateFund {
-  openNotification: (type: NotificationType, content: string) => void;
   form: FormInstance<any>;
   onCancel: () => void
 }
 
 export const useFundCreate = ({
-  openNotification,
   onCancel,
   form
 }: IUseCreateFund): { initialValues: { priority: FundPriority; creationDate: dayjs.Dayjs }; onCreateFund: (values: IFormValues) => void; onCloseModal: () => void } => {
@@ -43,11 +40,6 @@ export const useFundCreate = ({
 
   const setAmountFormError = (error: string): void => {
     form.setFields([ generateError('currentAmount', [ error ]) ]);
-  };
-
-  const successfulFoundCreation = (name: string): void => {
-    openNotification(NotificationType.SUCCESS, `Fund "${name}" was created successfully!`);
-    onCloseModal();
   };
 
   const generateNewFund = (values: IFormValues): CreationFund | undefined => {
@@ -74,7 +66,7 @@ export const useFundCreate = ({
     if (fund) {
       void createFund(fund)
         .unwrap()
-        .then(() => { successfulFoundCreation(fund.name); })
+        .then(() => { onCloseModal(); })
         .catch(({ data }) => { setAmountFormError(data.message); });
     }
   };

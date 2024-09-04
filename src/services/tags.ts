@@ -1,4 +1,5 @@
 import { apiUrls } from '../constants/apiUrls';
+import { useQueryNotification } from '../hooks';
 import {
   Association,
   CreateAssociation
@@ -15,22 +16,6 @@ const tagApi = api.injectEndpoints({
       }),
       providesTags: [ 'Tags' ]
     }),
-    createTag: builder.mutation<string[], string>({
-      query: (id, ...params) => ({
-        url: apiUrls.tags.rootWithId(id),
-        method: 'POST',
-        params
-      }),
-      invalidatesTags: [ 'Tags' ]
-    }),
-    deleteTag: builder.mutation<string[], string>({
-      query: (id, ...params) => ({
-        url: apiUrls.tags.rootWithId(id),
-        method: 'DELETE',
-        params
-      }),
-      invalidatesTags: [ 'Tags' ]
-    }),
     fetchTagAssociations: builder.query<Association[], Record<string, any> | undefined>({
       query: params => ({
         url: apiUrls.tags.associations,
@@ -38,13 +23,46 @@ const tagApi = api.injectEndpoints({
       }),
       providesTags: [ 'TagAssociations' ]
     }),
+    createTag: builder.mutation<string[], string>({
+      query: (id, ...params) => ({
+        url: apiUrls.tags.rootWithId(id),
+        method: 'POST',
+        params
+      }),
+      async onQueryStarted (args, { queryFulfilled }) {
+        const { queryNotifications } = useQueryNotification(queryFulfilled);
+
+        await queryNotifications(`Tag "${args}" was created successfully!`, `Tag "${args}" was not created!`);
+      },
+      invalidatesTags: [ 'Tags' ]
+    }),
     createTagAssociation: builder.mutation<Association[], CreateAssociation>({
       query: body => ({
         url: apiUrls.tags.associations,
         method: 'POST',
         body
       }),
+      async onQueryStarted (args, { queryFulfilled }) {
+        const { queryNotifications } = useQueryNotification(queryFulfilled);
+
+        await queryNotifications(
+          'Tag Association was created successfully!',
+          'Tag Association was not created!');
+      },
       invalidatesTags: [ 'TagAssociations' ]
+    }),
+    deleteTag: builder.mutation<string[], string>({
+      query: (id, ...params) => ({
+        url: apiUrls.tags.rootWithId(id),
+        method: 'DELETE',
+        params
+      }),
+      async onQueryStarted (args, { queryFulfilled }) {
+        const { queryNotifications } = useQueryNotification(queryFulfilled);
+
+        await queryNotifications(`Tag "${args}" was deleted successfully!`, `Tag "${args}" was not deleted!`);
+      },
+      invalidatesTags: [ 'Tags' ]
     }),
     deleteTagAssociation: builder.mutation<string[], CreateAssociation>({
       query: body => ({
@@ -52,6 +70,13 @@ const tagApi = api.injectEndpoints({
         method: 'DELETE',
         body
       }),
+      async onQueryStarted (args, { queryFulfilled }) {
+        const { queryNotifications } = useQueryNotification(queryFulfilled);
+
+        await queryNotifications(
+          'Tag Association was deleted successfully!',
+          'Tag Association was not deleted!');
+      },
       invalidatesTags: [ 'TagAssociations' ]
     })
   })

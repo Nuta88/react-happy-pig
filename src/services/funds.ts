@@ -1,4 +1,5 @@
 import { apiUrls } from '../constants/apiUrls';
+import { useQueryNotification } from '../hooks';
 import {
   Expense,
   Fund
@@ -39,6 +40,15 @@ const fundsApi = api.injectEndpoints({
         method: 'POST',
         body
       }),
+      async onQueryStarted (args, { queryFulfilled }) {
+        const { queryNotifications } = useQueryNotification(queryFulfilled);
+        const { name = '' } = args;
+
+        await queryNotifications(
+          `Fund "${name}" was created successfully!`,
+          `Fund "${name}" was not created!`
+        );
+      },
       invalidatesTags: [ 'Funds' ]
     }),
     updateFund: builder.mutation<Fund, Partial<Fund>>({
@@ -55,14 +65,27 @@ const fundsApi = api.injectEndpoints({
         method: 'PUT',
         body
       }),
+      async onQueryStarted (args, { queryFulfilled }) {
+        const { queryNotifications } = useQueryNotification(queryFulfilled);
+
+        await queryNotifications('The transaction was created successfully!', 'The transaction was not created!');
+      },
       invalidatesTags: [ 'Fund' ]
     }),
-    closeFund: builder.mutation<Fund, number>({
-      query: (id, ...params) => ({
-        url: apiUrls.funds.close(id),
+    closeFund: builder.mutation<Fund, { id: number; name: string }>({
+      query: (body, ...params) => ({
+        url: apiUrls.funds.close(body.id),
         method: 'POST',
         params
       }),
+      async onQueryStarted (args, { queryFulfilled }) {
+        const { queryNotifications } = useQueryNotification(queryFulfilled);
+
+        await queryNotifications(
+          `Fund "${args.name}" was closed successfully!`,
+          `Fund "${args.name}" was not closed!`
+        );
+      },
       invalidatesTags: [ 'Funds' ]
     }),
     movingExpense: builder.mutation<any, IMovingExpense>({
@@ -71,6 +94,11 @@ const fundsApi = api.injectEndpoints({
         method: 'PUT',
         body
       }),
+      async onQueryStarted (args, { queryFulfilled }) {
+        const { queryNotifications } = useQueryNotification(queryFulfilled);
+
+        await queryNotifications('Expense was moved successfully!', 'The expense was not moved!');
+      },
       invalidatesTags: [ 'Fund' ]
     })
   })

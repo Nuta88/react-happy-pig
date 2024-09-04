@@ -8,10 +8,7 @@ import {
   Page
 } from '../../components';
 import { apiUrls } from '../../constants/apiUrls';
-import {
-  useModal,
-  useNotification
-} from '../../hooks';
+import { useModal } from '../../hooks';
 import { useFetchFundQuery } from '../../services/funds';
 import { Expense } from '../../types';
 import { AssociatedObjectType } from '../../types/tag';
@@ -42,7 +39,6 @@ const FundDetail = (): JSX.Element => {
   const { isOpenModal, modalContent: selectedExpense, hideModal, openModal } = useModal<Expense>();
   const [ isOpenAssigning, setIsOpenAssigning ] = useState<boolean>(false);
   const { isOpenModal: isOpenTransactionModal, hideModal: hideTransactionModal, openModal: openTransactionModal } = useModal();
-  const { notificationContext, openNotification } = useNotification();
   const {
     onUpdateOrCreateExpense,
     onRemoveExpense,
@@ -50,7 +46,7 @@ const FundDetail = (): JSX.Element => {
     onUpdatePlannedAmount,
     onUpdateFundInfo,
     prevCreatedExpense
-  } = useUpdateFund(fund, openNotification, hideModal);
+  } = useUpdateFund(fund, hideModal);
   const expenses: Expense[] = fund?.expenses ?? [];
   const totalAmountOfExpenses = countPaymentAmounts(expenses);
 
@@ -99,7 +95,6 @@ const FundDetail = (): JSX.Element => {
         />
       ]}
     >
-      {notificationContext}
       <ExpensesTable
         expenses={expenses}
         isLoading={isLoading || isFetching}
@@ -138,7 +133,6 @@ const FundDetail = (): JSX.Element => {
       <TransactionModal
         isOpen={isOpenTransactionModal}
         onCancel={hideTransactionModal}
-        openNotification={openNotification}
       />
     </Page>
   );

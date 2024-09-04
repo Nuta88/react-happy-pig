@@ -14,7 +14,6 @@ import {
   Radio
 } from '../../../../components';
 import { FundPriority } from '../../../../constants/fund';
-import { NotificationType } from '../../../../types/notification';
 import { disablePreviousDate } from '../../../../utils/date';
 
 import { useFundCreate } from './hooks/useFundCreate';
@@ -42,15 +41,13 @@ const MinusIconStyled = styled(MinusCircleIcon)`
 
 interface IFundModalProps {
   isOpen: boolean;
-  openNotification: (type: NotificationType, content: string) => void;
   onCancel: () => void
 }
 
-const FundModal: FC<IFundModalProps> = ({ isOpen = false, onCancel, openNotification }) => {
+const FundModal: FC<IFundModalProps> = ({ isOpen = false, onCancel }) => {
   const [ form ] = Form.useForm();
   const priorityOptions = Object.entries(FundPriority);
   const { initialValues, onCreateFund, onCloseModal } = useFundCreate({
-    openNotification,
     onCancel,
     form
   });

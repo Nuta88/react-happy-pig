@@ -23,7 +23,6 @@ import {
   useUpdateFundMutation
 } from '../../../../services/funds';
 import { Fund } from '../../../../types';
-import { NotificationType } from '../../../../types/notification';
 import {
   getAmount,
   getPercentage
@@ -44,11 +43,10 @@ const layout = {
 };
 
 interface IFundCardProps {
-  fund: Fund;
-  openNotification: (type: NotificationType, content: string) => void
+  fund: Fund
 }
 
-const FundCard: FC<IFundCardProps> = ({ fund, openNotification }) => {
+const FundCard: FC<IFundCardProps> = ({ fund }) => {
   const [ closeFund ] = useCloseFundMutation();
   const [ updateFund ] = useUpdateFundMutation();
   const title: string = `${fund.name} (${getAmount(fund.currentAmount)})`;
@@ -64,10 +62,7 @@ const FundCard: FC<IFundCardProps> = ({ fund, openNotification }) => {
 
   const onRemoveFund = (event: MouseEvent<HTMLElement> | undefined): void => {
     handlePreventFundOpening(event);
-    void closeFund(fund.id as number)
-      .then(() => {
-        openNotification(NotificationType.SUCCESS, `Fund "${fund.name}" was closed successfully!`);
-      });
+    void closeFund({ id: fund.id as number, name: fund.name });
   };
 
   const onUpdateFundPriority = (event: MouseEvent<HTMLElement> | undefined, priority: string): void => {

@@ -8,8 +8,6 @@ import {
   DeleteIcon,
   SpaceBetween
 } from '../../components';
-import { TNotification } from '../../types/columns';
-import { onWrapQuery } from '../../utils/query';
 
 type TDelete = (id: string) => Promise<{ data: string[] } | { error: FetchBaseQueryError | SerializedError }>;
 
@@ -17,7 +15,7 @@ interface TagColumn {
   name: string
 }
 
-export const generateColumns = (openNotification: TNotification, onDeleteTag: TDelete): ColumnsType<any> => [
+export const generateColumns = (onDeleteTag: TDelete): ColumnsType<any> => [
   {
     title: 'Name',
     dataIndex: 'name',
@@ -29,11 +27,7 @@ export const generateColumns = (openNotification: TNotification, onDeleteTag: TD
     width: 100,
     render: (_, tag: TagColumn) => {
       const handleDelete = (): void => {
-        onWrapQuery(
-          onDeleteTag(tag.name),
-          `Tag "${tag.name}" was deleted successfully!`,
-          openNotification
-        );
+        void onDeleteTag(tag.name);
       };
       return (
         <SpaceBetween size="middle">
