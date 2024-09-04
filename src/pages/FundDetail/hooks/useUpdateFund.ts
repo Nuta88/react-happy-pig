@@ -1,6 +1,9 @@
 import { useState } from 'react';
 
-import { useFocusElement } from '../../../hooks';
+import {
+  useFocusElement,
+  useNotification
+} from '../../../hooks';
 import { useUpdateFundMutation } from '../../../services/funds';
 import { Fund, Expense } from '../../../types';
 import {
@@ -24,12 +27,12 @@ interface IUpdateFund extends MutationResult {
 
 export const useUpdateFund = (
   fund: Fund | undefined,
-  openNotification: (type: NotificationType, content: string) => void,
   hideModal: () => void
 ): IUpdateFund => {
   const focusOnExpenseButton = useFocusElement('fund-action-expense', 300);
   const [ updateFund, result ] = useUpdateFundMutation();
   const [ prevCreatedExpense, setPrevCreatedExpense ] = useState<Expense>(new Expense());
+  const { openNotification } = useNotification();
 
   const onShowNotification = (
     updateFundFn: Promise<any>,

@@ -14,10 +14,7 @@ import {
   BillTrackerButton
 } from '../../components';
 import { apiUrls } from '../../constants/apiUrls';
-import {
-  useModal,
-  useNotification
-} from '../../hooks';
+import { useModal } from '../../hooks';
 import { useFetchFundsQuery } from '../../services/funds';
 import { Fund } from '../../types';
 import { IFundFilter } from '../../types/fund';
@@ -31,7 +28,6 @@ const Funds = (): JSX.Element => {
   const [ filter, setFilter ] = useState<IFundFilter>({});
   const deferredQuery = useDeferredValue(filter);
   const { data: funds = [], isLoading, isFetching } = useFetchFundsQuery(deferredQuery, { refetchOnMountOrArgChange: true });
-  const { notificationContext, openNotification } = useNotification();
   const isEmptyComponent: boolean = !funds.length && !isLoading;
 
   return (
@@ -59,14 +55,12 @@ const Funds = (): JSX.Element => {
       ]}
     >
       <FundFilters filter={filter} onFilters={setFilter} />
-      {notificationContext}
       {isEmptyComponent && <Empty description="No funds" data-testid="empty-funds"/>}
       <Row gutter={[ 16, 16 ]}>
         {funds?.map((fund: Fund) => (
           <FundCard
             key={fund.id}
             fund={fund}
-            openNotification={openNotification}
           />
         ))}
       </Row>
@@ -75,7 +69,6 @@ const Funds = (): JSX.Element => {
           <FundModal
             isOpen={isOpenModal}
             onCancel={hideModal}
-            openNotification={openNotification}
           />
         )
       }

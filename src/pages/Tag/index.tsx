@@ -7,10 +7,7 @@ import {
   Table,
   TooltipIconButton
 } from '../../components';
-import {
-  useModal,
-  useNotification
-} from '../../hooks';
+import { useModal } from '../../hooks';
 import {
   useDeleteTagMutation,
   useFetchTagQuery
@@ -20,11 +17,10 @@ import { generateColumns } from './columns';
 import TagModal from './components/TagModal';
 
 const Bank = (): JSX.Element => {
-  const { notificationContext, openNotification } = useNotification();
   const { isOpenModal, hideModal, openModal } = useModal();
   const { data: tags = [], isLoading, isFetching } = useFetchTagQuery(undefined, { refetchOnMountOrArgChange: true });
   const [ deleteTag ] = useDeleteTagMutation({});
-  const columns: ColumnsType<string[]> = generateColumns(openNotification, deleteTag);
+  const columns: ColumnsType<string[]> = generateColumns(deleteTag);
 
   const handleOpenCreateModal = useCallback(() => {
     openModal();
@@ -44,7 +40,6 @@ const Bank = (): JSX.Element => {
         />
       }
     >
-      {notificationContext}
       <Table
         rowKey="id"
         size="small"
@@ -57,7 +52,6 @@ const Bank = (): JSX.Element => {
         <TagModal
           isOpen={isOpenModal}
           onCancel={hideModal}
-          openNotification={openNotification}
         />
       )}
     </Page>

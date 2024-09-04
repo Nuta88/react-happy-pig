@@ -14,14 +14,12 @@ import {
   IBank,
   Income
 } from '../../types';
-import { TNotification } from '../../types/columns';
 import { getAmount } from '../../utils/fund';
-import { onWrapQuery } from '../../utils/query';
 
 type TShowModal = (income: Income) => void;
-type TDeleteIncome = (id: number) => Promise<{ data: IBank } | { error: FetchBaseQueryError | SerializedError }>;
+type TDeleteIncome = (body: { id: number; source: string }) => Promise<{ data: IBank } | { error: FetchBaseQueryError | SerializedError }>;
 
-export const generateColumns = (showModal: TShowModal, onDelete: TDeleteIncome, openNotification: TNotification): ColumnsType<Income> => [
+export const generateColumns = (showModal: TShowModal, onDelete: TDeleteIncome): ColumnsType<Income> => [
   {
     title: 'Source',
     dataIndex: 'source',
@@ -49,11 +47,7 @@ export const generateColumns = (showModal: TShowModal, onDelete: TDeleteIncome, 
       };
 
       const handleDelete = (): void => {
-        onWrapQuery(
-          onDelete(income.id as number),
-          `Income "${income.source}" was deleted successfully!`,
-          openNotification
-        );
+        void onDelete({ id: income.id as number, source: income.source });
       };
       return (
         <SpaceBetween size="middle">
