@@ -1,13 +1,13 @@
 import { List } from 'antd';
 import {
   FC,
-  useState
+  useState,
+  useEffect
 } from 'react';
 import styled from 'styled-components';
 
 import {
   AddIcon,
-  Button,
   DashedButton,
   Drawer,
   Empty,
@@ -16,10 +16,8 @@ import {
   Link,
   LinkIcon,
   MinusCircleIcon,
-  PrimaryButton,
   Radio,
   SecondaryText,
-  Space,
   Text
 } from '../../../../components';
 import { FundPriority } from '../../../../constants/fund';
@@ -27,7 +25,9 @@ import { Fund } from '../../../../types';
 import { IFundInfo } from '../../../../types/fund';
 import { disablePreviousDate } from '../../../../utils/date';
 import { getAmount } from '../../../../utils/fund';
+import { isObjectEmpty } from '../../../../utils/object';
 
+import { FundInfoActions } from './components/FundInfoActions';
 import {
   convertFormValuesToFund,
   createInitialValues
@@ -71,6 +71,16 @@ export const FundInfo: FC<InfoProps> = ({ open, fund, onClose, onSave }): JSX.El
   const [ form ] = Form.useForm();
   const priorityOptions = Object.entries(FundPriority);
   const initialValues = createInitialValues(fund);
+  const [ isChanged, setIsChanged ] = useState(false);
+  const watchedValues = Form.useWatch([], form); // watch all form values
+
+  useEffect(() => {
+    const currentValues = form.getFieldsValue(true);
+
+    if (!isObjectEmpty(currentValues)) {
+      setIsChanged(JSON.stringify(currentValues) !== JSON.stringify(initialValues));
+    }
+  }, [ watchedValues ]);
 
   const handleEdit = (): void => {
     form.setFieldsValue(initialValues);
@@ -87,6 +97,7 @@ export const FundInfo: FC<InfoProps> = ({ open, fund, onClose, onSave }): JSX.El
     onClose();
     form.resetFields();
   };
+
   const handleUpdateFund = (values: IFundInfo): void => {
     onSave(convertFormValuesToFund(values));
     handleHideEdit();
@@ -98,19 +109,13 @@ export const FundInfo: FC<InfoProps> = ({ open, fund, onClose, onSave }): JSX.El
       placement="right"
       width={500}
       extra={
-        <Space>
-          {isEdit && (
-            <>
-              <Button onClick={handleHideEdit}>Cancel</Button>
-              <PrimaryButton onClick={form.submit}>
-                Save
-              </PrimaryButton>
-            </>
-          )}
-          <PrimaryButton onClick={handleEdit}>
-            Edit
-          </PrimaryButton>
-        </Space>
+        <FundInfoActions
+          isEdit={isEdit}
+          isChanged={isChanged}
+          onHideEdit={handleHideEdit}
+          onEdit={handleEdit}
+          onSubmit={form.submit}
+        />
       }
       onClose={handleClose}
       open={open}
