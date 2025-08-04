@@ -5,7 +5,10 @@ export enum IncomeSource {
   GIFT = 'Money that is taken as a gift',
   DEPOSIT_INTEREST = 'Deposit',
   INVESTMENTS = 'Investments',
-  SALES_REVENUE = 'Sales revenue'
+  SALES_REVENUE = 'Sales revenue',
+  RETURN_OPERATION = 'Returning money',
+  BALANCE = 'Balance (for balancing funds)',
+  CASHBACK = 'Cashback (any type of cashback)',
 }
 
 export enum BankTransferType {
