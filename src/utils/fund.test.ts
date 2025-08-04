@@ -7,6 +7,16 @@ import {
   upsertExpense
 } from './fund';
 
+const expenses = [
+  {
+    id: 1,
+    paymentAmount: 150100,
+    recipient: 'Test recipient',
+    description: 'Test',
+    date: '2022-12-03'
+  }
+];
+
 describe('FundDetail util tests', () => {
   describe('Convert to currency tests', () => {
     const pennies = 1000;
@@ -57,8 +67,8 @@ describe('FundDetail util tests', () => {
   });
   describe('Percentage tests', () => {
     test('should return fund percentage', () => {
-      const data = { currentAmount: 10, plannedAmount: 1000 };
-      const result = 99;
+      const data = { expenses, plannedAmount: 1000 };
+      const result = 15010;
 
       expect(getPercentage(data)).toEqual(result);
     });
@@ -70,15 +80,6 @@ describe('FundDetail util tests', () => {
     });
   });
   describe('Upsert FundDetail Expense tests', () => {
-    const expenses = [
-      {
-        id: 1,
-        paymentAmount: 150100,
-        recipient: 'Test recipient',
-        description: 'Test',
-        date: '2022-12-03'
-      }
-    ];
     test('should add new expense to list', () => {
       const expense = {
         id: 2,

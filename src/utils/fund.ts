@@ -1,7 +1,7 @@
 import { Expense } from '../types';
 
 interface IPercentage {
-  currentAmount?: number | null;
+  expenses?: Expense[];
   plannedAmount?: number
 }
 
@@ -9,8 +9,10 @@ export const convertToCurrency = (amount: number = 0): number => (amount / 100);
 
 export const convertToPennies = (amount: number): number => (amount * 100);
 
-export const getPercentage = ({ currentAmount = 1, plannedAmount = 1 }: IPercentage): number => {
-  return Math.floor(100 - (((currentAmount ?? 1) / plannedAmount) * 100));
+export const getPercentage = ({ expenses = [], plannedAmount = 0 }: IPercentage): number => {
+  if (plannedAmount === 0) return 0;
+
+  return Math.floor((countPaymentAmounts(expenses) / plannedAmount) * 100);
 };
 
 export const formatter = new Intl.NumberFormat('en-US', {
