@@ -8,13 +8,13 @@ import {
   DeleteIcon,
   EditIcon,
   SpaceBetween
-} from '../../components';
-import { IncomeSource } from '../../constants/bank';
+} from '../../../../components';
+import { IncomeSource } from '../../../../constants/bank';
 import {
   IBank,
   Income
-} from '../../types';
-import { getAmount } from '../../utils/fund';
+} from '../../../../types';
+import { getAmount } from '../../../../utils/fund';
 
 type TShowModal = (income: Income) => void;
 type TDeleteIncome = (body: { id: number; source: string }) => Promise<{ data: IBank } | { error: FetchBaseQueryError | SerializedError }>;

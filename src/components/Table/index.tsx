@@ -7,7 +7,6 @@ const TableStyled = styled(AntdTable)`
   .ant-spin-container {
     display: flex;
     flex-direction: column;
-    min-height: calc(100vh - 14rem);
   }
   .ant-table {
     flex-grow: 1;

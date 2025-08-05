@@ -1,38 +1,29 @@
-import { useCallback } from 'react';
+import { Tabs } from 'antd';
+import {
+  useCallback,
+  useState
+} from 'react';
 
 import {
   AddIcon,
-  ColumnsType,
   Page,
-  Table,
   TooltipIconButton
 } from '../../components';
-import { useModal } from '../../hooks';
 import {
-  useDeleteIncomeMutation,
   useFetchBankQuery
 } from '../../services/bank';
-import { Income } from '../../types';
 import { getAmount } from '../../utils/fund';
 
-import { generateColumns } from './columns';
-import IncomeModal from './components/IncomeModal';
+import Incomes from './components/Incomes';
 
 const Bank = (): JSX.Element => {
-  const {
-    isOpenModal,
-    modalContent: selectedIncome,
-    hideModal,
-    openModal
-  } = useModal<Income>();
+  const [ isCreateIncome, setIsCreateIncome ] = useState(false);
   const { data: { amount, incomes = [] } = {}, isLoading, isFetching } = useFetchBankQuery(undefined, { refetchOnMountOrArgChange: true });
-  const [ deleteIncome ] = useDeleteIncomeMutation();
-  const columns: ColumnsType<Income> = generateColumns(openModal, deleteIncome);
   const pageTitle = `Bank (${getAmount(amount)})`;
 
-  const handleOpenCreateModal = useCallback(() => {
-    openModal();
-  }, [ openModal ]);
+  const handleCreateIncome = useCallback(() => {
+    setIsCreateIncome(true);
+  }, [ ]);
 
   return (
     <Page
@@ -44,26 +35,34 @@ const Bank = (): JSX.Element => {
           size="large"
           icon={<AddIcon />}
           data-testid="create-income-btn"
-          onClick={handleOpenCreateModal}
+          onClick={handleCreateIncome}
         />
       }
     >
-      <Table
-        rowKey="id"
-        size="small"
-        title={() => 'Incomes'}
-        scroll={{ y: 350 }}
-        loading={isLoading || isFetching}
-        columns={columns}
-        dataSource={incomes}
+      <Tabs
+        defaultActiveKey="1"
+        items={
+          [
+            {
+              key: '1',
+              label: 'Incomes',
+              children: (
+                <Incomes
+                  incomes={incomes}
+                  isLoading={isLoading || isFetching}
+                  isCreateIncome={isCreateIncome}
+                  onHideCreateModal={setIsCreateIncome}
+                />
+              )
+            },
+            {
+              key: '2',
+              label: 'Loans',
+              children: 'Content of Loan'
+            }
+          ]
+        }
       />
-      {isOpenModal && (
-        <IncomeModal
-          income={selectedIncome}
-          isOpen={isOpenModal}
-          onCancel={hideModal}
-        />
-      )}
     </Page>
   );
 };
