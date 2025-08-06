@@ -23,3 +23,22 @@ export interface IBank {
   amount: number;
   incomes: Income[]
 }
+export interface loanPayments {
+  id: number;
+  loanId: number;
+  amount: number;
+  date: string
+}
+
+export interface ILoan {
+  id: number;
+  amount: number;
+  balance: number;
+  repaymentAmount: number;
+  paymentAmount: number;
+  loanPayments: loanPayments[];
+  startDate: string;
+  endDate: string
+
+}
+export type TLoanCreate = Pick<ILoan, 'paymentAmount' | 'amount' | 'startDate'>;

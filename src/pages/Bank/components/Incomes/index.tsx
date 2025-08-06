@@ -1,9 +1,6 @@
 import {
-  Dispatch,
   FC,
-  memo,
-  SetStateAction,
-  useEffect
+  memo
 } from 'react';
 
 import {
@@ -15,22 +12,18 @@ import {
   useDeleteIncomeMutation
 } from '../../../../services/bank';
 import { Income } from '../../../../types';
-import IncomeModal from '../IncomeModal';
 
 import { generateColumns } from './columns';
+import IncomeModal from './IncomeModal';
 
 interface IncomeProps {
   isLoading: boolean;
-  isCreateIncome: boolean;
-  incomes: Income[] | [];
-  onHideCreateModal: Dispatch<SetStateAction<boolean>>
+  incomes: Income[] | []
 }
 
 const Incomes: FC<IncomeProps> = ({
   incomes,
-  isLoading,
-  isCreateIncome,
-  onHideCreateModal
+  isLoading
 }): JSX.Element => {
   const [ deleteIncome ] = useDeleteIncomeMutation();
   const {
@@ -40,16 +33,6 @@ const Incomes: FC<IncomeProps> = ({
     openModal
   } = useModal<Income>();
   const columns: ColumnsType<Income> = generateColumns(openModal, deleteIncome);
-
-  const onHideModal = (): void => {
-    if (isCreateIncome) onHideCreateModal(false);
-
-    hideModal();
-  };
-
-  useEffect(() => {
-    if (isCreateIncome) openModal();
-  }, [ isCreateIncome ]);
 
   return (
     <>
@@ -65,7 +48,7 @@ const Incomes: FC<IncomeProps> = ({
         <IncomeModal
           income={selectedIncome}
           isOpen={isOpenModal}
-          onCancel={onHideModal}
+          onCancel={hideModal}
         />
       )}
     </>

@@ -5,6 +5,10 @@ import {
   IBank,
   Income
 } from '../types';
+import {
+  ILoan,
+  TLoanCreate
+} from '../types/bank';
 
 import api from './api';
 
@@ -64,6 +68,22 @@ const bankApi = api.injectEndpoints({
         );
       },
       invalidatesTags: [ 'Bank' ]
+    }),
+    createLoan: builder.mutation<TLoanCreate, Partial<ILoan>>({
+      query: ({ ...body }) => ({
+        url: apiUrls.bank.loans,
+        method: 'POST',
+        body
+      }),
+      async onQueryStarted (args, { queryFulfilled }) {
+        const { queryNotifications } = useQueryNotification(queryFulfilled);
+
+        await queryNotifications(
+          'loan was created successfully',
+          'loan was not created!'
+        );
+      },
+      invalidatesTags: [ 'Bank' ]
     })
   })
 });
@@ -72,5 +92,6 @@ export const {
   useFetchBankQuery,
   useCreateIncomeMutation,
   useUpdateIncomeMutation,
-  useDeleteIncomeMutation
+  useDeleteIncomeMutation,
+  useCreateLoanMutation
 } = bankApi;
