@@ -1,16 +1,16 @@
 import { Form } from 'antd';
 import { memo, FC } from 'react';
 
-import { BasicModal, Input, Select, SelectOption } from '../../../../components';
-import { IncomeSource } from '../../../../constants/bank';
-import { layout } from '../../../../constants/form';
+import { BasicModal, Input, Select, SelectOption } from '../../../../../components';
+import { IncomeSource } from '../../../../../constants/bank';
+import { layout } from '../../../../../constants/form';
 import {
   useCreateIncomeMutation,
   useUpdateIncomeMutation
-} from '../../../../services/bank';
-import { Income } from '../../../../types';
-import { disablePreviousDate } from '../../../../utils/date';
-import { generateError } from '../../../../utils/form';
+} from '../../../../../services/bank';
+import { Income } from '../../../../../types';
+import { disablePreviousDate } from '../../../../../utils/date';
+import { generateError } from '../../../../../utils/form';
 
 import {
   IFormValues,
@@ -21,11 +21,11 @@ import {
 
 interface IIncomeModalProps {
   isOpen: boolean;
-  income: Income | null;
+  income?: Income | null;
   onCancel: () => void
 }
 
-const IncomeModal: FC<IIncomeModalProps> = ({ isOpen, income, onCancel }) => {
+const IncomeModal: FC<IIncomeModalProps> = ({ isOpen, income = null, onCancel }) => {
   const title: string = income ? 'Edit income' : 'Add new income';
   const sourceOptions = Object.entries(IncomeSource);
   const initialValues = createInitFormValues(income);

@@ -1,16 +1,16 @@
-import { IncomeSource } from '../../../../constants/bank';
-import { dateFormat } from '../../../../constants/common';
-import { Income } from '../../../../types';
+import { IncomeSource } from '../../../../../constants/bank';
+import { dateFormat } from '../../../../../constants/common';
+import { Income } from '../../../../../types';
 import {
   convertDateToString,
   parseDate,
   TDate,
   today
-} from '../../../../utils/date';
+} from '../../../../../utils/date';
 import {
   convertToCurrency,
   convertToPennies
-} from '../../../../utils/fund';
+} from '../../../../../utils/fund';
 
 export interface IFormValues {
   source: keyof typeof IncomeSource | null;
