@@ -1,17 +1,25 @@
 import styled from 'styled-components';
 
-import { colors } from '../../../assets/colors';
-import { Card } from '../../../components';
-import { PriorityColor } from '../../../constants/fund';
+import { colors } from '../assets/colors';
+import { Card } from '../components';
+import { PriorityColor } from '../constants/fund';
 
-export const CardStyled = styled(Card)`
+export const layout = {
+  xs: 24,
+  md: 12,
+  lg: 8
+};
+
+export const CardStyled = styled(Card)<{ background?: string }>`
   min-height: 12.75rem;
-  background-color: ${colors.background};
-  transition: 0.85s;
+  background-color: ${({ background }) => (background ?? colors.background)};
+  transition: background-color 0.87s ease;
 
   &:hover {
-    background-color: #536da14f;
-    box-shadow: ${colors.background} 0 .5rem 1.5rem;
+    background-color: ${({ background }) =>
+     `color-mix(in srgb, ${background ?? colors.background} 93%, black)`
+    }
+      box-shadow: ${({ background }) => (background ?? colors.background)} 0 .5rem 1.5rem;
   }
 
   .ant-card-head-title {

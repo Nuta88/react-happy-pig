@@ -22,19 +22,19 @@ import {
   useCloseFundMutation,
   useUpdateFundMutation
 } from '../../../../services/funds';
-import { Fund } from '../../../../types';
-import {
-  getAmount,
-  getPercentage
-} from '../../../../utils/fund';
-import { getFirstUpperCaseLetter } from '../../../../utils/string';
 import {
   ButtonPriority,
   cardBodyStyle,
   cardHeadStyle,
   CardStyled,
   PriorityIcon
-} from '../styled';
+} from '../../../../styled';
+import { Fund } from '../../../../types';
+import {
+  getAmount,
+  getPercentage
+} from '../../../../utils/fund';
+import { getFirstUpperCaseLetter } from '../../../../utils/string';
 
 const layout = {
   xs: 24,
