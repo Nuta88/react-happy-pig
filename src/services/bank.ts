@@ -84,6 +84,29 @@ const bankApi = api.injectEndpoints({
         );
       },
       invalidatesTags: [ 'Bank' ]
+    }),
+    fetchLoans: builder.query<ILoan[], Record<string, any> | undefined>({
+      query: params => ({
+        url: apiUrls.bank.loans,
+        params
+      }),
+      providesTags: [ 'Bank' ]
+    }),
+    closeLoan: builder.mutation<ILoan, { id: number }>({
+      query: (body, ...params) => ({
+        url: apiUrls.bank.closeLoan(body.id),
+        method: 'PUT',
+        params
+      }),
+      async onQueryStarted (args, { queryFulfilled }) {
+        const { queryNotifications } = useQueryNotification(queryFulfilled);
+
+        await queryNotifications(
+          'Loan was closed successfully!',
+          'Loan was not closed!'
+        );
+      },
+      invalidatesTags: [ 'Bank' ]
     })
   })
 });
@@ -93,5 +116,7 @@ export const {
   useCreateIncomeMutation,
   useUpdateIncomeMutation,
   useDeleteIncomeMutation,
-  useCreateLoanMutation
+  useCreateLoanMutation,
+  useFetchLoansQuery,
+  useCloseLoanMutation
 } = bankApi;

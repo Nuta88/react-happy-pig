@@ -13,7 +13,9 @@ export const apiUrls = {
     root: '/bank',
     incomes: '/bank/incomes',
     incomeWithId: (id: number) => `/bank/incomes/${id}`,
-    loans: '/bank/loans'
+    loans: '/bank/loans',
+    updateLoan: (id: number) => `/bank/loans/${id}`,
+    closeLoan: (id: number) => `/bank/loans/${id}/close`
   },
   tags: {
     root: '/tags',
