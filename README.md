@@ -39,7 +39,7 @@ docker build -t avagner/react-happy-pig:0.0.0.1 .
 
 ```bash
 docker login docker.io
-docker tag avagner/react-happy-pig:0.0.0.1
+docker build -t avagner/react-happy-pig:0.0.0.1
 docker push avagner/react-happy-pig:0.0.0.1
 ```
 
