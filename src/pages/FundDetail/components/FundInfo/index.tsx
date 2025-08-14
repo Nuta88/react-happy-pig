@@ -9,16 +9,15 @@ import styled from 'styled-components';
 import {
   AddIcon,
   DashedButton,
-  Drawer,
   Empty,
   Form,
+  Info,
+  InfoItem,
   Input,
   Link,
   LinkIcon,
   MinusCircleIcon,
-  Radio,
-  SecondaryText,
-  Text
+  Radio
 } from '../../../../components';
 import { FundPriority } from '../../../../constants/fund';
 import { Fund } from '../../../../types';
@@ -27,7 +26,6 @@ import { disablePreviousDate } from '../../../../utils/date';
 import { getAmount } from '../../../../utils/fund';
 import { isObjectEmpty } from '../../../../utils/object';
 
-import { FundInfoActions } from './components/FundInfoActions';
 import {
   convertFormValuesToFund,
   createInitialValues
@@ -35,12 +33,6 @@ import {
 
 const MinusIconStyled = styled(MinusCircleIcon)`
   margin-left: .5rem;
-`;
-
-const DrawerStyled = styled(Drawer)`
-  .ant-drawer-body {
-    padding: 0 1.5rem 1.5rem;
-  }
 `;
 
 const layout = {
@@ -72,7 +64,7 @@ export const FundInfo: FC<InfoProps> = ({ open, fund, onClose, onSave }): JSX.El
   const priorityOptions = Object.entries(FundPriority);
   const initialValues = createInitialValues(fund);
   const [ isChanged, setIsChanged ] = useState(false);
-  const watchedValues = Form.useWatch([], form); // watch all form values
+  const watchedValues = Form.useWatch([], form);
 
   useEffect(() => {
     const currentValues = form.getFieldsValue(true);
@@ -104,19 +96,13 @@ export const FundInfo: FC<InfoProps> = ({ open, fund, onClose, onSave }): JSX.El
   };
 
   return (
-    <DrawerStyled
+    <Info
+      isEdit={isEdit}
+      isChanged={isChanged}
+      onHideEdit={handleHideEdit}
+      onEdit={handleEdit}
+      onSubmit={form.submit}
       title="Fund info"
-      placement="right"
-      width={500}
-      extra={
-        <FundInfoActions
-          isEdit={isEdit}
-          isChanged={isChanged}
-          onHideEdit={handleHideEdit}
-          onEdit={handleEdit}
-          onSubmit={form.submit}
-        />
-      }
       onClose={handleClose}
       open={open}
     >
@@ -208,18 +194,10 @@ export const FundInfo: FC<InfoProps> = ({ open, fund, onClose, onSave }): JSX.El
             )
           : (
             <>
-              <p>
-                <Text>Received Amount:</Text> <SecondaryText>{getAmount(fund?.receivedAmount)}</SecondaryText>
-              </p>
-              <p>
-                <Text>Priority:</Text> <SecondaryText>{fund?.priority}</SecondaryText>
-              </p>
-              <p>
-                <Text>Date:</Text> <SecondaryText>{fund?.creationDate}</SecondaryText>
-              </p>
-              <p>
-                <Text>Description:</Text> <SecondaryText>{fund?.description}</SecondaryText>
-              </p>
+              <InfoItem title="Received Amount" value={getAmount(fund?.receivedAmount)} />
+              <InfoItem title="Priority" value={fund?.priority} />
+              <InfoItem title="Date" value={fund?.creationDate} />
+              <InfoItem title="Description" value={fund?.description} />
               <List
                 size="small"
                 header={<div>Links:</div>}
@@ -237,6 +215,6 @@ export const FundInfo: FC<InfoProps> = ({ open, fund, onClose, onSave }): JSX.El
             )
         }
       </>
-    </DrawerStyled>
+    </Info>
   );
 };

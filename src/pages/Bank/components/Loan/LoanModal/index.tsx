@@ -17,7 +17,7 @@ interface LoanModalProps {
   onCancel: () => void
 }
 
-const LoanModal: FC<LoanModalProps> = ({ isOpen, onCancel }) => {
+const LoanModal: FC<LoanModalProps> = ({ isOpen, onCancel }): JSX.Element => {
   const initialValues = createInitFormValues();
   const [ createLoan ] = useCreateLoanMutation();
   const [ form ] = Form.useForm();
@@ -54,6 +54,13 @@ const LoanModal: FC<LoanModalProps> = ({ isOpen, onCancel }) => {
         onFinish={onFinish}
       >
         <Form.Item
+          label="Name"
+          name="name"
+          rules={[ { required: true, message: 'Please input loan name!' } ]}
+        >
+          <Input data-testid="loan-input-name" />
+        </Form.Item>
+        <Form.Item
           label="Amount"
           name="amount"
           rules={[
@@ -88,6 +95,13 @@ const LoanModal: FC<LoanModalProps> = ({ isOpen, onCancel }) => {
           rules={[ { required: true, message: 'Please input date!' } ]}
         >
           <Input type="datepicker" disabledDate={disablePreviousDate} />
+        </Form.Item>
+        <Form.Item
+          label="Description"
+          name="description"
+          data-testid="description"
+        >
+          <Input type="textarea" rows={2} />
         </Form.Item>
       </Form>
     </BasicModal>

@@ -4,7 +4,7 @@ import {
   Button,
   PrimaryButton,
   Space
-} from '../../../../../../components';
+} from '../../../index';
 
 interface InfoActionsProps {
   isEdit: boolean;
@@ -14,7 +14,7 @@ interface InfoActionsProps {
   onSubmit: () => void
 }
 
-export const FundInfoActions: FC<InfoActionsProps> = ({
+export const InfoActions: FC<InfoActionsProps> = ({
   isEdit, onHideEdit, isChanged, onEdit, onSubmit
 }): JSX.Element => (
   <Space>

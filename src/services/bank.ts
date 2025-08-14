@@ -92,6 +92,13 @@ const bankApi = api.injectEndpoints({
       }),
       providesTags: [ 'Bank' ]
     }),
+    fetchLoan: builder.query<ILoan, number>({
+      query: (id, ...params) => ({
+        url: apiUrls.bank.loanWithId(id),
+        params
+      }),
+      providesTags: [ 'Bank' ]
+    }),
     closeLoan: builder.mutation<ILoan, { id: number }>({
       query: (body, ...params) => ({
         url: apiUrls.bank.closeLoan(body.id),
@@ -107,6 +114,22 @@ const bankApi = api.injectEndpoints({
         );
       },
       invalidatesTags: [ 'Bank' ]
+    }),
+    updateLoan: builder.mutation<ILoan, Partial<ILoan>>({
+      query: ({ ...body }) => ({
+        url: apiUrls.bank.loanWithId(body.id as number),
+        method: 'PUT',
+        body
+      }),
+      async onQueryStarted (args, { queryFulfilled }) {
+        const { queryNotifications } = useQueryNotification(queryFulfilled);
+
+        await queryNotifications(
+          'Loan was edited successfully!',
+          'Loan was not edited!'
+        );
+      },
+      invalidatesTags: [ 'Bank' ]
     })
   })
 });
@@ -118,5 +141,7 @@ export const {
   useDeleteIncomeMutation,
   useCreateLoanMutation,
   useFetchLoansQuery,
-  useCloseLoanMutation
+  useFetchLoanQuery,
+  useCloseLoanMutation,
+  useUpdateLoanMutation
 } = bankApi;

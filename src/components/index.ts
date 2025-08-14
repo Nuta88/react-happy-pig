@@ -58,6 +58,8 @@ import {
   PlayIcon,
   PauseIcon
 } from './Icons';
+import { Info } from './Info';
+import { InfoItem } from './Info/components/InfoItem';
 import { Loading } from './Loading';
 import { BasicModal } from './Modal';
 import PageLayout from './PageLayout';
@@ -157,7 +159,9 @@ export {
   Statistic,
   InlineCenter,
   Radio,
-  Popover
+  Popover,
+  Info,
+  InfoItem
 };
 
 export type { ColumnsType };

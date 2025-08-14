@@ -1,7 +1,7 @@
 import { Tabs } from 'antd';
-import { useState } from 'react';
 
 import { Page } from '../../components';
+import { useTabs } from '../../hooks/useTabs';
 import {
   useFetchBankQuery
 } from '../../services/bank';
@@ -12,7 +12,7 @@ import Incomes from './components/Incomes';
 import Loan from './components/Loan';
 
 const Bank = (): JSX.Element => {
-  const [ tabKey, setTabKey ] = useState('incomes');
+  const { tabKey, setTabKey } = useTabs('incomes', [ 'incomes', 'loans' ]);
   const { data: { amount, incomes = [] } = {}, isLoading, isFetching } = useFetchBankQuery(undefined, { refetchOnMountOrArgChange: true });
   const pageTitle = `Bank (${getAmount(amount)})`;
 

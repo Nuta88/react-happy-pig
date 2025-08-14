@@ -13,6 +13,7 @@ import {
   SecondaryText,
   TooltipIconButton
 } from '../../../../../components';
+import { apiUrls } from '../../../../../constants/apiUrls';
 import { useCloseLoanMutation } from '../../../../../services/bank';
 import {
   cardBodyStyle,
@@ -30,6 +31,7 @@ interface LoanCardProps {
 }
 const LoanCard: FC<LoanCardProps> = ({ loan }) => {
   const [ closeLoan ] = useCloseLoanMutation();
+  const loanDetailLocation: string = apiUrls.bank.loanWithId(loan.id ?? 0);
 
   const getPercentage = (): number => Math.round((loan.repaymentAmount / loan.amount) * 100);
 
@@ -40,6 +42,7 @@ const LoanCard: FC<LoanCardProps> = ({ loan }) => {
 
   const onRemove = (event: MouseEvent<HTMLElement> | undefined): void => {
     handlePreventLoanOpening(event);
+
     void closeLoan({ id: loan.id });
   };
 
@@ -47,12 +50,12 @@ const LoanCard: FC<LoanCardProps> = ({ loan }) => {
     <Col
       {...layout}
     >
-      <Link to="/">
+      <Link to={loanDetailLocation}>
         <CardStyled
           headStyle={cardHeadStyle}
           bodyStyle={cardBodyStyle}
           background={colors.greenBackground}
-          title={getAmount(loan.amount)}
+          title={`${loan.name ?? 'Loan'} ${getAmount(loan.amount)}`}
           extra={
             <Confirm
               title="Are you sure you want to close this loan?"

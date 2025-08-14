@@ -18,8 +18,8 @@ export const CardStyled = styled(Card)<{ background?: string }>`
   &:hover {
     background-color: ${({ background }) =>
      `color-mix(in srgb, ${background ?? colors.background} 93%, black)`
-    }
-      box-shadow: ${({ background }) => (background ?? colors.background)} 0 .5rem 1.5rem;
+    };
+    box-shadow: ${({ background }) => `(${background ?? colors.background})} 0 .5rem 1.5rem`};
   }
 
   .ant-card-head-title {
