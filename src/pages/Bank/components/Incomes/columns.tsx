@@ -42,6 +42,8 @@ export const generateColumns = (showModal: TShowModal, onDelete: TDeleteIncome):
     key: 'action',
     width: 100,
     render: (_, income: Income) => {
+      const isLoan = income.source === 'LOAN';
+
       const handleEdit = (): void => {
         showModal(income);
       };
@@ -56,13 +58,19 @@ export const generateColumns = (showModal: TShowModal, onDelete: TDeleteIncome):
             icon={<EditIcon />}
             onClick={handleEdit}
             data-testid="edit-income-btn"
+            disabled={isLoan}
           />
           <Confirm
             title={`Are you sure to delete "${IncomeSource[income.source]}" income?`}
             placement="leftTop"
             onConfirm={handleDelete}
           >
-            <CircleButton type="primary" icon={<DeleteIcon />} data-testid="delete-income-btn" />
+            <CircleButton
+              type="primary"
+              icon={<DeleteIcon />}
+              disabled={isLoan}
+              data-testid="delete-income-btn"
+            />
           </Confirm>
         </SpaceBetween>
       );

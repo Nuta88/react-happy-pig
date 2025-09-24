@@ -9,6 +9,7 @@ export enum IncomeSource {
   RETURN_OPERATION = 'Returning money',
   BALANCE = 'Balance (for balancing funds)',
   CASHBACK = 'Cashback (any type of cashback)',
+  LOAN = 'Loan',
 }
 
 export enum BankTransferType {

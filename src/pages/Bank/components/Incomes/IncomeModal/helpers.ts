@@ -12,6 +12,8 @@ import {
   convertToPennies
 } from '../../../../../utils/fund';
 
+export const sourceOptions: Array<[string, IncomeSource ]> = Object.entries(IncomeSource).filter(source => source[0] !== 'LOAN');
+
 export interface IFormValues {
   source: keyof typeof IncomeSource | null;
   amount: number;
