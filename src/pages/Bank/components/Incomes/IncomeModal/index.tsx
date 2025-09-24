@@ -2,7 +2,6 @@ import { Form } from 'antd';
 import { memo, FC } from 'react';
 
 import { BasicModal, Input, Select, SelectOption } from '../../../../../components';
-import { IncomeSource } from '../../../../../constants/bank';
 import { layout } from '../../../../../constants/form';
 import {
   useCreateIncomeMutation,
@@ -16,7 +15,8 @@ import {
   IFormValues,
   createInitFormValues,
   createNewIncome,
-  updateSelectedIncome
+  updateSelectedIncome,
+  sourceOptions
 } from './helpers';
 
 interface IIncomeModalProps {
@@ -27,7 +27,6 @@ interface IIncomeModalProps {
 
 const IncomeModal: FC<IIncomeModalProps> = ({ isOpen, income = null, onCancel }) => {
   const title: string = income ? 'Edit income' : 'Add new income';
-  const sourceOptions = Object.entries(IncomeSource);
   const initialValues = createInitFormValues(income);
   const [ createIncome ] = useCreateIncomeMutation();
   const [ updateIncome ] = useUpdateIncomeMutation();
