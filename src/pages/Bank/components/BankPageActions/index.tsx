@@ -6,7 +6,10 @@ import {
 } from '../../../../components';
 import { useModal } from '../../../../hooks';
 import { Income } from '../../../../types';
-import { TLoanCreate } from '../../../../types/bank';
+import {
+  BankTabType,
+  TLoanCreate
+} from '../../../../types/bank';
 import IncomeModal from '../Incomes/IncomeModal';
 import LoanModal from '../Loan/LoanModal';
 
@@ -28,11 +31,11 @@ const BankPageActions: FC<BankPageActionsProps> = ({ tabKey }): JSX.Element => {
   } = useModal<TLoanCreate>();
 
   const handleOpenModal = (): void => {
-    if (tabKey === 'incomes') {
+    if (tabKey === BankTabType.INCOMES) {
       openIncomeModal();
-    } else {
-      openLoanModal();
+      return;
     }
+    openLoanModal();
   };
 
   return (

@@ -50,3 +50,8 @@ export interface ILoan {
 }
 
 export type TLoanCreate = Pick<ILoan, 'name' | 'paymentAmount' | 'amount' | 'startDate' | 'description'>;
+
+export enum BankTabType {
+  LOANS = 'loans',
+  INCOMES = 'incomes'
+}
