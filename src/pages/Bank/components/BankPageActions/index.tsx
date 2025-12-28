@@ -44,18 +44,14 @@ const BankPageActions: FC<BankPageActionsProps> = ({ tabKey }): JSX.Element => {
         data-testid="create-bank-actions-btn"
         onClick={handleOpenModal}
       />
-      {isIncomeOpenModal && (
-        <IncomeModal
-          isOpen={isIncomeOpenModal}
-          onCancel={hideIncomeModal}
-        />
-      )}
-      {isLoanOpenModal && (
-        <LoanModal
-          isOpen={isLoanOpenModal}
-          onCancel={hideLoanModal}
-        />
-      )}
+      <IncomeModal
+        isOpen={isIncomeOpenModal}
+        onCancel={hideIncomeModal}
+      />
+      <LoanModal
+        isOpen={isLoanOpenModal}
+        onCancel={hideLoanModal}
+      />
     </>
   );
 };

@@ -44,13 +44,12 @@ const Incomes: FC<IncomeProps> = ({
         columns={columns}
         dataSource={incomes}
       />
-      {isOpenModal && (
-        <IncomeModal
-          income={selectedIncome}
-          isOpen={isOpenModal}
-          onCancel={hideModal}
-        />
-      )}
+      <IncomeModal
+        key={selectedIncome?.id ?? 'newIncome'}
+        income={selectedIncome}
+        isOpen={isOpenModal}
+        onCancel={hideModal}
+      />
     </>
   );
 };
