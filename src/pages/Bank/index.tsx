@@ -13,13 +13,14 @@ import Loan from './components/Loan';
 
 const Bank = (): JSX.Element => {
   const { tabKey, setTabKey } = useTabs('incomes', [ 'incomes', 'loans' ]);
-  const { data: { amount, incomes = [] } = {}, isLoading, isFetching } = useFetchBankQuery(undefined, { refetchOnMountOrArgChange: true });
+  const { data: { amount } = {}, isLoading, isFetching } = useFetchBankQuery(undefined, { refetchOnMountOrArgChange: true });
   const pageTitle = `Bank (${getAmount(amount)})`;
 
   return (
     <Page
       title={pageTitle}
       data-testid="bank-page-content"
+      isLoading={isLoading || isFetching}
       extra={
         <BankPageActions tabKey={tabKey} key="bank-actions"/>
       }
@@ -32,12 +33,7 @@ const Bank = (): JSX.Element => {
             {
               key: 'incomes',
               label: 'Incomes',
-              children: (
-                <Incomes
-                  incomes={incomes}
-                  isLoading={isLoading || isFetching}
-                />
-              )
+              children: <Incomes />
             },
             {
               key: 'loans',

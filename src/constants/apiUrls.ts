@@ -14,6 +14,7 @@ export const apiUrls = {
     incomes: '/bank/incomes',
     incomeWithId: (id: number) => `/bank/incomes/${id}`,
     loans: '/bank/loans',
+    activeLoans: '/bank/loans/active',
     loanWithId: (id: number) => `/bank/loans/${id}`,
     closeLoan: (id: number) => `/bank/loans/${id}/close`
   },

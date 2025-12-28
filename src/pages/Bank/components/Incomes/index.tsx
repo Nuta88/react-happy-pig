@@ -1,7 +1,4 @@
-import {
-  FC,
-  memo
-} from 'react';
+import { memo } from 'react';
 
 import {
   ColumnsType,
@@ -9,22 +6,16 @@ import {
 } from '../../../../components';
 import { useModal } from '../../../../hooks';
 import {
-  useDeleteIncomeMutation
+  useDeleteIncomeMutation,
+  useFetchIncomesQuery
 } from '../../../../services/bank';
 import { Income } from '../../../../types';
 
 import { generateColumns } from './columns';
 import IncomeModal from './IncomeModal';
 
-interface IncomeProps {
-  isLoading: boolean;
-  incomes: Income[] | []
-}
-
-const Incomes: FC<IncomeProps> = ({
-  incomes,
-  isLoading
-}): JSX.Element => {
+const Incomes = (): JSX.Element => {
+  const { data: incomes = [], isLoading, isFetching } = useFetchIncomesQuery(undefined, { refetchOnMountOrArgChange: true });
   const [ deleteIncome ] = useDeleteIncomeMutation();
   const {
     isOpenModal,
@@ -40,7 +31,7 @@ const Incomes: FC<IncomeProps> = ({
         rowKey="id"
         size="small"
         scroll={{ y: 350 }}
-        loading={isLoading}
+        loading={isLoading || isFetching}
         columns={columns}
         dataSource={incomes}
       />
