@@ -48,12 +48,10 @@ const Bank = (): JSX.Element => {
         columns={columns}
         dataSource={tags.map(tag => ({ name: tag, id: tag }))}
       />
-      {isOpenModal && (
-        <TagModal
-          isOpen={isOpenModal}
-          onCancel={hideModal}
-        />
-      )}
+      <TagModal
+        isOpen={isOpenModal}
+        onCancel={hideModal}
+      />
     </Page>
   );
 };

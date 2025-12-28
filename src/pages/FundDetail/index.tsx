@@ -124,6 +124,7 @@ const FundDetail = (): JSX.Element => {
         />
       </DrawerStyled>
       <ExpenseModal
+        key={selectedExpense?.id ?? 'create'}
         isOpen={isOpenModal}
         expense={selectedExpense ?? prevCreatedExpense}
         onSave={onUpdateOrCreateExpense}

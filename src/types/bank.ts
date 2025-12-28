@@ -21,8 +21,13 @@ export class Income {
 
 export interface IBank {
   amount: number;
-  incomes: Income[]
+  loanAmount: number;
+  loanRepaymentAmount: number;
+  loanBalance: number;
+  incomesTotalAmount: number;
+  transfersTotalAmount: number
 }
+
 export interface LoanPayment {
   id?: number;
   loanId: number;
@@ -43,4 +48,10 @@ export interface ILoan {
   endDate: string
 
 }
+
 export type TLoanCreate = Pick<ILoan, 'name' | 'paymentAmount' | 'amount' | 'startDate' | 'description'>;
+
+export enum BankTabType {
+  LOANS = 'loans',
+  INCOMES = 'incomes'
+}

@@ -21,6 +21,13 @@ const bankApi = api.injectEndpoints({
       }),
       providesTags: [ 'Bank' ]
     }),
+    fetchIncomes: builder.query<Income[], Record<string, any> | undefined>({
+      query: params => ({
+        url: apiUrls.bank.incomes,
+        params
+      }),
+      providesTags: [ 'Bank' ]
+    }),
     createIncome: builder.mutation<Income, Partial<Income>>({
       query: ({ ...body }) => ({
         url: apiUrls.bank.incomes,
@@ -87,7 +94,7 @@ const bankApi = api.injectEndpoints({
     }),
     fetchLoans: builder.query<ILoan[], Record<string, any> | undefined>({
       query: params => ({
-        url: apiUrls.bank.loans,
+        url: apiUrls.bank.activeLoans,
         params
       }),
       providesTags: [ 'Bank' ]
@@ -136,6 +143,7 @@ const bankApi = api.injectEndpoints({
 
 export const {
   useFetchBankQuery,
+  useFetchIncomesQuery,
   useCreateIncomeMutation,
   useUpdateIncomeMutation,
   useDeleteIncomeMutation,
