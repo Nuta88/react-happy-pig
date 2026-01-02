@@ -1,6 +1,6 @@
-import { Tooltip as AntdTooltip, TooltipProps } from 'antd';
-import { RefAttributes } from 'react';
+import { Tooltip as AntdTooltip } from 'antd';
+import type { TooltipProps } from 'antd';
 
-export const Tooltip = (props: JSX.IntrinsicAttributes & (TooltipProps & RefAttributes<unknown>)): JSX.Element => (
+export const Tooltip = (props: TooltipProps): JSX.Element => (
   <AntdTooltip {...props} />
 );

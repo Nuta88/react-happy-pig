@@ -30,11 +30,12 @@ export const generateOptions = (tags: string[], fundAssociations: Association[])
     .map(tag => ({ label: tag, value: tag }));
 };
 
+const isOptionIncludesValue = (optionValue: string | number, value: string): boolean => {
+  return optionValue.toString().toLowerCase().includes(value.toLowerCase());
+};
+
 export const filterAutoCompleteOption = (option: AutoCompleteOption | undefined, value: string): boolean => {
-  if (option?.value) {
-    return !!option.value.toString().toLowerCase().includes(value.toLowerCase());
-  }
-  return false;
+  return option?.value !== null && option?.value !== undefined ? isOptionIncludesValue(option.value, value) : false;
 };
 
 export const isTagsSelected = (tag: string, tags: string[]): boolean => !tag || tags.includes(tag);

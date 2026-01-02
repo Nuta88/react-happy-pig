@@ -73,7 +73,7 @@ import { InlineCenter } from './Space/InlineCenter';
 import { SpaceBetween } from './Space/SpaceBetween';
 import { SpaceCenter } from './Space/SpaceCenter';
 import { Statistic } from './Statistic';
-import { Table, ColumnsType } from './Table';
+import { Table, ColumnsType as AntdColumnsType } from './Table';
 import { Tag } from './Tag';
 import { Tooltip } from './Tooltip';
 import { EditableTitle } from './Typography/EditableTitle';
@@ -164,4 +164,4 @@ export {
   InfoItem
 };
 
-export type { ColumnsType };
+export type ColumnsType<T> = AntdColumnsType<T>;
