@@ -1,9 +1,9 @@
+import type { ButtonProps } from 'antd';
 import { ReactNode } from 'react';
 
 import { Tooltip } from '../Tooltip';
 
 import { CircleButton } from './CircleButton';
-import { ButtonProps } from './types';
 
 interface IMainCircleButton {
   tooltip: string;
