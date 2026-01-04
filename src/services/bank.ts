@@ -101,7 +101,7 @@ const bankApi = api.injectEndpoints({
     }),
     fetchLoan: builder.query<ILoan, number>({
       query: (id, ...params) => ({
-        url: apiUrls.bank.loanWithId(id),
+        url: apiUrls.bank.activeLoansWithId(id),
         params
       }),
       providesTags: [ 'Bank' ]
