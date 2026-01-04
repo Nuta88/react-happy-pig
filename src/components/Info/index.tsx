@@ -30,7 +30,7 @@ export const Info: FC<InfoProps> = ({
 }): JSX.Element => {
   return (
     <DrawerStyled
-      width={500}
+      size={500}
       placement="right"
       extra={
         <InfoActions

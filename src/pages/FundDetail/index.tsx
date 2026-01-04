@@ -114,7 +114,7 @@ const FundDetail = (): JSX.Element => {
       <DrawerStyled
         title="Fund tags"
         placement="right"
-        width={500}
+        size={500}
         onClose={handleToggleAssigning}
         open={isOpenAssigning}
       >
