@@ -8,15 +8,23 @@ import { CircleButton } from './CircleButton';
 interface IMainCircleButton {
   tooltip: string;
   size?: string;
-  icon?: ReactNode
+  icon?: ReactNode;
+  isPreventDefault?: boolean
 }
 
-export const TooltipIconButton = ({ tooltip, size = 'large', ...props }: IMainCircleButton & ButtonProps): JSX.Element => (
-  <Tooltip title={tooltip}>
-    <CircleButton
-      size={size}
-      type="primary"
-      {...props}
-    />
-  </Tooltip>
-);
+export const TooltipIconButton = ({ tooltip, size = 'large', ...props }: IMainCircleButton & ButtonProps): JSX.Element => {
+  const onClickButton = (e: React.MouseEvent<HTMLElement>): void => {
+    e.preventDefault();
+  };
+
+  return (
+    <Tooltip title={tooltip}>
+      <CircleButton
+        size={size}
+        type="primary"
+        onClick={onClickButton}
+        {...props}
+      />
+    </Tooltip>
+  );
+};
