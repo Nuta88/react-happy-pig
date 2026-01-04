@@ -1,7 +1,11 @@
-import { Form } from 'antd';
 import { memo, FC } from 'react';
 
-import { BasicModal, Input } from '../../../../../components';
+import {
+  BasicModal,
+  LoadingSubmitButton,
+  Form,
+  Input
+} from '../../../../../components';
 import { layout } from '../../../../../constants/form';
 import { useCreateLoanMutation } from '../../../../../services/bank';
 import { disablePreviousDate } from '../../../../../utils/date';
@@ -19,7 +23,7 @@ interface LoanModalProps {
 
 const LoanModal: FC<LoanModalProps> = ({ isOpen, onCancel }): JSX.Element => {
   const initialValues = createInitFormValues();
-  const [ createLoan ] = useCreateLoanMutation();
+  const [ createLoan, { isLoading } ] = useCreateLoanMutation();
   const [ form ] = Form.useForm();
 
   const onCloseModal = (): void => {
@@ -41,9 +45,18 @@ const LoanModal: FC<LoanModalProps> = ({ isOpen, onCancel }): JSX.Element => {
     <BasicModal
       title="Add new loan"
       isOpen={isOpen}
-      okText="Add"
       onOk={form.submit}
       onCancel={onCloseModal}
+      footer={[
+        <LoadingSubmitButton
+          key="submit"
+          disabled={isLoading}
+          onClick={form.submit}
+          isLoading={isLoading}
+        >
+          Add
+        </LoadingSubmitButton>
+      ]}
     >
       <Form
         form={form}

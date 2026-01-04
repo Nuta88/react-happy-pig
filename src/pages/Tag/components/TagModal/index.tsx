@@ -1,4 +1,3 @@
-import { Form } from 'antd';
 import {
   FC,
   memo
@@ -6,6 +5,7 @@ import {
 
 import {
   BasicModal,
+  Form,
   Input
 } from '../../../../components';
 import { layout } from '../../../../constants/form';
