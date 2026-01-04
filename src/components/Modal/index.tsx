@@ -2,18 +2,18 @@ import { Modal, ModalProps } from 'antd';
 import { ReactElement } from 'react';
 
 interface BasicModalProps {
-  title: string;
   isOpen: boolean;
+  loading?: boolean;
   children: ReactElement;
   onSave?: () => void;
   onCancel: () => void
 }
 
-export const BasicModal = ({ title, isOpen, children, onSave, onCancel, ...props }: BasicModalProps & ModalProps): JSX.Element => (
+export const BasicModal = ({ isOpen, loading, children, onSave, onCancel, ...props }: BasicModalProps & ModalProps): JSX.Element => (
   <Modal
-    destroyOnClose={true}
+    destroyOnHidden={true}
     getContainer={false}
-    title={title}
+    loading={loading}
     open={isOpen}
     onOk={onSave}
     onCancel={onCancel}
