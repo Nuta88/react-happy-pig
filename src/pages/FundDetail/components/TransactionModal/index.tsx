@@ -58,7 +58,7 @@ const TransactionModal: FC<IExpenseModalProps> = ({ isOpen, onCancel }) => {
       title="Bank Money Transaction"
       isOpen={isOpen}
       buttonTitle="Request"
-      onOk={form.submit}
+      onSave={form.submit}
       onCancel={onCloseModal}
     >
       <Form

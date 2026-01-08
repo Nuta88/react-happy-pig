@@ -57,7 +57,7 @@ const FundModal: FC<IFundModalProps> = ({ isOpen = false, onCancel }) => {
       title="Create new fund"
       isOpen={isOpen}
       buttonTitle="Create"
-      onOk={form.submit}
+      onSave={form.submit}
       onCancel={onCloseModal}
     >
       <Form
@@ -98,7 +98,7 @@ const FundModal: FC<IFundModalProps> = ({ isOpen = false, onCancel }) => {
           label="Planned Amount"
           name="plannedAmount"
         >
-          <Input type="currency" suffix="$" min={0} data-testid="fund-input-plannedAmount" />
+          <Input type="currency" min={0} data-testid="fund-input-plannedAmount" />
         </Form.Item>
         <Form.Item
           label="Description"

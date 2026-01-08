@@ -80,6 +80,7 @@ const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, availableAmount
       title={title}
       isOpen={isOpen}
       onCancel={onCloseModal}
+      onSave={form.submit}
       buttonTitle={isEdit ? 'Edit' : 'Add'}
     >
       <>
