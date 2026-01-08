@@ -76,7 +76,7 @@ const LoanModal: FC<LoanModalProps> = ({ isOpen, onCancel }): JSX.Element => {
             }
           ]}
         >
-          <Input type="number" addonAfter="$" min={1} data-testid="modal-loan-amount" />
+          <Input type="currency" min={1} data-testid="modal-loan-amount" />
         </Form.Item>
         <Form.Item
           label="Payment amount"
@@ -90,7 +90,7 @@ const LoanModal: FC<LoanModalProps> = ({ isOpen, onCancel }): JSX.Element => {
             }
           ]}
         >
-          <Input type="number" addonAfter="$" min={1} data-testid="modal-loan-paymentAmount" />
+          <Input type="currency" min={1} data-testid="modal-loan-paymentAmount" />
         </Form.Item>
         <Form.Item
           label="Date"

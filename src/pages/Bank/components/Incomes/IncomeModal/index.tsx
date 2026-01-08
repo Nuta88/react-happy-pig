@@ -118,7 +118,7 @@ const IncomeModal: FC<IIncomeModalProps> = ({ isOpen, income = null, onCancel })
             }
           ]}
         >
-          <Input type="number" addonAfter="$" min={1} data-testid="modal-income-amount" />
+          <Input type="currency" min={1} data-testid="modal-income-amount" />
         </Form.Item>
         <Form.Item
           label="Date"

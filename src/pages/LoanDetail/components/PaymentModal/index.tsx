@@ -72,7 +72,7 @@ const PaymentModal: FC<PaymentModalProps> = ({ loanId, payment, minAmount, isOpe
             }
           ]}
         >
-          <Input type="number" addonAfter="$" min={1} />
+          <Input type="currency" min={1} />
         </Form.Item>
           <Form.Item
             label="Date"

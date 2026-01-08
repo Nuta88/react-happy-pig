@@ -92,13 +92,13 @@ const FundModal: FC<IFundModalProps> = ({ isOpen = false, onCancel }) => {
           label="Requested Amount"
           name="requestedAmount"
         >
-          <Input type="number" addonAfter="$" min={0} data-testid="fund-input-equested" />
+          <Input type="currency" min={0} data-testid="fund-input-equested" />
         </Form.Item>
         <Form.Item
           label="Planned Amount"
           name="plannedAmount"
         >
-          <Input type="number" addonAfter="$" min={0} data-testid="fund-input-plannedAmount" />
+          <Input type="currency" suffix="$" min={0} data-testid="fund-input-plannedAmount" />
         </Form.Item>
         <Form.Item
           label="Description"

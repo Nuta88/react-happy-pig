@@ -90,7 +90,7 @@ const TransactionModal: FC<IExpenseModalProps> = ({ isOpen, onCancel }) => {
             }
           ]}
         >
-          <Input type="number" addonAfter="$" min={1} />
+          <Input type="currency" min={1} />
         </Form.Item>
       </Form>
     </BasicModal>
