@@ -48,7 +48,7 @@ const PaymentModal: FC<PaymentModalProps> = ({ loanId, payment, minAmount, isOpe
     <BasicModal
       title="Add new payment"
       isOpen={isOpen}
-      okText="Add"
+      buttonTitle="Add"
       onOk={form.submit}
       onCancel={onCloseModal}
     >

@@ -2,7 +2,6 @@ import { memo, FC } from 'react';
 
 import {
   BasicModal,
-  LoadingSubmitButton,
   Form,
   Input
 } from '../../../../../components';
@@ -45,18 +44,10 @@ const LoanModal: FC<LoanModalProps> = ({ isOpen, onCancel }): JSX.Element => {
     <BasicModal
       title="Add new loan"
       isOpen={isOpen}
-      onOk={form.submit}
+      onSave={form.submit}
       onCancel={onCloseModal}
-      footer={[
-        <LoadingSubmitButton
-          key="submit"
-          disabled={isLoading}
-          onClick={form.submit}
-          isLoading={isLoading}
-        >
-          Add
-        </LoadingSubmitButton>
-      ]}
+      buttonTitle="Add"
+      loading={isLoading}
     >
       <Form
         form={form}

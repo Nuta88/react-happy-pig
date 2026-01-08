@@ -42,9 +42,9 @@ const TagModal: FC<ITagModalProps> = ({ isOpen, onCancel }) => {
     <BasicModal
       title={title}
       isOpen={isOpen}
-      okText={'Save'}
       onOk={form.submit}
       onCancel={onCloseModal}
+      buttonTitle='Save'
     >
       <Form
         form={form}

@@ -1,4 +1,3 @@
-import { List } from 'antd';
 import {
   FC,
   useState,
@@ -15,6 +14,7 @@ import {
   InfoItem,
   Input,
   Link,
+  List,
   LinkIcon,
   MinusCircleIcon,
   Radio

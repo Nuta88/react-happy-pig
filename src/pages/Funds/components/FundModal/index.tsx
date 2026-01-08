@@ -56,7 +56,7 @@ const FundModal: FC<IFundModalProps> = ({ isOpen = false, onCancel }) => {
     <BasicModal
       title="Create new fund"
       isOpen={isOpen}
-      okText="Create"
+      buttonTitle="Create"
       onOk={form.submit}
       onCancel={onCloseModal}
     >

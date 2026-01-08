@@ -7,7 +7,6 @@ import {
 
 import {
   BasicModal,
-  Button,
   Input
 } from '../../../../components';
 import { layout } from '../../../../constants/form';
@@ -81,11 +80,7 @@ const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, availableAmount
       title={title}
       isOpen={isOpen}
       onCancel={onCloseModal}
-      footer={[
-        <Button key="submit" type="primary" onClick={form.submit}>
-          {isEdit ? 'Edit' : 'Add'}
-        </Button>
-      ]}
+      buttonTitle={isEdit ? 'Edit' : 'Add'}
     >
       <>
         <Form
