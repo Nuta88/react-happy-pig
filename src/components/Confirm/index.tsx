@@ -1,5 +1,22 @@
 import { Popconfirm, PopconfirmProps } from 'antd';
 
-export const Confirm = (props: PopconfirmProps): JSX.Element => (
-  <Popconfirm okText="Yes" cancelText="No" {...props} />
-);
+import { InlineSpanStyled } from '../styles';
+
+export const Confirm = ({
+  children,
+  ...props
+}: PopconfirmProps): JSX.Element => {
+  return (
+    <Popconfirm
+      okText="Yes"
+      cancelText="No"
+      motion={{ motionEnter: false }}
+      onCancel={(e) => e?.stopPropagation()}
+      {...props}
+    >
+    <InlineSpanStyled>
+      {children}
+    </InlineSpanStyled>
+    </Popconfirm>
+  );
+};

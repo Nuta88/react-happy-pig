@@ -1,6 +1,6 @@
-import { Popover as AntdPopover, PopoverProps } from 'antd';
-import { RefAttributes } from 'react';
+import { Popover as AntdPopover } from 'antd';
+import type { PopoverProps } from 'antd';
 
-export const Popover = (props: JSX.IntrinsicAttributes & PopoverProps & RefAttributes<HTMLDivElement>): JSX.Element => (
+export const Popover: React.FC<PopoverProps> = (props): JSX.Element => (
   <AntdPopover {...props} />
 );

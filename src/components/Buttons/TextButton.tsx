@@ -1,4 +1,4 @@
-import { ButtonProps } from './types';
+import type { ButtonProps } from 'antd';
 
 import { Button } from './index';
 

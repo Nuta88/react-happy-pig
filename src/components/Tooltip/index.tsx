@@ -1,6 +1,15 @@
-import { Tooltip as AntdTooltip, TooltipProps } from 'antd';
-import { RefAttributes } from 'react';
+import { Tooltip as AntdTooltip } from 'antd';
+import type { TooltipProps } from 'antd';
 
-export const Tooltip = (props: JSX.IntrinsicAttributes & (TooltipProps & RefAttributes<unknown>)): JSX.Element => (
-  <AntdTooltip {...props} />
+import { InlineSpanStyled } from '../styles';
+
+export const Tooltip = ({
+  children,
+  ...props
+}: TooltipProps): JSX.Element => (
+  <AntdTooltip motion={{ motionEnter: false }} {...props}>
+    <InlineSpanStyled>
+      {children}
+    </InlineSpanStyled>
+  </AntdTooltip>
 );

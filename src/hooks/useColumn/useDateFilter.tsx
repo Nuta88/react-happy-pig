@@ -1,5 +1,6 @@
 import type { ColumnType } from 'antd/es/table';
 import dayjs, { Dayjs } from 'dayjs';
+import type { Key } from 'react';
 
 import { colors } from '../../assets/colors';
 import {
@@ -9,6 +10,10 @@ import {
 } from '../../components';
 import { TQueryFilter } from '../../types/query';
 
+const toKey = (value: string | string[] | null): Key => {
+  return !value ? '' : Array.isArray(value) ? value.join('-') : value;
+};
+
 export const useDateFilter = (onFilter: (filter: Partial<TQueryFilter>) => void): any => {
   const getDateFilterProps = (dataIndex: string, defaultDate?: Dayjs): ColumnType<any> => ({
     filterDropdown: ({
@@ -16,8 +21,8 @@ export const useDateFilter = (onFilter: (filter: Partial<TQueryFilter>) => void)
       confirm
     }) => {
       const disabledDate = (current: Dayjs): boolean => current >= dayjs().endOf('day');
-      const onSelectDate = (date: string): void => {
-        setSelectedKeys([ date ]);
+      const onSelectDate = (date: string | string[] | null): void => {
+        setSelectedKeys([ toKey(date) ]);
         onFilter({ [dataIndex]: date });
         confirm();
       };

@@ -71,7 +71,7 @@ const FundFilters: FC<IFundFilterProps> = ({ filter, onFilters }) => {
     setName(name);
   };
 
-  const onFilterFund = (key: string, value: string): void => {
+  const onFilterFund = (key: string, value: string | string[] | null): void => {
     if (key !== 'name') setName('');
 
     onFilters({ [key]: value });

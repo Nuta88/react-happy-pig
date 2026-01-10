@@ -1,7 +1,12 @@
 import { Form } from 'antd';
 import { memo, FC } from 'react';
 
-import { BasicModal, Input, Select, SelectOption } from '../../../../../components';
+import {
+  BasicModal,
+  Input,
+  Select,
+  SelectOption
+} from '../../../../../components';
 import { layout } from '../../../../../constants/form';
 import {
   useCreateIncomeMutation,
@@ -28,8 +33,8 @@ interface IIncomeModalProps {
 const IncomeModal: FC<IIncomeModalProps> = ({ isOpen, income = null, onCancel }) => {
   const title: string = income ? 'Edit income' : 'Add new income';
   const initialValues = createInitFormValues(income);
-  const [ createIncome ] = useCreateIncomeMutation();
-  const [ updateIncome ] = useUpdateIncomeMutation();
+  const [ createIncome, { isLoading: isCreating } ] = useCreateIncomeMutation();
+  const [ updateIncome, { isLoading: isUpdating } ] = useUpdateIncomeMutation();
   const [ form ] = Form.useForm();
 
   const onCloseModal = (): void => {
@@ -66,9 +71,10 @@ const IncomeModal: FC<IIncomeModalProps> = ({ isOpen, income = null, onCancel })
     <BasicModal
       title={title}
       isOpen={isOpen}
-      okText={income ? 'Edit' : 'Add'}
-      onOk={form.submit}
+      onSave={form.submit}
       onCancel={onCloseModal}
+      loading={isCreating || isUpdating}
+      buttonTitle={ income ? 'Edit' : 'Add' }
     >
       <Form
         form={form}
@@ -112,7 +118,7 @@ const IncomeModal: FC<IIncomeModalProps> = ({ isOpen, income = null, onCancel })
             }
           ]}
         >
-          <Input type="number" addonAfter="$" min={1} data-testid="modal-income-amount" />
+          <Input type="currency" min={1} data-testid="modal-income-amount" />
         </Form.Item>
         <Form.Item
           label="Date"

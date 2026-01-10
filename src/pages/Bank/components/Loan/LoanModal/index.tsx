@@ -1,7 +1,10 @@
-import { Form } from 'antd';
 import { memo, FC } from 'react';
 
-import { BasicModal, Input } from '../../../../../components';
+import {
+  BasicModal,
+  Form,
+  Input
+} from '../../../../../components';
 import { layout } from '../../../../../constants/form';
 import { useCreateLoanMutation } from '../../../../../services/bank';
 import { disablePreviousDate } from '../../../../../utils/date';
@@ -19,7 +22,7 @@ interface LoanModalProps {
 
 const LoanModal: FC<LoanModalProps> = ({ isOpen, onCancel }): JSX.Element => {
   const initialValues = createInitFormValues();
-  const [ createLoan ] = useCreateLoanMutation();
+  const [ createLoan, { isLoading } ] = useCreateLoanMutation();
   const [ form ] = Form.useForm();
 
   const onCloseModal = (): void => {
@@ -41,9 +44,10 @@ const LoanModal: FC<LoanModalProps> = ({ isOpen, onCancel }): JSX.Element => {
     <BasicModal
       title="Add new loan"
       isOpen={isOpen}
-      okText="Add"
-      onOk={form.submit}
+      onSave={form.submit}
       onCancel={onCloseModal}
+      buttonTitle="Add"
+      loading={isLoading}
     >
       <Form
         form={form}
@@ -72,7 +76,7 @@ const LoanModal: FC<LoanModalProps> = ({ isOpen, onCancel }): JSX.Element => {
             }
           ]}
         >
-          <Input type="number" addonAfter="$" min={1} data-testid="modal-loan-amount" />
+          <Input type="currency" min={1} data-testid="modal-loan-amount" />
         </Form.Item>
         <Form.Item
           label="Payment amount"
@@ -86,7 +90,7 @@ const LoanModal: FC<LoanModalProps> = ({ isOpen, onCancel }): JSX.Element => {
             }
           ]}
         >
-          <Input type="number" addonAfter="$" min={1} data-testid="modal-loan-paymentAmount" />
+          <Input type="currency" min={1} data-testid="modal-loan-paymentAmount" />
         </Form.Item>
         <Form.Item
           label="Date"
