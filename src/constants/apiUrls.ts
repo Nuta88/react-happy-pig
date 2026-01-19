@@ -33,3 +33,8 @@ export const apiUrls = {
 };
 
 export const authorizedPaths = [ '/login', '/register' ];
+
+export const baseUrl =
+  import.meta.env.MODE === 'test'
+    ? 'http://test.local/api'
+    : import.meta.env.VITE_API_URL;

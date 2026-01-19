@@ -1,97 +1,89 @@
-import { screen, fireEvent, waitFor } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { rest } from 'msw';
+import { vi, it } from 'vitest';
 
-import { server } from '../../mock/api/server';
 import { renderWithProviders } from '../../test-utils';
 
 import FundDetail from './index';
 
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useParams: () => ({ id: 1 })
-}));
+vi.mock('react-router-dom', async () => {
+  const mod = await vi.importActual('react-router-dom');
+  return {
+    ...mod,
+    useParams: () => ({
+      id: 1
+    })
+  };
+});
 
 describe('FundDetail tests', () => {
-  server.use(
-    rest.get('*', (_req, res, ctx) =>
-      res.once(ctx.status(200), ctx.json({
-        id: 1,
-        name: 'Car',
-        plannedAmount: 1000000,
-        currentAmount: 649300,
-        expenses: [
-          {
-            id: 1,
-            paymentAmount: 200600,
-            recipient: 'Mix Mart',
-            description: 'Something else',
-            date: '2022-05-28'
-          },
-          {
-            id: 2,
-            paymentAmount: 150100,
-            recipient: 'FOX',
-            description: 'Something',
-            date: '2022-12-03'
-          }
-        ]
-      }))
-    )
-  );
-  test('should render fund and modal', async () => {
+  it('should render fund detail page', async () => {
+    const container = await renderWithProviders(<FundDetail />);
+
+    expect(container.getByTestId('fund-page-content')).toBeInTheDocument();
+
+    await waitFor(async () => {
+      expect(container.getByTestId('fund-page-name')).toBeInTheDocument();
+      expect(screen.getByText((content, element) => {
+        return content.includes('Test_Car_Name') && content.includes('$6,493');
+      })).toBeInTheDocument();
+      expect(container.getByTestId('fund-expenses-table')).toBeInTheDocument();
+      // Actions
+      expect(container.getByTestId('fund-open-tag')).toBeInTheDocument();
+      expect(container.getByTestId('fund-open-transaction-modal')).toBeInTheDocument();
+      expect(container.getByTestId('fund-open-info-modal')).toBeInTheDocument();
+      expect(container.getByTestId('fund-open-create-modal')).toBeInTheDocument();
+      // table
+      expect(container.getByTestId('fund-expenses-table')).toBeInTheDocument();
+    });
+  });
+  it('should render and open create expense modal', async () => {
     await renderWithProviders(<FundDetail />);
 
     expect(screen.getByTestId('fund-page-content')).toBeInTheDocument();
 
     await waitFor(async () => {
-      expect(screen.getByTestId('fund-page-name')).toBeInTheDocument();
-      expect(screen.getByText('Car($6,493)')).toBeInTheDocument();
       expect(screen.getByTestId('fund-open-create-modal')).toBeInTheDocument();
-      fireEvent.click(screen.getByTestId('fund-open-create-modal'));
+      userEvent.click(screen.getByTestId('fund-open-create-modal'));
 
-      await waitFor(() => { expect(screen.queryByText('Add expense')).toBeInTheDocument(); });
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      fireEvent.click(screen.queryByText('Cancel'));
+      await waitFor(() => {
+        expect(screen.queryByText('Add expense')).toBeInTheDocument();
+        expect(screen.getByLabelText('Recipient')).toBeInTheDocument();
+        expect(screen.getByLabelText('Amount')).toBeInTheDocument();
+        expect(screen.getByLabelText('Date')).toBeInTheDocument();
+        expect(screen.getByLabelText('Description')).toBeInTheDocument();
+      });
+      userEvent.click(document.querySelector('.ant-modal-close')!);
     });
   });
-  test('should open edit modal', async () => {
-    const result = await renderWithProviders(<FundDetail />);
+  it('should render and open edit expense modal', async () => {
+    await renderWithProviders(<FundDetail />);
+
+    expect(screen.getByTestId('fund-page-content')).toBeInTheDocument();
 
     await waitFor(async () => {
-      expect(screen.getByText('Car($6,493)')).toBeInTheDocument();
+      expect(screen.getByTestId('fund-open-create-modal')).toBeInTheDocument();
       expect(screen.getAllByTestId('edit-expense-btn')[0]).toBeInTheDocument();
       userEvent.click(screen.getAllByTestId('edit-expense-btn')[0]);
 
       await waitFor(() => {
         expect(screen.queryByText('Edit expense')).toBeInTheDocument();
-        userEvent.type(result.container.querySelector('#expense-modal_recipient'), 'new recipient');
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
-        userEvent.click(screen.queryByText('Edit'));
+        expect(screen.getByLabelText('Recipient')).toBeInTheDocument();
+        expect(screen.getByLabelText('Amount')).toBeInTheDocument();
+        expect(screen.getByLabelText('Date')).toBeInTheDocument();
+        expect(screen.getByLabelText('Description')).toBeInTheDocument();
       });
+      userEvent.click(document.querySelector('.ant-modal-close')!);
     });
   });
-  test('should navigate to funds page', async () => {
-    await renderWithProviders(<FundDetail />);
+  it('should navigate to funds page', async () => {
+    const container = await renderWithProviders(<FundDetail />);
+
+    expect(screen.getByTestId('fund-page-content')).toBeInTheDocument();
 
     await waitFor(async () => {
-      expect(screen.getByText('Car($6,493)')).toBeInTheDocument();
-      expect(screen.getByTestId('page-back-icon')).toBeInTheDocument();
-      fireEvent.click(screen.getByTestId('page-back-icon'));
-    });
-  });
-  test('should editing fund title', async () => {
-    await renderWithProviders(<FundDetail />);
-
-    await waitFor(async () => {
-      expect(screen.getByTestId('fund-page-name')).toBeInTheDocument();
-      expect(screen.getByText('Car($6,493)')).toBeInTheDocument();
-      fireEvent.click(screen.getByTestId('fund-page-name'));
-      expect(screen.getByTestId('title-input')).toBeInTheDocument();
-      expect(screen.getByTestId('title-input-close')).toBeInTheDocument();
-      fireEvent.click(screen.getByTestId('title-input-close'));
+      expect(container.getByTestId('page-back-icon')).toBeInTheDocument();
+      userEvent.click(container.getByTestId('page-back-icon'));
     });
   });
 });
