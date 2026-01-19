@@ -28,7 +28,7 @@ services:
     image: avagner/react-happy-pig:develop
     container_name: happy-pig-ui
     environment:
-      - REACT_APP_BASE_URL=http://localhost:8080/api
+      - VITE_API_URL=http://localhost:8080/api
     ports:
       - "3000:3000"
     restart: always
