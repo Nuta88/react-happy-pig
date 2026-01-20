@@ -8,13 +8,13 @@ import {
 import { testMockData } from './mockData';
 
 export const handlers = [
-  http.get(`${baseUrl}${apiUrls.funds.root}`, () => {
+  http.get(`${String(baseUrl)}${apiUrls.funds.root}`, () => {
     return HttpResponse.json(testMockData.funds);
   }),
-  http.get(`${baseUrl}${apiUrls.funds.root}/1`, () => {
+  http.get(`${String(baseUrl)}${apiUrls.funds.root}/1`, () => {
     return HttpResponse.json(testMockData.funds[0]);
   }),
-  http.get(`${baseUrl}${apiUrls.bank.root}`, () => {
+  http.get(`${String(baseUrl)}${apiUrls.bank.root}`, () => {
     return HttpResponse.json(testMockData.bank);
   })
 ];

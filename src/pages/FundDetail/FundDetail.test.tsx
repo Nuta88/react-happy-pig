@@ -53,7 +53,10 @@ describe('FundDetail tests', () => {
         expect(screen.getByLabelText('Date')).toBeInTheDocument();
         expect(screen.getByLabelText('Description')).toBeInTheDocument();
       });
-      userEvent.click(document.querySelector('.ant-modal-close')!);
+      const modalClose = document.querySelector('.ant-modal-close');
+      if (modalClose) {
+        userEvent.click(modalClose);
+      }
     });
   });
   it('should render and open edit expense modal', async () => {
@@ -73,7 +76,10 @@ describe('FundDetail tests', () => {
         expect(screen.getByLabelText('Date')).toBeInTheDocument();
         expect(screen.getByLabelText('Description')).toBeInTheDocument();
       });
-      userEvent.click(document.querySelector('.ant-modal-close')!);
+      const modalClose = document.querySelector('.ant-modal-close');
+      if (modalClose) {
+        userEvent.click(modalClose);
+      }
     });
   });
   it('should navigate to funds page', async () => {

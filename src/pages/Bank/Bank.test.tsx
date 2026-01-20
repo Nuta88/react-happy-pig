@@ -1,11 +1,9 @@
 import {
-  fireEvent,
   screen,
   waitFor
 } from '@testing-library/react';
 import { it } from 'vitest';
 
-import { IncomeSource } from '../../constants/bank';
 import { renderWithProviders } from '../../test-utils';
 
 import Bank from './index';
