@@ -31,7 +31,7 @@ export const useFundCreate = ({
   form
 }: IUseCreateFund): { initialValues: { priority: FundPriority; creationDate: dayjs.Dayjs }; onCreateFund: (values: IFormValues) => void; onCloseModal: () => void } => {
   const [ createFund ] = useCreateFundMutation();
-  const initialValues = { priority: FundPriority.LOW, creationDate: today };
+  const initialValues = { priority: FundPriority.LOW, creationDate: today, requestedAmount: 0, plannedAmount: 0 };
 
   const onCloseModal = (): void => {
     form.resetFields();
