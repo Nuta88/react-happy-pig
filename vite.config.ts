@@ -19,8 +19,10 @@ export default defineConfig({
       reportsDirectory: './coverage',
       exclude: [
         'node_modules/',
+        'src/tests/',
         'src/types/',
         'src/components/',
+        'src/constants/',
         '**/*.test.ts',
         '**/*.test.tsx',
         '**/*.config.*',

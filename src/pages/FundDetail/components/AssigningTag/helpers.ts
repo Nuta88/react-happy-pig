@@ -1,15 +1,9 @@
-import * as React from 'react';
-
+import type { AutoCompleteOptionType } from '../../../../components';
 import {
   AssociatedObjectType,
   Association,
   CreateAssociation
 } from '../../../../types/tag';
-
-interface AutoCompleteOption {
-  label: React.ReactNode;
-  value?: string | number | null
-}
 
 export const generateQueryAssociation = (associatedObjectId: number, tagId: string, associatedObjectType: keyof typeof AssociatedObjectType): CreateAssociation => (
   {
@@ -23,18 +17,21 @@ export const findFundAssociations = (id: number, associations: Association[], as
   associations.filter((a: Association) =>
     a.associatedObjectType === associatedObjectType && id === a.object.id);
 
-export const generateOptions = (tags: string[], fundAssociations: Association[]): AutoCompleteOption[] => {
+export const generateOptions = (tags: string[], fundAssociations: Association[]): AutoCompleteOptionType[] => {
   const fundAssociationsTags = fundAssociations.map(fa => fa.tag.toLowerCase());
 
   return tags.filter(tag => !fundAssociationsTags.includes(tag.toLowerCase()))
     .map(tag => ({ label: tag, value: tag }));
 };
 
-export const filterAutoCompleteOption = (option: AutoCompleteOption | undefined, value: string): boolean => {
-  if (option?.value) {
-    return !!option.value.toString().toLowerCase().includes(value.toLowerCase());
-  }
-  return false;
+const isOptionIncludesValue = (optionValue: string | number, value: string): boolean => {
+  if (Array.isArray(optionValue)) return optionValue.join(',').toLowerCase().includes(value.toLowerCase());
+
+  return optionValue.toString().toLowerCase().includes(value.toLowerCase());
+};
+
+export const filterAutoCompleteOption = (option: AutoCompleteOptionType | undefined, value: string): boolean => {
+  return option?.value !== null && option?.value !== undefined ? isOptionIncludesValue(option.value, value) : false;
 };
 
 export const isTagsSelected = (tag: string, tags: string[]): boolean => !tag || tags.includes(tag);

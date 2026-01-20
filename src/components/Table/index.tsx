@@ -1,9 +1,9 @@
-import { Table as AntdTable, TableProps } from 'antd';
+import { Table as AntdTable } from 'antd';
+import type { TableProps } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { ReactNode, Ref } from 'react';
 import styled from 'styled-components';
 
-const TableStyled = styled(AntdTable)`
+const TableStyled = styled(AntdTable as React.ComponentType<TableProps<any>>)`
   .ant-spin-container {
     display: flex;
     flex-direction: column;
@@ -28,7 +28,7 @@ const TableStyled = styled(AntdTable)`
   }
 `;
 
-const Table = (props: JSX.IntrinsicAttributes & TableProps<any> & { children?: ReactNode } & { ref?: Ref<HTMLDivElement> | undefined }): JSX.Element => (
+const Table: React.FC<TableProps<any>> = (props): JSX.Element => (
   <TableStyled {...props} />
 );
 

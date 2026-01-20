@@ -1,7 +1,6 @@
 import { Button } from 'antd';
+import type { ButtonProps } from 'antd';
 import styled from 'styled-components';
-
-import { ButtonProps } from './types';
 
 const ButtonStyled = styled(Button)`
   width: 100%;

@@ -14,6 +14,19 @@ export const CardStyled = styled(Card)<{ background?: string }>`
   min-height: 12.75rem;
   background-color: ${({ background }) => (background ?? colors.background)};
   transition: background-color 0.87s ease;
+  .ant-card-head{
+    padding: 0 1rem;
+  }
+  .ant-card-head-title{
+    color: ${colors.primaryText};
+  }
+  .ant-card-body {
+     min-height: 140px;
+     display: flex;
+     flex-direction: column;
+     justify-content: flex-end;
+     padding: .63rem 1rem;
+  }
 
   &:hover {
     background-color: ${({ background }) =>
@@ -28,19 +41,6 @@ export const CardStyled = styled(Card)<{ background?: string }>`
     }
   }
 `;
-
-export const cardHeadStyle = {
-  padding: '0 1rem',
-  color: colors.primaryText
-};
-
-export const cardBodyStyle = {
-  minHeight: 140,
-  display: 'flex',
-  flexDirection: 'column' as 'column',
-  justifyContent: 'flex-end',
-  padding: '.63rem 1rem'
-};
 
 export const ButtonPriority = styled.div<{ priority: string }>`
   display: inline-flex;

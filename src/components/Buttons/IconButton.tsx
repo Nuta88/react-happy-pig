@@ -1,7 +1,7 @@
+import type { ButtonProps } from 'antd';
 import { ReactNode } from 'react';
 
 import { CircleButton } from './CircleButton';
-import { ButtonProps } from './types';
 
 interface IconButtonProps {
   icon: ReactNode

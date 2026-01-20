@@ -24,8 +24,6 @@ import {
 } from '../../../../services/funds';
 import {
   ButtonPriority,
-  cardBodyStyle,
-  cardHeadStyle,
   CardStyled,
   PriorityIcon
 } from '../../../../styled';
@@ -78,8 +76,6 @@ const FundCard: FC<IFundCardProps> = ({ fund }) => {
     >
       <Link to={fundDetailLocation}>
         <CardStyled
-          headStyle={cardHeadStyle}
-          bodyStyle={cardBodyStyle}
           title={title}
           extra={
             <>

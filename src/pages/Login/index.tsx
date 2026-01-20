@@ -1,7 +1,6 @@
-import { Form } from 'antd';
-
 import {
   AuthForm,
+  Form,
   TextInput,
   AvatarIcon,
   LockIcon

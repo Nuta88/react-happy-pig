@@ -10,5 +10,5 @@ const SpinStyled = styled(Spin)`
 `;
 
 export const Loading = (props: JSX.IntrinsicAttributes & SpinProps): JSX.Element => (
-  <SpinStyled tip="Loading" size="large" {...props} />
+  <SpinStyled size="large" {...props} />
 );

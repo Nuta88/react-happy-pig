@@ -1,3 +1,4 @@
+import type { ButtonProps } from 'antd';
 import { useCallback } from 'react';
 
 import {
@@ -12,7 +13,6 @@ import {
 } from '../Icons';
 
 import { TooltipIconButton } from './TooltipIconButton';
-import { ButtonProps } from './types';
 
 export const BillTrackerButton = (
   props: ButtonProps

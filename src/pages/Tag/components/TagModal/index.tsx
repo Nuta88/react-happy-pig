@@ -1,4 +1,3 @@
-import { Form } from 'antd';
 import {
   FC,
   memo
@@ -6,6 +5,7 @@ import {
 
 import {
   BasicModal,
+  Form,
   Input
 } from '../../../../components';
 import { layout } from '../../../../constants/form';
@@ -42,9 +42,9 @@ const TagModal: FC<ITagModalProps> = ({ isOpen, onCancel }) => {
     <BasicModal
       title={title}
       isOpen={isOpen}
-      okText={'Save'}
-      onOk={form.submit}
+      onSave={form.submit}
       onCancel={onCloseModal}
+      buttonTitle='Save'
     >
       <Form
         form={form}

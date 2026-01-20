@@ -1,5 +1,4 @@
-import { ColumnsType } from 'antd/es/table';
-
+import type { ColumnsType } from '../../components';
 import { Expense } from '../../types';
 import { today } from '../../utils/date';
 import { getAmount } from '../../utils/fund';

@@ -1,6 +1,4 @@
-import { Tabs } from 'antd';
-
-import { Page } from '../../components';
+import { Page, Tabs } from '../../components';
 import { useTabs } from '../../hooks/useTabs';
 import {
   useFetchBankQuery
@@ -14,14 +12,14 @@ import Loan from './components/Loan';
 
 const Bank = (): JSX.Element => {
   const { tabKey, setTabKey } = useTabs(BankTabType.INCOMES, [ BankTabType.INCOMES, BankTabType.LOANS ]);
-  const { data: { amount } = {}, isLoading, isFetching } = useFetchBankQuery(undefined, { refetchOnMountOrArgChange: true });
+  const { data: { amount } = {}, isLoading } = useFetchBankQuery(undefined, { refetchOnMountOrArgChange: true });
   const pageTitle = `Bank (${getAmount(amount)})`;
 
   return (
     <Page
       title={pageTitle}
       data-testid="bank-page-content"
-      isLoading={isLoading || isFetching}
+      isLoading={isLoading}
       extra={
         <BankPageActions tabKey={tabKey} key="bank-actions"/>
       }

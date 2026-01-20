@@ -1,7 +1,16 @@
-import { Form as AntdForm, FormInstance, FormProps } from 'antd';
-import { ReactNode, Ref } from 'react';
+import { Form as AntdForm } from 'antd';
+import type { FormInstance, FormProps } from 'antd';
+import React, { forwardRef, PropsWithChildren } from 'react';
 
-type TFormProps = JSX.IntrinsicAttributes &
-FormProps<any> & { children?: ReactNode } & { ref?: Ref<FormInstance<any>> | undefined };
+export type AppFormProps<T> = PropsWithChildren<FormProps<T>>;
 
-export const Form = (props: TFormProps): JSX.Element => <AntdForm {...props} />;
+export const Form = forwardRef(
+  <T extends object>(
+    props: AppFormProps<T>,
+    ref: React.Ref<FormInstance<T>>
+  ): JSX.Element => {
+    return <AntdForm<T> ref={ref} {...props} />;
+  }
+);
+
+Form.displayName = 'Form';

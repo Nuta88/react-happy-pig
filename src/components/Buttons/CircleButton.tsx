@@ -1,9 +1,8 @@
 import { Button } from 'antd';
+import type { ButtonProps } from 'antd';
 import styled from 'styled-components';
 
 import { colors } from '../../assets/colors';
-
-import { ButtonProps } from './types';
 
 export const ButtonStyled = styled(Button)`
   &:focus {

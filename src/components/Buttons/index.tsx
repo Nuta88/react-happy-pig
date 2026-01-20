@@ -1,6 +1,5 @@
 import { Button as ButtonAntd } from 'antd';
-
-import { ButtonProps } from './types';
+import type { ButtonProps } from 'antd';
 
 export const Button = (
   props: ButtonProps

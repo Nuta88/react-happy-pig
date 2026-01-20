@@ -48,8 +48,8 @@ const PaymentModal: FC<PaymentModalProps> = ({ loanId, payment, minAmount, isOpe
     <BasicModal
       title="Add new payment"
       isOpen={isOpen}
-      okText="Add"
-      onOk={form.submit}
+      buttonTitle="Add"
+      onSave={form.submit}
       onCancel={onCloseModal}
     >
       <Form
@@ -72,7 +72,7 @@ const PaymentModal: FC<PaymentModalProps> = ({ loanId, payment, minAmount, isOpe
             }
           ]}
         >
-          <Input type="number" addonAfter="$" min={1} />
+          <Input type="currency" min={1} />
         </Form.Item>
           <Form.Item
             label="Date"

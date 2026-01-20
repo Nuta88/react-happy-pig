@@ -44,8 +44,8 @@ const MoveExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, fundId, onC
     <BasicModal
       title="Move expense"
       isOpen={isOpen}
-      okText="Move"
-      onOk={form.submit}
+      buttonTitle="Move"
+      onSave={form.submit}
       onCancel={onCloseModal}
     >
       <>

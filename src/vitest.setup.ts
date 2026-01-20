@@ -1,5 +1,9 @@
 import '@testing-library/jest-dom';
+import ResizeObserver from 'resize-observer-polyfill';
+
 import { server } from './tests/mock/api/server';
+
+global.ResizeObserver = ResizeObserver;
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

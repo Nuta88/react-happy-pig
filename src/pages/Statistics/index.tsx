@@ -34,48 +34,48 @@ const Statistics = (): JSX.Element => {
     >
       <Row gutter={16}>
         <ColStyled span={12}>
-          <Card bordered={false}>
+          <Card variant="borderless">
             <Statistic
               title="Bank Amount"
               value={bankAmount}
               precision={2}
-              valueStyle={{ color: bankAmount > 0 ? colors.success : colors.error }}
+              bodyColor={bankAmount > 0 ? colors.success : colors.error}
               prefix={bankAmount > 0 ? <ArrowUpIcon /> : <ArrowDownIcon />}
               suffix="$"
             />
           </Card>
         </ColStyled>
         <ColStyled span={12}>
-          <Card bordered={false}>
+          <Card variant="borderless">
             <Statistic
               title="Funds Current Amount"
               value={fundsCurrentAmount}
               precision={2}
-              valueStyle={{ color: colors.success }}
+              bodyColor={colors.success}
               prefix={<ArrowUpIcon />}
               suffix="$"
             />
           </Card>
         </ColStyled>
         <ColStyled span={12}>
-          <Card bordered={false}>
+          <Card variant="borderless">
             <Statistic
               title="Funds Received Amount"
               value={fundsReceivedAmount}
               precision={2}
-              valueStyle={{ color: colors.success }}
+              bodyColor={colors.success}
               prefix={<ArrowUpIcon />}
               suffix="$"
             />
           </Card>
         </ColStyled>
         <ColStyled span={12}>
-          <Card bordered={false}>
+          <Card variant="borderless">
             <Statistic
               title="Funds Planned Amount"
               value={fundsPlannedAmount}
               precision={2}
-              valueStyle={{ color: colors.success }}
+              bodyColor={colors.success}
               prefix={<ArrowUpIcon />}
               suffix="$"
             />

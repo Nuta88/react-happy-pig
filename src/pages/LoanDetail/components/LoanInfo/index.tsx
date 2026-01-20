@@ -102,7 +102,7 @@ const LoanInfo: FC<InfoProps> = ({ isOpen, loan = {}, onClose, onUpdateLoanIno }
                   }
                 ]}
               >
-                <Input type="number" addonAfter="$" min={1} />
+                <Input type="currency" min={1} />
               </Form.Item>
               <Form.Item
                 label="Date"

@@ -17,6 +17,7 @@ const { TextArea } = SimpleInput;
 
 export const Input = ({ type, ...props }: any): JSX.Element => {
   switch (type) {
+    case 'currency': return <InputNumber suffix="$" {...props as InputNumberProps} />;
     case 'number': return <InputNumber {...props as InputNumberProps} />;
     case 'textarea': return <TextArea {...props as TextAreaProps} />;
     case 'datepicker': return <DatePicker {...props as DatePickerProps} />;
