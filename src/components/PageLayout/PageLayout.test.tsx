@@ -3,7 +3,7 @@ import {
   waitFor
 } from '@testing-library/react';
 
-import { renderWithProviders } from '../../test-utils';
+import { renderWithProviders } from '../../tests/test-utils';
 
 import PageLayout from './index';
 describe('PageLayout tests', () => {

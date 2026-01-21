@@ -1,8 +1,8 @@
 import { waitFor } from '@testing-library/react';
 import { it } from 'vitest';
 
-import { renderWithProviders } from '../../test-utils';
 import { testMockData } from '../../tests/mock/api/mockData';
+import { renderWithProviders } from '../../tests/test-utils';
 
 import Funds from './index';
 

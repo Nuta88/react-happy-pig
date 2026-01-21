@@ -4,7 +4,7 @@ import {
 } from '@testing-library/react';
 import { it } from 'vitest';
 
-import { renderWithProviders } from '../../test-utils';
+import { renderWithProviders } from '../../tests/test-utils';
 
 import Bank from './index';
 

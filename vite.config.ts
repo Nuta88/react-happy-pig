@@ -21,6 +21,7 @@ export default defineConfig({
         'node_modules/',
         'src/tests/',
         'src/types/',
+        'src/styled/',
         'src/components/',
         'src/constants/',
         '**/*.test.ts',

@@ -2,7 +2,7 @@ import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi, it } from 'vitest';
 
-import { renderWithProviders } from '../../test-utils';
+import { renderWithProviders } from '../../tests/test-utils';
 
 import FundDetail from './index';
 

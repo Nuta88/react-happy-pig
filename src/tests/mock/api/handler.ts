@@ -16,5 +16,8 @@ export const handlers = [
   }),
   http.get(`${String(baseUrl)}${apiUrls.bank.root}`, () => {
     return HttpResponse.json(testMockData.bank);
+  }),
+  http.get(`${String(baseUrl)}${apiUrls.bank.activeLoans}`, () => {
+    return HttpResponse.json(testMockData.loans);
   })
 ];

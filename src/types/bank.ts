@@ -46,7 +46,6 @@ export interface ILoan {
   loanPayments: LoanPayment[];
   startDate: string;
   endDate: string
-
 }
 
 export type TLoanCreate = Pick<ILoan, 'name' | 'paymentAmount' | 'amount' | 'startDate' | 'description'>;

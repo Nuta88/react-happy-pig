@@ -7,6 +7,23 @@ export const testMockData = {
     incomesTotalAmount: 150000,
     transfersTotalAmount: 5000
   },
+  loans: [ {
+    id: 1,
+    name: 'Car Loan',
+    amount: 300000,
+    balance: 250000,
+    repaymentAmount: 15000,
+    paymentAmount: 20000,
+    description: 'Loan for a new car',
+    loanPayments: [
+      {
+        id: 1,
+        loanId: 1,
+        amount: 20000,
+        date: '2022-01-15'
+      }
+    ]
+  } ],
   funds: [
     {
       id: 1,

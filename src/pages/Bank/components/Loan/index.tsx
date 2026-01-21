@@ -13,7 +13,10 @@ const Loan = (): JSX.Element => {
   return (
    <>
      {isLoadingLoans && <Loading />}
-     <Row gutter={[ 16, 16 ]}>
+     <Row
+       data-testid="bank-loans"
+       gutter={[ 16, 16 ]}
+     >
        {loans?.map((loan) => (
          <LoanCard key={loan.id} loan={loan} />
        ))}

@@ -5,7 +5,7 @@ import {
 } from '@testing-library/react';
 import { vi } from 'vitest';
 
-import { renderWithProviders } from '../../../test-utils';
+import { renderWithProviders } from '../../../tests/test-utils';
 
 import Page from './index';
 
