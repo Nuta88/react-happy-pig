@@ -3,12 +3,13 @@ import {
   screen,
   waitFor
 } from '@testing-library/react';
+import { vi } from 'vitest';
 
-import { renderWithProviders } from '../../../test-utils';
+import { renderWithProviders } from '../../../tests/test-utils';
 
 import Page from './index';
 
-const onBackMock = jest.fn();
+const onBackMock = vi.fn();
 describe('Page tests', () => {
   test('should return to previous page', async () => {
     await renderWithProviders(

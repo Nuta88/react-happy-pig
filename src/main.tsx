@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 
 import { theme } from './assets/theme';
-import reportWebVitals from './reportWebVitals';
 import AppRouters from './routes';
 import { store } from './store/store';
 import './index.css';
@@ -22,5 +21,3 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
-
-reportWebVitals();

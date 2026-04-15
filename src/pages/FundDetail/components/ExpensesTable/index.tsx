@@ -73,6 +73,7 @@ const ExpensesTable = ({
         columns={columns}
         dataSource={expenses}
         loading={isLoading}
+        data-testid="fund-expenses-table"
         title={() => (
           <SpaceBetween>
             <Text>Expenses: {getAmount(totalAmountOfExpenses)}</Text>

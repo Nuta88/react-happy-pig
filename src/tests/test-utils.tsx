@@ -4,7 +4,7 @@ import { ReactNode, ReactElement } from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { store } from './store/store';
+import { store } from '../store/store';
 
 export async function renderWithProviders (Component: ReactElement, isRenderWithoutRouter?: boolean): Promise<any> {
   setupListeners(store.dispatch);

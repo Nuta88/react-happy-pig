@@ -47,6 +47,7 @@ const LoanCard: FC<LoanCardProps> = ({ loan }) => {
 
   return (
     <Col
+      data-testid={`loan-card-${loan.id}`}
       {...layout}
     >
       <Link to={loanDetailLocation}>

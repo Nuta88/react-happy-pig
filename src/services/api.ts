@@ -1,11 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const url = process.env.REACT_APP_BASE_URL;
+import { baseUrl } from '../constants/apiUrls';
 
 const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: url
+    baseUrl
   }),
   tagTypes: [
     'Funds',
