@@ -40,7 +40,6 @@ const FundDetail = (): JSX.Element => {
   const [ isOpenAssigning, setIsOpenAssigning ] = useState<boolean>(false);
   const { isOpenModal: isOpenTransactionModal, hideModal: hideTransactionModal, openModal: openTransactionModal } = useModal();
   const {
-    onUpdateOrCreateExpense,
     onRemoveExpense,
     onUpdateFundName,
     onUpdatePlannedAmount,
@@ -125,10 +124,10 @@ const FundDetail = (): JSX.Element => {
       </DrawerStyled>
       <ExpenseModal
         key={selectedExpense?.id ?? 'create'}
+        fundId={fund?.id as number}
         isOpen={isOpenModal}
         expense={selectedExpense ?? prevCreatedExpense}
-        onSave={onUpdateOrCreateExpense}
-        onCancel={hideModal}
+        onClose={hideModal}
         availableAmount={(fund?.currentAmount ?? 0)}
       />
       <TransactionModal

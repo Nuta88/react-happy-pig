@@ -5,6 +5,7 @@ import {
   Fund
 } from '../types';
 import {
+  CreationFund,
   IMovingExpense,
   Transfer
 } from '../types/fund';
@@ -34,7 +35,7 @@ const fundsApi = api.injectEndpoints({
       }),
       providesTags: [ 'Expenses' ]
     }),
-    createFund: builder.mutation<Fund, Partial<Fund>>({
+    createFund: builder.mutation<Fund, CreationFund>({
       query: ({ ...body }) => ({
         url: apiUrls.funds.root,
         method: 'POST',
@@ -100,6 +101,22 @@ const fundsApi = api.injectEndpoints({
         await queryNotifications('Expense was moved successfully!', 'The expense was not moved!');
       },
       invalidatesTags: [ 'Fund' ]
+    }),
+    createExpense: builder.mutation<Expense, Partial<Expense>>({
+      query: ({ ...body }) => ({
+        url: apiUrls.funds.expenses,
+        method: 'POST',
+        body
+      }),
+      async onQueryStarted (args, { queryFulfilled }) {
+        const { queryNotifications } = useQueryNotification(queryFulfilled);
+
+        await queryNotifications(
+          'Expense was created successfully!',
+          'Expense was not created!'
+        );
+      },
+      invalidatesTags: [ 'Fund' ]
     })
   })
 });
@@ -112,5 +129,6 @@ export const {
   useCloseFundMutation,
   useUpdateFundMutation,
   useTransactionMutation,
-  useMovingExpenseMutation
+  useMovingExpenseMutation,
+  useCreateExpenseMutation
 } = fundsApi;
