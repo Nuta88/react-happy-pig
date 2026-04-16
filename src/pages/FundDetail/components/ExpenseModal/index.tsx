@@ -10,7 +10,10 @@ import {
   Input
 } from '../../../../components';
 import { layout } from '../../../../constants/form';
-import { useCreateExpenseMutation } from '../../../../services/funds';
+import {
+  useCreateExpenseMutation,
+  useUpdateExpenseMutation
+} from '../../../../services/funds';
 import { Expense } from '../../../../types';
 import { AssociatedObjectType } from '../../../../types/tag';
 import { disablePreviousDate } from '../../../../utils/date';
@@ -37,12 +40,14 @@ interface IExpenseModalProps {
 
 const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, fundId, availableAmount, onClose }) => {
   const [ createExpense ] = useCreateExpenseMutation();
+  const [ updateExpense ] = useUpdateExpenseMutation();
   const isEdit: boolean = !(expense.id == null);
   const title: string = isEdit ? 'Edit expense' : 'Add expense';
-  const initialValues = createInitFormValues(expense);
+  const initialValues = createInitFormValues(fundId, expense);
   const [ form ] = Form.useForm();
   // TODO: remove
   const isHideAssigningTag: boolean = true;
+  const availableExpense = availableAmount + expense.paymentAmount;
 
   useEffect(() => {
     form.setFieldsValue(initialValues);
@@ -57,7 +62,7 @@ const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, fundId, availab
     form.setFields([ generateError('paymentAmount', [ errorFundAmountMessage(amount) ]) ]);
   };
 
-  const isAmountAvailable = (amount: number, availableAmount: number): boolean => amount < availableAmount;
+  const isAmountAvailable = (amount: number, availableAmount: number): boolean => amount <= availableAmount;
 
   const onCreateExpense = (values: IFormValues): void => {
     void createExpense(convertFormValuesToExpense(expense, fundId, values));
@@ -66,22 +71,24 @@ const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, fundId, availab
 
   const onCreate = (values: IFormValues): void => {
     const penniesAmount = convertToPennies(values.paymentAmount);
-    const availableExpense = availableAmount + expense.paymentAmount;
 
-    if (isAmountAvailable(penniesAmount, availableExpense)) {
+    if (isAmountAvailable(penniesAmount, availableAmount)) {
       onCreateExpense(values);
       return;
     }
 
-    setAmountFormError(availableExpense);
+    setAmountFormError(availableAmount);
   };
 
   const onEdit = (values: IFormValues): void => {
     const penniesAmount = convertToPennies(values.paymentAmount);
 
-    if (!isAmountAvailable(penniesAmount, availableAmount)) {
-      setAmountFormError(availableAmount);
+    if (isAmountAvailable(penniesAmount, availableExpense)) {
+      updateExpense(convertFormValuesToExpense(expense, fundId, values));
+      onCloseModal();
+      return;
     }
+    setAmountFormError(availableExpense);
   };
 
   const onFinish = (values: IFormValues): void => {

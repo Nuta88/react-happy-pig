@@ -117,6 +117,22 @@ const fundsApi = api.injectEndpoints({
         );
       },
       invalidatesTags: [ 'Fund' ]
+    }),
+    updateExpense: builder.mutation<Expense, Partial<Expense>>({
+      query: ({ ...body }) => ({
+        url: apiUrls.funds.expense(body.id as number),
+        method: 'PUT',
+        body
+      }),
+      async onQueryStarted (args, { queryFulfilled }) {
+        const { queryNotifications } = useQueryNotification(queryFulfilled);
+
+        await queryNotifications(
+          'Expense was updated successfully!',
+          'Expense was not updated!'
+        );
+      },
+      invalidatesTags: [ 'Fund' ]
     })
   })
 });
@@ -130,5 +146,6 @@ export const {
   useUpdateFundMutation,
   useTransactionMutation,
   useMovingExpenseMutation,
-  useCreateExpenseMutation
+  useCreateExpenseMutation,
+  useUpdateExpenseMutation
 } = fundsApi;
