@@ -34,20 +34,20 @@ interface IExpenseModalProps {
   fundId: number;
   isOpen: boolean;
   availableAmount: number;
-  expense: Expense;
+  expense: Expense | null;
   onClose: () => void
 }
 
 const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, fundId, availableAmount, onClose }) => {
   const [ createExpense ] = useCreateExpenseMutation();
   const [ updateExpense ] = useUpdateExpenseMutation();
-  const isEdit: boolean = !(expense.id == null);
+  const isEdit: boolean = !!expense && !(expense.id == null);
   const title: string = isEdit ? 'Edit expense' : 'Add expense';
   const initialValues = createInitFormValues(fundId, expense);
   const [ form ] = Form.useForm();
   // TODO: remove
   const isHideAssigningTag: boolean = true;
-  const availableExpense = availableAmount + expense.paymentAmount;
+  const availableExpense = availableAmount + (expense?.paymentAmount ?? 0);
 
   useEffect(() => {
     form.setFieldsValue(initialValues);
@@ -84,7 +84,7 @@ const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, fundId, availab
     const penniesAmount = convertToPennies(values.paymentAmount);
 
     if (isAmountAvailable(penniesAmount, availableExpense)) {
-      updateExpense(convertFormValuesToExpense(expense, fundId, values));
+      void updateExpense(convertFormValuesToExpense(expense, fundId, values));
       onCloseModal();
       return;
     }

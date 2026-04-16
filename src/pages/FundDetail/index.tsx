@@ -9,7 +9,10 @@ import {
 } from '../../components';
 import { apiUrls } from '../../constants/apiUrls';
 import { useModal } from '../../hooks';
-import { useFetchFundQuery } from '../../services/funds';
+import {
+  useDeleteExpenseMutation,
+  useFetchFundQuery
+} from '../../services/funds';
 import { Expense } from '../../types';
 import { AssociatedObjectType } from '../../types/tag';
 import {
@@ -35,16 +38,15 @@ const FundDetail = (): JSX.Element => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { data: fund, isLoading, isFetching } = useFetchFundQuery(Number(id));
+  const [ deleteExpense ] = useDeleteExpenseMutation();
   const [ openInfo, setOpenInfo ] = useState(false);
   const { isOpenModal, modalContent: selectedExpense, hideModal, openModal } = useModal<Expense>();
   const [ isOpenAssigning, setIsOpenAssigning ] = useState<boolean>(false);
   const { isOpenModal: isOpenTransactionModal, hideModal: hideTransactionModal, openModal: openTransactionModal } = useModal();
   const {
-    onRemoveExpense,
     onUpdateFundName,
     onUpdatePlannedAmount,
-    onUpdateFundInfo,
-    prevCreatedExpense
+    onUpdateFundInfo
   } = useUpdateFund(fund, hideModal);
   const expenses: Expense[] = fund?.expenses ?? [];
   const totalAmountOfExpenses = countPaymentAmounts(expenses);
@@ -68,6 +70,10 @@ const FundDetail = (): JSX.Element => {
   const handleOpenTransactionModal = useCallback(() => {
     openTransactionModal();
   }, [ openTransactionModal ]);
+
+  const handleRemoveExpense = useCallback((id: number) => {
+    void deleteExpense(id);
+  }, [ deleteExpense ]);
 
   return (
     <Page
@@ -102,7 +108,7 @@ const FundDetail = (): JSX.Element => {
         openExpenseModal={openModal}
         fundId={fund?.id}
         onUpdatePlannedAmount={onUpdatePlannedAmount}
-        onRemoveExpense={onRemoveExpense}
+        onRemoveExpense={handleRemoveExpense}
       />
       <FundInfo
         fund={fund}
@@ -126,7 +132,7 @@ const FundDetail = (): JSX.Element => {
         key={selectedExpense?.id ?? 'create'}
         fundId={fund?.id as number}
         isOpen={isOpenModal}
-        expense={selectedExpense ?? prevCreatedExpense}
+        expense={selectedExpense}
         onClose={hideModal}
         availableAmount={(fund?.currentAmount ?? 0)}
       />

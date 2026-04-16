@@ -133,6 +133,22 @@ const fundsApi = api.injectEndpoints({
         );
       },
       invalidatesTags: [ 'Fund' ]
+    }),
+    deleteExpense: builder.mutation<number[], number>({
+      query: (id, ...params) => ({
+        url: apiUrls.funds.expense(id),
+        method: 'DELETE',
+        params
+      }),
+      async onQueryStarted (args, { queryFulfilled }) {
+        const { queryNotifications } = useQueryNotification(queryFulfilled);
+
+        await queryNotifications(
+          'Expense was delete successfully!',
+          'Expense was not deleted!'
+        );
+      },
+      invalidatesTags: [ 'Fund' ]
     })
   })
 });
@@ -147,5 +163,6 @@ export const {
   useTransactionMutation,
   useMovingExpenseMutation,
   useCreateExpenseMutation,
-  useUpdateExpenseMutation
+  useUpdateExpenseMutation,
+  useDeleteExpenseMutation
 } = fundsApi;
