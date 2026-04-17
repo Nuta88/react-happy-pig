@@ -99,6 +99,7 @@ const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, fundId, availab
 
   return (
     <BasicModal
+      data-testid="expense-modal-content"
       title={title}
       isOpen={isOpen}
       onCancel={onCloseModal}

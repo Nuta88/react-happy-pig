@@ -76,7 +76,7 @@ const fundsApi = api.injectEndpoints({
     closeFund: builder.mutation<Fund, { id: number; name: string }>({
       query: (body, ...params) => ({
         url: apiUrls.funds.close(body.id),
-        method: 'POST',
+        method: 'DELETE',
         params
       }),
       async onQueryStarted (args, { queryFulfilled }) {
@@ -110,10 +110,11 @@ const fundsApi = api.injectEndpoints({
       }),
       async onQueryStarted (args, { queryFulfilled }) {
         const { queryNotifications } = useQueryNotification(queryFulfilled);
+        const { recipient = '' } = args;
 
         await queryNotifications(
-          'Expense was created successfully!',
-          'Expense was not created!'
+          `Expense "${recipient}" was created successfully!`,
+          `Expense "${recipient}" was not created!`
         );
       },
       invalidatesTags: [ 'Fund' ]
@@ -126,10 +127,11 @@ const fundsApi = api.injectEndpoints({
       }),
       async onQueryStarted (args, { queryFulfilled }) {
         const { queryNotifications } = useQueryNotification(queryFulfilled);
+        const { recipient = '' } = args;
 
         await queryNotifications(
-          'Expense was updated successfully!',
-          'Expense was not updated!'
+          `Expense "${recipient}" was updated successfully!`,
+          `Expense "${recipient}" was not updated!`
         );
       },
       invalidatesTags: [ 'Fund' ]
