@@ -7,6 +7,7 @@ export const apiUrls = {
     close: (id: number) => `/funds/close/${id}`,
     transfer: (id: number) => `/funds/${id}/amount`,
     expenses: '/funds/expenses',
+    expense: (id: number) => `/funds/expenses/${id}`,
     moveExpense: (newFundId: number, expenseId: number) => `/funds/expenses/${expenseId}/move/${newFundId}`
   },
   bank: {

@@ -5,6 +5,7 @@ import {
   Fund
 } from '../types';
 import {
+  CreationFund,
   IMovingExpense,
   Transfer
 } from '../types/fund';
@@ -34,7 +35,7 @@ const fundsApi = api.injectEndpoints({
       }),
       providesTags: [ 'Expenses' ]
     }),
-    createFund: builder.mutation<Fund, Partial<Fund>>({
+    createFund: builder.mutation<Fund, CreationFund>({
       query: ({ ...body }) => ({
         url: apiUrls.funds.root,
         method: 'POST',
@@ -75,7 +76,7 @@ const fundsApi = api.injectEndpoints({
     closeFund: builder.mutation<Fund, { id: number; name: string }>({
       query: (body, ...params) => ({
         url: apiUrls.funds.close(body.id),
-        method: 'POST',
+        method: 'DELETE',
         params
       }),
       async onQueryStarted (args, { queryFulfilled }) {
@@ -100,6 +101,56 @@ const fundsApi = api.injectEndpoints({
         await queryNotifications('Expense was moved successfully!', 'The expense was not moved!');
       },
       invalidatesTags: [ 'Fund' ]
+    }),
+    createExpense: builder.mutation<Expense, Partial<Expense>>({
+      query: ({ ...body }) => ({
+        url: apiUrls.funds.expenses,
+        method: 'POST',
+        body
+      }),
+      async onQueryStarted (args, { queryFulfilled }) {
+        const { queryNotifications } = useQueryNotification(queryFulfilled);
+        const { recipient = '' } = args;
+
+        await queryNotifications(
+          `Expense "${recipient}" was created successfully!`,
+          `Expense "${recipient}" was not created!`
+        );
+      },
+      invalidatesTags: [ 'Fund' ]
+    }),
+    updateExpense: builder.mutation<Expense, Partial<Expense>>({
+      query: ({ ...body }) => ({
+        url: apiUrls.funds.expense(body.id as number),
+        method: 'PUT',
+        body
+      }),
+      async onQueryStarted (args, { queryFulfilled }) {
+        const { queryNotifications } = useQueryNotification(queryFulfilled);
+        const { recipient = '' } = args;
+
+        await queryNotifications(
+          `Expense "${recipient}" was updated successfully!`,
+          `Expense "${recipient}" was not updated!`
+        );
+      },
+      invalidatesTags: [ 'Fund' ]
+    }),
+    deleteExpense: builder.mutation<number[], number>({
+      query: (id, ...params) => ({
+        url: apiUrls.funds.expense(id),
+        method: 'DELETE',
+        params
+      }),
+      async onQueryStarted (args, { queryFulfilled }) {
+        const { queryNotifications } = useQueryNotification(queryFulfilled);
+
+        await queryNotifications(
+          'Expense was delete successfully!',
+          'Expense was not deleted!'
+        );
+      },
+      invalidatesTags: [ 'Fund' ]
     })
   })
 });
@@ -112,5 +163,8 @@ export const {
   useCloseFundMutation,
   useUpdateFundMutation,
   useTransactionMutation,
-  useMovingExpenseMutation
+  useMovingExpenseMutation,
+  useCreateExpenseMutation,
+  useUpdateExpenseMutation,
+  useDeleteExpenseMutation
 } = fundsApi;

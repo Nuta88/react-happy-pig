@@ -23,11 +23,11 @@ export interface IInitialValues {
   date: string | TParseDate
 }
 
-export const createInitFormValues = (expense: Expense | null): IInitialValues => {
+export const createInitFormValues = (fundId: number, expense: Expense | null): IInitialValues => {
   if (expense) return convertExpenseToFormValues(expense);
 
   return {
-    ...new Expense(),
+    ...new Expense(fundId),
     paymentAmount: 1,
     date: today
   };
@@ -41,8 +41,8 @@ export const convertExpenseToFormValues = (expense: Expense): IInitialValues => 
   };
 };
 
-export const convertFormValuesToExpense = (expense: Expense | null, formValues: IFormValues): Expense => {
+export const convertFormValuesToExpense = (expense: Expense | null, fundId: number, formValues: IFormValues): Expense => {
   const { recipient, paymentAmount, date, description } = formValues;
 
-  return new Expense(convertToPennies(paymentAmount), convertDateToString(date), recipient, description, expense?.id);
+  return new Expense(fundId, convertToPennies(paymentAmount), convertDateToString(date), recipient, description, expense?.id);
 };

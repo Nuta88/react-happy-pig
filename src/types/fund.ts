@@ -11,8 +11,10 @@ export class Expense {
   recipient: string;
   date?: string;
   description?: string;
+  fundId?: number;
 
   constructor (
+    fundId: number,
     paymentAmount: number = convertToPennies(1),
     date: string = convertDateToString(today),
     recipient: string = '',
@@ -20,6 +22,7 @@ export class Expense {
     id: number | null = null
   ) {
     this.id = id;
+    this.fundId = fundId;
     this.paymentAmount = paymentAmount;
     this.date = date;
     this.recipient = recipient;

@@ -1,14 +1,14 @@
-import { parseDate } from '../../../../utils/date';
-
+import { parseDate } from '../../../../../utils/date';
 import {
   convertExpenseToFormValues,
   convertFormValuesToExpense
-} from './helpers';
+} from '../helpers';
 
 describe('Helper FundDetail tests', () => {
   test('Convert Expense values to Form values tests', () => {
     const expense = {
       id: 2,
+      fundId: 1,
       paymentAmount: 150100,
       recipient: 'Test recipient',
       description: 'Test',
@@ -27,12 +27,13 @@ describe('Helper FundDetail tests', () => {
     };
     const result = {
       id: null,
+      fundId: 1,
       paymentAmount: 150100,
       recipient: 'Test recipient',
       description: 'Test',
       date: '2022-12-03'
     };
 
-    expect(convertFormValuesToExpense(null, formValues)).toEqual(result);
+    expect(convertFormValuesToExpense(null, 1, formValues)).toEqual(result);
   });
 });
