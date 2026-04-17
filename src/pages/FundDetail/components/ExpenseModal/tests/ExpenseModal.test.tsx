@@ -15,21 +15,6 @@ vi.mock('react-router-dom', async () => {
   };
 });
 
-vi.mock('../../../../services/funds', () => ({
-  useCreateExpenseMutation: () => [ vi.fn() ],
-  useUpdateExpenseMutation: () => [ vi.fn() ]
-}));
-
-vi.mock('./helpers', () => ({
-  convertFormValuesToExpense: vi.fn(() => ({ mock: 'expense' })),
-  createInitFormValues: vi.fn(() => ({
-    recipient: '',
-    paymentAmount: null,
-    date: null,
-    description: ''
-  }))
-}));
-
 describe('ExpenseModal tests', () => {
   const expense = {
     id: 1,
