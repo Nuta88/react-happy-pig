@@ -13,6 +13,7 @@ import {
 } from '../../../utils/fund';
 
 interface IUpdateFund extends MutationResult {
+  info: Omit<Fund, 'expenses'> | undefined;
   onUpdateFundName: (name: string | number) => void;
   onUpdatePlannedAmount: (amount: string | number) => void;
   onUpdateFundInfo: (info: IFundInfo) => void
@@ -22,6 +23,7 @@ export const useUpdateFund = (
   fund: Fund | undefined,
   hideModal: () => void
 ): IUpdateFund => {
+  const info: Omit<Fund, 'expenses'> | undefined = fund ? (({ expenses, ...f }) => f)(fund) : fund;
   const [ updateFund, result ] = useUpdateFundMutation();
   const { openNotification } = useNotification();
 
@@ -44,28 +46,29 @@ export const useUpdateFund = (
 
   const onUpdateFundName = (name: string | number): void => {
     onShowNotification(
-      updateFund({ ...fund, name: name as string }),
+      updateFund({ ...info, name: name as string }),
       'Fund name was updated successfully!',
       'Fund name was not updated!'
     );
   };
   const onUpdatePlannedAmount = (amount: string | number): void => {
     onShowNotification(
-      updateFund({ ...fund, plannedAmount: convertToPennies(amount as number) }),
+      updateFund({ ...info, plannedAmount: convertToPennies(amount as number) }),
       'Planned Amount was updated successfully!',
       'Planned Amount was not updated!'
     );
   };
 
-  const onUpdateFundInfo = (info: any): void => {
+  const onUpdateFundInfo = (value: IFundInfo): void => {
     onShowNotification(
-      updateFund({ ...fund, ...info }),
+      updateFund({ ...info, ...value }),
       'Fund info was updated successfully!',
       'Fund info was not updated!'
     );
   };
 
   return {
+    info,
     onUpdateFundName,
     onUpdatePlannedAmount,
     onUpdateFundInfo,
