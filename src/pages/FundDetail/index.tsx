@@ -44,6 +44,7 @@ const FundDetail = (): JSX.Element => {
   const [ isOpenAssigning, setIsOpenAssigning ] = useState<boolean>(false);
   const { isOpenModal: isOpenTransactionModal, hideModal: hideTransactionModal, openModal: openTransactionModal } = useModal();
   const {
+    info,
     onUpdateFundName,
     onUpdatePlannedAmount,
     onUpdateFundInfo
@@ -111,7 +112,8 @@ const FundDetail = (): JSX.Element => {
         onRemoveExpense={handleRemoveExpense}
       />
       <FundInfo
-        fund={fund}
+        key={fund?.id}
+        info={info}
         open={openInfo}
         onSave={onUpdateFundInfo}
         onClose={handleToggleInfo}

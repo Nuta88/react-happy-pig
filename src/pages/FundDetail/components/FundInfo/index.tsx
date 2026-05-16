@@ -52,17 +52,17 @@ const formItemLayoutWithOutLabel = {
 };
 
 interface InfoProps {
-  fund: Fund | undefined;
+  info: Omit<Fund, 'expenses'> | undefined;
   open: boolean;
   onClose: () => void;
   onSave: (info: IFundInfo) => void
 }
 
-export const FundInfo: FC<InfoProps> = ({ open, fund, onClose, onSave }): JSX.Element => {
+export const FundInfo: FC<InfoProps> = ({ open, info, onClose, onSave }): JSX.Element => {
   const [ isEdit, setIsEdit ] = useState(false);
   const [ form ] = Form.useForm();
   const priorityOptions = Object.entries(FundPriority);
-  const initialValues = createInitialValues(fund);
+  const initialValues = createInitialValues(info);
   const [ isChanged, setIsChanged ] = useState(false);
   const watchedValues = Form.useWatch([], form);
 
@@ -194,14 +194,14 @@ export const FundInfo: FC<InfoProps> = ({ open, fund, onClose, onSave }): JSX.El
             )
           : (
             <>
-              <InfoItem title="Received Amount" value={getAmount(fund?.receivedAmount)} />
-              <InfoItem title="Priority" value={fund?.priority} />
-              <InfoItem title="Date" value={fund?.creationDate} />
-              <InfoItem title="Description" value={fund?.description} />
+              <InfoItem title="Received Amount" value={getAmount(info?.receivedAmount)} />
+              <InfoItem title="Priority" value={info?.priority} />
+              <InfoItem title="Date" value={info?.creationDate} />
+              <InfoItem title="Description" value={info?.description} />
               <List
                 size="small"
                 header={<div>Links:</div>}
-                dataSource={fund?.links}
+                dataSource={info?.links}
                 renderItem={(item) => (
                   <List.Item>
                     {item
