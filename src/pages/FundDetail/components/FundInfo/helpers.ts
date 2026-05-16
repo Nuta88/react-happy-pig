@@ -14,7 +14,7 @@ interface InitialFormValues {
   creationDate: TDate
 }
 
-export const createInitialValues = (fund: Fund | undefined): InitialFormValues => {
+export const createInitialValues = (fund: Omit<Fund, 'expenses'> | undefined): InitialFormValues => {
   const { description, links = [], priority = '', creationDate } = fund ?? {};
   return { description, links, priority, creationDate: parseDate(creationDate, dateFormat) };
 };
