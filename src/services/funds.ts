@@ -117,7 +117,7 @@ const fundsApi = api.injectEndpoints({
           `Expense "${recipient}" was not created!`
         );
       },
-      invalidatesTags: [ 'Fund' ]
+      invalidatesTags: [ 'Expense', 'Fund' ]
     }),
     updateExpense: builder.mutation<Expense, Partial<Expense>>({
       query: ({ ...body }) => ({
