@@ -10,7 +10,7 @@ const billTrackerApi = api.injectEndpoints({
         url: apiUrls.billTracker.root,
         params
       }),
-      providesTags: [ 'BillTracker' ]
+      providesTags: [ 'Expense', 'BillTracker' ]
     }),
     createBillTracker: builder.mutation<BillTracker, Partial<BillTracker>>({
       query: ({ ...body }) => ({
