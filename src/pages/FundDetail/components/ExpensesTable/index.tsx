@@ -10,7 +10,8 @@ import {
   Table,
   Text,
   Popover,
-  Row
+  Row,
+  TextButton
 } from '../../../../components';
 import { useModal } from '../../../../hooks';
 import { useFetchBillTrackerQuery } from '../../../../services/billTracker';
@@ -26,9 +27,6 @@ import { generateColumns } from './columns';
 const RowStyled = styled(Row)`
   padding: .3rem 0;
   border-bottom: 1px solid ${colors.background};
-`;
-const BillTrackerStyled = styled(Text)`
-  cursor: pointer;
 `;
 
 const ListStyled = styled.div`
@@ -77,31 +75,29 @@ const ExpensesTable = ({
         title={() => (
           <SpaceBetween>
             <Text>Expenses: {getAmount(totalAmountOfExpenses)}</Text>
-            {billTracker && (
-              <Popover
-                placement="bottom"
-                content={(
-                  <ListStyled>
-                    {
-                      billTracker.expenses.map(expense => (
-                        <RowStyled key={expense.id}>
-                          <Col span={6}>Recipient: <SecondaryText>{expense.recipient}</SecondaryText></Col>
-                          <Col span={6}>Date: <SecondaryText>{expense.date}</SecondaryText></Col>
-                          <Col span={6}>Amount: <SecondaryText>{getAmount(expense.paymentAmount)}</SecondaryText></Col>
-                          <Col span={6}>Description: <SecondaryText>{expense.description ?? '-'}</SecondaryText></Col>
-                        </RowStyled>
-                      ))
-                    }
-                  </ListStyled>
-                )}
-                title="Total Bill Tracker Expenses"
-                trigger="click"
-              >
-                <BillTrackerStyled>
-                  Total Bill Amount: {getAmount(billTracker?.expensesCurrentSum ?? 0)}
-                </BillTrackerStyled>
-              </Popover>
-            )}
+            <Popover
+              placement="bottom"
+              content={(
+                <ListStyled>
+                  {
+                    billTracker?.expenses.map(expense => (
+                      <RowStyled key={expense.id}>
+                        <Col span={6}>Recipient: <SecondaryText>{expense.recipient}</SecondaryText></Col>
+                        <Col span={6}>Date: <SecondaryText>{expense.date}</SecondaryText></Col>
+                        <Col span={6}>Amount: <SecondaryText>{getAmount(expense.paymentAmount)}</SecondaryText></Col>
+                        <Col span={6}>Description: <SecondaryText>{expense.description ?? '-'}</SecondaryText></Col>
+                      </RowStyled>
+                    ))
+                  }
+                </ListStyled>
+              )}
+              title="Total Bill Tracker Expenses"
+              trigger="click"
+            >
+              <TextButton>
+                Total Bill Amount: {getAmount(billTracker?.expensesCurrentSum ?? 0)}
+              </TextButton>
+            </Popover>
             <EditableTitle
               data-testid="fund-planned-amount"
               type="number"
