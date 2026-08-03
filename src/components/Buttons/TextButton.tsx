@@ -1,9 +1,17 @@
 import type { ButtonProps } from 'antd';
+import { Button } from 'antd';
+import { forwardRef } from 'react';
 
-import { Button } from './index';
+type ButtonRef = React.ElementRef<typeof Button>;
 
-export const TextButton = (
-  props: ButtonProps
-): JSX.Element => (
-  <Button type="text" {...props} />
+export const TextButton = forwardRef<ButtonRef, ButtonProps>(
+  (props, ref) => (
+    <Button
+      {...props}
+      ref={ref}
+      type="text"
+    />
+  )
 );
+
+TextButton.displayName = 'TextButton';
