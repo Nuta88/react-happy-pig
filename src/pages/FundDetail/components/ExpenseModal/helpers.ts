@@ -46,3 +46,13 @@ export const convertFormValuesToExpense = (expense: Expense | null, fundId: numb
 
   return new Expense(fundId, convertToPennies(paymentAmount), convertDateToString(date), recipient, description, expense?.id);
 };
+
+export const isAmountAvailable = (amount: number, availableAmount: number): boolean => amount <= availableAmount;
+
+export const prepareExpenseForCached = (expense: Expense): Expense => {
+  return {
+    ...new Expense(expense.fundId as number),
+    recipient: expense.recipient,
+    date: expense.date
+  };
+};

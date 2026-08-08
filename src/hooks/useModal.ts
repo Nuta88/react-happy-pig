@@ -10,7 +10,7 @@ export const useModal = <T extends Partial<T>>(isCached: boolean = false): {
   const [ modalContent, setModalContent ] = useState<T | null>(null);
 
   const onSetCachedValue = (value?: T): void => {
-    if (isCached && value && !modalContent) setModalContent(value);
+    if (isCached && value) setModalContent(value);
   };
 
   const resetContent = (): void => {

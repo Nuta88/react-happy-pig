@@ -27,7 +27,9 @@ import { AssigningTag } from '../AssigningTag';
 import {
   convertFormValuesToExpense,
   createInitFormValues,
-  IFormValues
+  IFormValues,
+  isAmountAvailable,
+  prepareExpenseForCached
 } from './helpers';
 
 interface IExpenseModalProps {
@@ -55,19 +57,17 @@ const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, fundId, availab
 
   const onCloseModal = (): void => {
     form.resetFields();
-    onClose();
+    onClose(expense ? prepareExpenseForCached(expense) : undefined);
   };
 
   const onCloseModalAfterSaving = (newExpense: Expense): void => {
     form.resetFields();
-    onClose(newExpense);
+    onClose(prepareExpenseForCached(newExpense));
   };
 
   const setAmountFormError = (amount: number): void => {
     form.setFields([ generateError('paymentAmount', [ errorFundAmountMessage(amount) ]) ]);
   };
-
-  const isAmountAvailable = (amount: number, availableAmount: number): boolean => amount <= availableAmount;
 
   const onCreateExpense = (values: IFormValues): void => {
     const newExpense = convertFormValuesToExpense(expense, fundId, values);

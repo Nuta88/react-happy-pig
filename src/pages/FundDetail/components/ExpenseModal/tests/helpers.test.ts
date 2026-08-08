@@ -1,7 +1,8 @@
 import { parseDate } from '../../../../../utils/date';
 import {
   convertExpenseToFormValues,
-  convertFormValuesToExpense
+  convertFormValuesToExpense,
+  isAmountAvailable
 } from '../helpers';
 
 describe('Helper FundDetail tests', () => {
@@ -35,5 +36,16 @@ describe('Helper FundDetail tests', () => {
     };
 
     expect(convertFormValuesToExpense(null, 1, formValues)).toEqual(result);
+  });
+  describe('isAmountAvailable', () => {
+    test('returns true when amount is less than available amount', () => {
+      expect(isAmountAvailable(50, 100)).toBe(true);
+    });
+    test('returns true when amount equals available amount', () => {
+      expect(isAmountAvailable(100, 100)).toBe(true);
+    });
+    test('returns false when amount is greater than available amount', () => {
+      expect(isAmountAvailable(150, 100)).toBe(false);
+    });
   });
 });
