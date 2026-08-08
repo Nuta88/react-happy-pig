@@ -40,7 +40,7 @@ const FundDetail = (): JSX.Element => {
   const { data: fund, isLoading, isFetching } = useFetchFundQuery(Number(id));
   const [ deleteExpense ] = useDeleteExpenseMutation();
   const [ openInfo, setOpenInfo ] = useState(false);
-  const { isOpenModal, modalContent: selectedExpense, hideModal, openModal } = useModal<Expense>();
+  const { isOpenModal, modalContent: selectedExpense, hideModal, openModal } = useModal<Expense>(true);
   const [ isOpenAssigning, setIsOpenAssigning ] = useState<boolean>(false);
   const { isOpenModal: isOpenTransactionModal, hideModal: hideTransactionModal, openModal: openTransactionModal } = useModal();
   const {
