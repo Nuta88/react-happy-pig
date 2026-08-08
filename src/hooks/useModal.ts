@@ -1,17 +1,25 @@
 import { useState } from 'react';
 
-export const useModal = <T extends Partial<T>>(): {
+export const useModal = <T extends Partial<T>>(isCached: boolean = false): {
   isOpenModal: boolean;
   modalContent: T | null;
-  hideModal: () => void;
+  hideModal: (value?: T) => void;
   openModal: (content?: T) => void
 } => {
   const [ isOpenModal, setIsShowing ] = useState<boolean>(false);
   const [ modalContent, setModalContent ] = useState<T | null>(null);
 
-  const hideModal = (): void => {
-    if (modalContent) setModalContent(null);
+  const onSetCachedValue = (value?: T): void => {
+    if (isCached && value && !modalContent) setModalContent(value);
+  };
 
+  const resetContent = (): void => {
+    if (modalContent && !isCached) setModalContent(null);
+  };
+
+  const hideModal = (value?: T): void => {
+    resetContent();
+    onSetCachedValue(value);
     setIsShowing(false);
   };
 

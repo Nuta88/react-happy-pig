@@ -35,7 +35,7 @@ interface IExpenseModalProps {
   isOpen: boolean;
   availableAmount: number;
   expense: Expense | null;
-  onClose: () => void
+  onClose: (expense?: Expense) => void
 }
 
 const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, fundId, availableAmount, onClose }) => {
@@ -58,6 +58,11 @@ const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, fundId, availab
     onClose();
   };
 
+  const onCloseModalAfterSaving = (newExpense: Expense): void => {
+    form.resetFields();
+    onClose(newExpense);
+  };
+
   const setAmountFormError = (amount: number): void => {
     form.setFields([ generateError('paymentAmount', [ errorFundAmountMessage(amount) ]) ]);
   };
@@ -65,8 +70,9 @@ const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, fundId, availab
   const isAmountAvailable = (amount: number, availableAmount: number): boolean => amount <= availableAmount;
 
   const onCreateExpense = (values: IFormValues): void => {
-    void createExpense(convertFormValuesToExpense(expense, fundId, values));
-    onCloseModal();
+    const newExpense = convertFormValuesToExpense(expense, fundId, values);
+    void createExpense(newExpense);
+    onCloseModalAfterSaving(newExpense);
   };
 
   const onCreate = (values: IFormValues): void => {
@@ -84,8 +90,9 @@ const ExpenseModal: FC<IExpenseModalProps> = ({ isOpen, expense, fundId, availab
     const penniesAmount = convertToPennies(values.paymentAmount);
 
     if (isAmountAvailable(penniesAmount, availableExpense)) {
-      void updateExpense(convertFormValuesToExpense(expense, fundId, values));
-      onCloseModal();
+      const newExpense = convertFormValuesToExpense(expense, fundId, values);
+      void updateExpense(newExpense);
+      onCloseModalAfterSaving(newExpense);
       return;
     }
     setAmountFormError(availableExpense);
